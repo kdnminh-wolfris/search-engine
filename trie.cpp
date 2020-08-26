@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <queue>
 
 void Trie::save(std::string filename)
@@ -32,5 +33,38 @@ void Trie::save(std::string filename)
 
 void Trie::load(std::string filename)
 {
-	
+	std::ifstream inp;
+	inp.open(get_link("cheatsheet", filename));
+
+	std::queue<TrieNode*> que;
+	que.push(root);
+
+	while (!inp.eof())
+	{
+		TrieNode*& u = que.front();
+		que.pop;
+
+		for (int c = 0; c < 26; ++c)
+
+		{
+			std::string line;
+			std::getline(inp, line);
+
+			if (line == "0")
+			{
+				u->child[c] = nullptr;
+				continue;
+			}
+			std::istringstream iss(line);
+
+			do
+			{
+				std::string word, number;
+				iss >> word >> number;
+
+				std::string file = word;
+				int frequency = std::stoi(number);
+			} while (iss);
+		}
+	}
 }

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <queue>
+#include <utility>
 
 void Trie::save(std::string filename)
 {
@@ -45,7 +46,6 @@ void Trie::load(std::string filename)
 		que.pop;
 
 		for (int c = 0; c < 26; ++c)
-
 		{
 			std::string line;
 			std::getline(inp, line);
@@ -55,6 +55,8 @@ void Trie::load(std::string filename)
 				u->child[c] = nullptr;
 				continue;
 			}
+
+			u->child[c] = new TrieNode;
 			std::istringstream iss(line);
 
 			do
@@ -64,7 +66,11 @@ void Trie::load(std::string filename)
 
 				std::string file = word;
 				int frequency = std::stoi(number);
+
+				u->child[c]->data.push_back(std::make_pair(std::string(file), frequency));
 			} while (iss);
+
+			que.push(u->child[c]);
 		}
 	}
 }

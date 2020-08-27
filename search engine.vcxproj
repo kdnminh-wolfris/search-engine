@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="file_handling.h" />
     <ClInclude Include="query_handling.h" />
+    <ClInclude Include="search.h" />
     <ClInclude Include="trie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

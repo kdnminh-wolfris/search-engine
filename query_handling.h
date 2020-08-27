@@ -7,7 +7,7 @@ void QueryHandling::filter(string& search_string)
 {
 	string substring;
 	ifstream LoadStopWord;
-	string* arr;
+	string* arr = new string[174];
 	LoadStopWord.open("stopword.txt");
 	if (!LoadStopWord.is_open())
 	{
@@ -16,7 +16,6 @@ void QueryHandling::filter(string& search_string)
 	else
 	{
 		// Create an array of stopwords' string
-		arr = new string[174];
 		int i = 0;
 		while (!LoadStopWord.eof())
 		{

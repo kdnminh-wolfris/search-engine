@@ -29,7 +29,7 @@ Trie import_data()
 			while (!loadfile.eof())
 			{
 				string word;
-				loadfile >> word;
+				getline(loadfile, word, ' ');
 			}
 		}
 		loadfile.close();

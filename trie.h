@@ -2,7 +2,9 @@
 #define __TRIE__
 
 #include <iostream>
+#include <fstream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -11,7 +13,7 @@ public:
 	vector <pair <string, int>> data;
 	// first: file name; second: frequency
 
-	TrieNode* child[26];
+	TrieNode* child[36];
 };
 
 class Trie {
@@ -28,6 +30,11 @@ public:
 
 	void clear();
 	// clear nodes
+};
+
+class QueryHandling {
+public:
+	void filter(string& search_string);
 };
 
 #endif

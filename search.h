@@ -2,6 +2,7 @@
 #define __SEARCH__
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <map>
 #include <string>
@@ -13,6 +14,7 @@ using namespace std;
 
 class firstSearch {
 private:
+	const string PATH = "DATABASE-PATH";
 	map<string, bool>* container = nullptr;
 	//GATE CHECK
 	int gate = 0;
@@ -50,12 +52,51 @@ private:
 		return;
 	}
 
+	vector<string> intersection(vector<string> *f1, vector<string> *f2)
+	{
+		//code goes here;
+		vector<string> result;
+		return result;
+	}
+
 	vector<string> search(string ss, Trie *T)
 	{
 		if (!T) return;
 		//MOD LATER
 		vector<string> result;
 		return result;
+	}
+
+	string matchSearch(vector<string> quotes, string filename)
+	{
+		//REMEMBER TO CHANGE PATH FOR FILENAME
+		ifstream f;
+		string path = this->PATH + filename;
+		f.open(path);
+
+		int i = 0, size = quotes.size();
+		bool flag = false;
+		char t;
+		string temp;
+		while (f >> t && i < size)
+		{
+			if (t == ' ' || t < 'a' || t > 'z' || t < '0' || t >'9')
+			{
+				if (flag == false)
+				{
+					if (temp == quotes[0]) flag = true, i++;
+					temp = "";
+					continue;
+				}
+
+				if (temp == quotes[i]) i++;
+				else return "";
+				temp = "";
+				continue;
+			}
+			temp.push_back(t);
+		}
+		return filename;
 	}
 
 public:
@@ -74,13 +115,48 @@ public:
 
 	void quote(vector<pair<string, int>> quotes)
 	{
-		vector<pair<string, int>> result;
+		if (!quotes.size()) return;
+
+		string first = quotes[0].first;
+		vector<string> q;
+		/*CONSTRUCT THE FULL QUOTE
+
+
+		END CONSTRUCTING THE FULL QUOTE*/
+		vector<string> tempResult = this->search(first, this->T);
+		vector<string> *result = new vector<string>;
+		for (vector<string>::iterator it = tempResult.begin(); it != tempResult.end(); it++)
+		{
+			string filename = this->matchSearch(q, *it);
+			if (!filename.size()) continue;
+			(*result).push_back(filename);
+		}
+
+		this->intersection(*result);
+		delete result;
 		this->gate++;
 		return;
 	}
 
 	void origin(vector<pair<string, int>> origins)
 	{
+		vector<string>* result = nullptr;
+		for (vector<pair<string, int>>::iterator it = origins.begin(); it != origins.end(); it++)
+		{
+			if (!result)
+			{
+				result = new vector<string>;
+				(*result) = this->search((*it).first, this->T);
+				continue;
+			}
+			vector<string>* temp = new vector<string>;
+			(*temp) = this->search((*it).first, this->T);
+			(*result) = this->intersection(result, temp);
+			delete temp;
+		}
+
+		this->intersection((*result));
+		delete result;
 		this->gate++;
 		return;
 	}
@@ -110,5 +186,4 @@ public:
 		this->query = query;
 	}
 };
-
 #endif

@@ -28,36 +28,35 @@ public:
 	void build(string key, vector <pair <string, int>> data);
 	void build(string key, vector <pair <string, int>> data)
 	{
-		TrieNode* tmproot;
+		TrieNode* tmproot = root;
 		for (int i = 0;i < key.length();++i)
 		{
 			int tmp = -1;
+			// Numbers
 			if (key[i] >= 48 && key[i] <= 57)
 			{
 				tmp = key[i] - 48;
 			}
+			// Uppercase letters
 			if (key[i] >= 65 && key[i] <= 90)
 			{
 				tolower(key[i]);
 			}
+			// Lowercase letters
 			if (key[i] >= 97 && key[i] <= 122)
 			{
 				tmp = key[i] - 87;
 			}
+			// Not in 3 cases above
 			if (tmp == -1)
 				continue;
-			if (i != 0)
+			if (!root)
 			{
-				tmproot->child[tmp] = new TrieNode;
-			}
-			else
-			{
-				if (!root)
-				{
-					root = new TrieNode;
-				}
+				root = new TrieNode;
 				tmproot = root;
 			}
+			else
+				tmproot->child[tmp] = new TrieNode;
 			tmproot = tmproot->child[tmp];
 		}
 		bool IsExisted = false;

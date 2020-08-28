@@ -72,7 +72,7 @@ void QueryHandling::filter(string& search_string)
 		}
 		else
 		{
-			word += search_string[i];
+			word += tmpstr[i];
 		}
 	}
 

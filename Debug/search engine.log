@@ -2,10 +2,4 @@
 D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\trie.h(30,2): error C2535: 'void Trie::build(std::string,std::vector<std::pair<std::string,int>,std::allocator<std::pair<std::string,int>>>)': member function already defined or declared
 D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\trie.h(28): message : see declaration of 'Trie::build'
 D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\trie.h(32,20): warning C4018: '<': signed/unsigned mismatch
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\query_handling.h(31,19): warning C4018: '<': signed/unsigned mismatch
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\query_handling.h(65,3): error C2181: illegal else without matching if
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\file_handling.h(14,1): error C2601: 'import_data': local function definitions are illegal
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\query_handling.h(7): message : this line contains a '{' which has not yet been matched
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\search engine.cpp(3,12): error C2601: 'main': local function definitions are illegal
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\query_handling.h(7): message : this line contains a '{' which has not yet been matched
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\query_handling.h(7): fatal error C1075: '{': no matching token found
+D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\query_handling.h(36,19): warning C4018: '<': signed/unsigned mismatch

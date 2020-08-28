@@ -52,22 +52,35 @@ public:
 			}
 			else
 			{
-				root = new TrieNode;
+				if (!root)
+				{
+					root = new TrieNode;
+				}
 				tmproot = root;
 			}
 			tmproot = tmproot->child[tmp];
 		}
-		tmproot->data.push_back(make_pair(data[0].first, data[0].second));
+		bool IsExisted = false;
+		auto it = tmproot->data.begin();
+		for (it = tmproot->data.begin(); it != tmproot->data.end(); ++it)
+		{
+			if (it->first == data[0].first)
+			{
+				IsExisted = true;
+				break;
+			}
+		}
+		if (!IsExisted)
+		{
+			tmproot->data.push_back(make_pair(data[0].first, data[0].second));
+		}
+		else
+			it->second += data[0].second;
 	}
 	// data of a file are keywords and their frequency
 
 	void clear();
 	// clear nodes
-};
-
-class QueryHandling {
-public:
-	void filter(string& search_string);
 };
 
 #endif

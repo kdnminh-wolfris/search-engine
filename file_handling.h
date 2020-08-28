@@ -16,23 +16,41 @@ Trie import_data()
 	vector<string> AllFileName = load_file_names("___index.txt");
 	while (!AllFileName.empty())
 	{
+		// Get file name in file index.txt
 		string filename = AllFileName.back();
 		AllFileName.pop_back();
-		ifstream loadfile;
-		loadfile.open(filename);
-		if (!loadfile.is_open())
+
+		// Load file index
+		vector<pair<string, int>> wordsandfreq = import_file(filename); // <word, freq>
+		vector<pair<string, int>> tmp;                                  // <word, freq>
+		vector<pair<string, int>> fileandfreq;                          // <filename, freq>
+
+		// Convert <word,freq> to <filename, freq>
+		while (!wordsandfreq.empty())
 		{
-			cout << "File is not existed." << endl;
+			// Take last element of words and frequency
+			tmp.push_back(wordsandfreq.back());
+
+			// Convert <word,freq> to <filename, freq>
+			fileandfreq.push_back(make_pair(filename, tmp.back().second));
+
+			// Remove 
+			wordsandfreq.pop_back();
 		}
-		else
+		vector<pair<string, int>> tmpfile;
+		while (!tmp.empty())
 		{
-			while (!loadfile.eof())
-			{
-				string word;
-				getline(loadfile, word, ' ');
-			}
+			// Take last element of file and frequency
+			tmpfile.push_back(fileandfreq.back());
+
+			// Build Trie
+			head.build(tmp.back().first, tmpfile);
+
+			// Remove
+			tmp.pop_back();
+			fileandfreq.pop_back();
+			tmpfile.pop_back();
 		}
-		loadfile.close();
 	}
 	return head;
 }

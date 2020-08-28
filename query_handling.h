@@ -3,11 +3,16 @@
 
 #include "trie.h"
 
+class QueryHandling {
+public:
+	void filter(string& search_string);
+};
+
 void QueryHandling::filter(string& search_string)
 {
 	string substring;
 	ifstream LoadStopWord;
-	string* arr = new string[174];
+	string* arr = new string[174]; // 174 stopwords
 	LoadStopWord.open("stopword.txt");
 	if (!LoadStopWord.is_open())
 	{
@@ -32,24 +37,37 @@ void QueryHandling::filter(string& search_string)
 	{
 		if (tmpstr[i] == ' ')
 		{
-			bool IsSubStr = false;
+			bool IsExisted = false; // check whether the word is in the stopword's list or not
 			for (int i = 0;i < 174;++i)
 			{
 				if (word == arr[i])
 				{
+					// Filter stopword - erase word + ' ' 
 					tmpstr.erase(pos, word.length() + 1);
-					IsSubStr = true;
+					IsExisted = true;
 					break;
 				}
 			}
 			word = "";
-			if (!IsSubStr)
+			if (!IsExisted)
 			{
 				pos = i + 1;
 			}
 			else
 			{
 				i -= word.length() + 1;
+			}
+		}
+		else if (tmpstr[i] == '\0') // end of string
+		{
+			for (int i = 0;i < 174;++i)
+			{
+				if (word == arr[i])
+				{
+					// Filter stopword - erase word
+					tmpstr.erase(pos, word.length());
+					break;
+				}
 			}
 		}
 		else

@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="search engine.cpp" />
+    <ClCompile Include="trie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_handling.h" />

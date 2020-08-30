@@ -149,6 +149,9 @@
     <ClInclude Include="system.h" />
     <ClInclude Include="trie.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="stopword.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

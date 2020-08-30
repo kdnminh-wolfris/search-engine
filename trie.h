@@ -78,6 +78,10 @@ public:
 	}
 	// data of a file are keywords and their frequency
 
+	void save(string filename);
+
+	void load(string filename);
+
 	void clear();
 	// clear nodes
 };

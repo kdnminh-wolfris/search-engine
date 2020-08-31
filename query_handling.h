@@ -151,20 +151,48 @@ string QueryHandling::intitle(string search_string)
 			}
 			i--;
 		}
-		if (i >= search_string.length())
+		int tmp = search_string.length();
+		if (i >= tmp)
 			break;
 	}
 	return search_string;
 }
 
-string QueryHandling::exclude(string search_string) // redo
+string QueryHandling::exclude(string search_string)
 {
 	for (int i = 0;i < search_string.length() - 1;++i)
 	{
-		if (search_string[i] == '-' && search_string[i + 1] == ' ' && search_string[i - 1] == ' ')
+		if (search_string[i] == '-' && (search_string[i + 1] != '\0' && search_string[i + 1] != ' ') && (i == 0 || (i > 0 && search_string[i - 1] == ' ')))
 		{
-			return search_string.substr(0, i - 1);
+			int pos = 0; // end position of excluded word
+			for (int j = i + 2; j <= search_string.length();++j)
+			{
+				if (search_string[j] == '\0' || search_string[j] == ' ')
+				{
+					pos = j;
+					break;
+				}
+			}
+			if (i == 0)
+			{
+				if (search_string[pos] == '\0')
+				{
+					search_string.erase(i, pos);
+				}
+				else if (search_string[pos] == ' ')
+				{
+					search_string.erase(i, pos + 1);
+				}
+			}
+			else
+			{
+				search_string.erase(i - 1, pos - i + 1);
+			}
+			i--;
 		}
+		int tmp = search_string.length();
+		if (i >= tmp)
+			break;
 	}
 	return search_string;
 }

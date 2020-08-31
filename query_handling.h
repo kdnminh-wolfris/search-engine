@@ -9,7 +9,7 @@ public:
 	vector<pair<string, int>> OR(string search_string);
 	string intitle(string search_string);
 	string exclude(string search_string);
-	string price();
+	string price(string search_string);
 };
 
 void QueryHandling::filter(string& search_string)
@@ -134,28 +134,10 @@ string QueryHandling::intitle(string search_string)
 					break;
 				}
 			}
-			if (i == 0)
-			{
-				if (search_string[pos] == '\0')
-				{
-					search_string.erase(i, pos);
-				}
-				else if (search_string[pos] == ' ')
-				{
-					search_string.erase(i, pos + 1);
-				}
-			}
-			else
-			{
-				search_string.erase(i - 1, pos - i + 1);
-			}
-			i--;
+			return search_string.substr(i + 8, pos - i - 8);
 		}
-		int tmp = search_string.length();
-		if (i >= tmp)
-			break;
 	}
-	return search_string;
+	return "";
 }
 
 string QueryHandling::exclude(string search_string)
@@ -173,32 +155,30 @@ string QueryHandling::exclude(string search_string)
 					break;
 				}
 			}
-			if (i == 0)
-			{
-				if (search_string[pos] == '\0')
-				{
-					search_string.erase(i, pos);
-				}
-				else if (search_string[pos] == ' ')
-				{
-					search_string.erase(i, pos + 1);
-				}
-			}
-			else
-			{
-				search_string.erase(i - 1, pos - i + 1);
-			}
-			i--;
+			return search_string.substr(i + 1, pos - i - 1);
 		}
-		int tmp = search_string.length();
-		if (i >= tmp)
-			break;
 	}
-	return search_string;
+	return "";
 }
 
-string QueryHandling::price()
+string QueryHandling::price(string search_string)
 {
-
+	for (int i = 0;i < search_string.length();++i)
+	{
+		if (search_string[i] == '$' && search_string[i + 1] != '\0' && (search_string[i + 1] >= 48 && search_string[i + 1] <= 57) && (i == 0 || (i > 0 && search_string[i - 1] == ' ')))
+		{
+			int pos = 0;
+			for (int j = i + 1;j < search_string.length();++j)
+			{
+				if (!(search_string[j] >= 48 && search_string[j] <= 57))
+				{
+					pos = j;
+					break;
+				}
+			}
+			return search_string.substr(i + 1, pos - i - 1);
+		}
+	}
+	return "";
 }
 #endif

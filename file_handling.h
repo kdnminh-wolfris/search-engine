@@ -2,7 +2,16 @@
 #define __FILE_HANDLING__
 
 #include "query_handling.h"
+#include<iostream>
+#include<fstream>
+#include<vector>
+#include<string>
+#include <sstream>
+#include <algorithm>
 
+void importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr);
+void filterPunctation(string& str);
+bool isStopWord(string cmpstr, string* stopword);
 vector <string> load_file_names(string index_file);
 // load file names to a vector from __index.txt
 

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="file_handling.cpp" />
     <ClCompile Include="search engine.cpp" />
     <ClCompile Include="trie.cpp" />
   </ItemGroup>

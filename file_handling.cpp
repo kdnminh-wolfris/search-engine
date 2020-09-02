@@ -1,6 +1,12 @@
-#include"file_handling.h"
+#include "file_handling.h"
+#include <string>
+#include <vector>
+#include <iosfwd>
+#include <ctype.h>
 
-bool isStopWord(string cmpstr, string* stopword)
+using namespace std;
+
+bool File_Handling::isStopWord(string cmpstr, string* stopword)
 {
 	for (int i = 0; i < 174; i++)
 	{
@@ -10,7 +16,7 @@ bool isStopWord(string cmpstr, string* stopword)
 	return false;
 }
 
-void filterPunctation(string& str)
+void File_Handling::filterPunctation(string& str)
 {
 	for (int i = 0, len = str.size(); i < len; i++)
 	{
@@ -22,7 +28,7 @@ void filterPunctation(string& str)
 	}
 }
 
-void importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr)
+void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr)
 {
 	stringstream ss;
 	ss << cmpstr;
@@ -34,7 +40,7 @@ void importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* ar
 
 		cmpstr.erase(remove_if(cmpstr.begin(), cmpstr.end(), ispunct), cmpstr.end());
 
-		if (!isStopWord(cmpstr, arr) && !cmpstr.empty())
+		if (!this->isStopWord(cmpstr, arr) && !cmpstr.empty())
 		{
 			if (result.size() == 0)
 			{
@@ -59,7 +65,12 @@ void importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* ar
 	}
 }
 
-vector <pair <string, int>> import_file(string filename)
+vector<string> File_Handling::load_file_names(string index_file)
+{
+	return vector<string>();
+}
+
+vector <pair <string, int>> File_Handling::import_file(string filename)
 {
 	ifstream fin;
 	vector<pair<string, int>> result;
@@ -91,9 +102,37 @@ vector <pair <string, int>> import_file(string filename)
 		while (!fin.eof())
 		{
 			getline(fin, temp, '\n');
-			importfileExe(result, temp, arr);
+			this->importfileExe(result, temp, arr);
 		}
 		fin.close();
 	}
 	return result;
+}
+
+Trie File_Handling::import_data()
+{
+	Trie head;
+	//vector<string> AllFileName = this->load_file_names("___index.txt");
+	//TEST WITH ONE FILE FIRST
+	vector<string> AllFileName;
+	string FILENAME = this->FILENAME;
+	AllFileName.push_back(FILENAME);
+
+	while (!AllFileName.empty())
+	{
+		// Load file index
+		vector<pair<string, int>> wordsandfreq = import_file(AllFileName.back());
+
+		// Build tree
+		head.build(AllFileName.back(), wordsandfreq);
+
+		AllFileName.pop_back();
+	}
+	return head;
+}
+// read from __index.txt file names and then start importing from files to a trie
+
+File_Handling::File_Handling(string filename)
+{
+	this->FILENAME = filename;
 }

@@ -9,33 +9,24 @@
 #include <sstream>
 #include <algorithm>
 
-void importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr);
-void filterPunctation(string& str);
-bool isStopWord(string cmpstr, string* stopword);
-vector <string> load_file_names(string index_file);
-// load file names to a vector from __index.txt
+class File_Handling{
+private:
+	string FILENAME;
+	void importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr);
+	void filterPunctation(string& str);
+	bool isStopWord(string cmpstr, string* stopword);
+public:
+	vector <string> load_file_names(string index_file);
+	//Task 2: load file names to a vector from __index.txt
 
-vector <pair <string, int>> import_file(string filename);
-// filter out stopwords, read keywords and their frequency and return to vector
+	vector <pair <string, int>> import_file(string filename);
+	//task 1: filter out stopwords, read keywords and their frequency and return to vector
 
-Trie import_data();
-Trie import_data()
-{
-	Trie head;
-	vector<string> AllFileName = load_file_names("___index.txt");
-	while (!AllFileName.empty())
-	{
-		// Load file index
-		vector<pair<string, int>> wordsandfreq = import_file(AllFileName.back());
+	Trie import_data();
+	//task 3
 
-		// Build tree
-		head.build(AllFileName.back(), wordsandfreq);
-		
-		AllFileName.pop_back();
-	}
-	return head;
-}
-// read from __index.txt file names and then start importing from files to a trie
+	File_Handling(string filenam);
+};
 
 void rank(vector <string>& filename);
 // rank files based on query and then sort them

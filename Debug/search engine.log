@@ -1,5 +1,8 @@
-﻿  search engine.cpp
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\trie.h(30,2): error C2535: 'void Trie::build(std::string,std::vector<std::pair<std::string,int>,std::allocator<std::pair<std::string,int>>>)': member function already defined or declared
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\trie.h(28): message : see declaration of 'Trie::build'
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\trie.h(32,20): warning C4018: '<': signed/unsigned mismatch
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\query_handling.h(36,19): warning C4018: '<': signed/unsigned mismatch
+﻿  trie.cpp
+H:\Github\search-engine\trie.cpp(25,20): warning C4018: '<': signed/unsigned mismatch
+H:\Github\search-engine\trie.cpp(38,21): warning C4018: '<': signed/unsigned mismatch
+H:\Github\search-engine\trie.cpp(52,21): warning C4018: '<': signed/unsigned mismatch
+H:\Github\search-engine\trie.cpp(84,21): warning C4018: '<': signed/unsigned mismatch
+search engine.obj : error LNK2005: "public: void __thiscall QueryHandling::filter(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > &)" (?filter@QueryHandling@@QAEXAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in file_handling.obj
+trie.obj : error LNK2019: unresolved external symbol "class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl get_link(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?get_link@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@0@Z) referenced in function "public: void __thiscall Trie::load(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?load@Trie@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+H:\Github\search-engine\Debug\search engine.exe : fatal error LNK1120: 1 unresolved externals

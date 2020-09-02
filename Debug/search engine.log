@@ -1,0 +1,5 @@
+﻿  search engine.cpp
+  system.cpp
+  Generating Code...
+H:\Github\search-engine\query_handling.h(33,20): warning C4018: '<': signed/unsigned mismatch
+  search engine.vcxproj -> H:\Github\search-engine\Debug\search engine.exe

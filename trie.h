@@ -2,7 +2,9 @@
 #define __TRIE__
 
 #include <iostream>
+#include <fstream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -11,20 +13,23 @@ public:
 	vector <pair <string, int>> data;
 	// first: file name; second: frequency
 
-	TrieNode* child[26];
+	TrieNode* child[36];
 };
 
 class Trie {
 private:
-	TrieNode* root;
+	TrieNode* root = nullptr;
 
 public:
 	vector <pair <string, int>> search(string keyword);
 	// search and rank all files to a vector based on the keyword
 	// first: file name; second: point according to the keyword
 
-	void build(string filename, vector <pair <string, int>> data);
-	// data of a file are keywords and their frequency
+	void build(string key, vector<pair<string, int>> data);
+
+	void save(string filename);
+
+	void load(string filename);
 
 	void clear();
 	// clear nodes

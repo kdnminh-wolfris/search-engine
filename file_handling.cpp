@@ -1,8 +1,10 @@
 #include "file_handling.h"
 #include <string>
 #include <vector>
+#include <fstream>
 #include <iosfwd>
 #include <ctype.h>
+#include "trie.h"
 
 using namespace std;
 

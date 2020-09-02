@@ -32,7 +32,7 @@ private:
 
 	void intersection(vector<string> f2)
 	{
-		if (!this->container || this->container->size == 0)
+		if (!this->container || this->container->size() == 0)
 		{
 			if (!this->container) delete this->container;
 			this->exit();
@@ -61,10 +61,8 @@ private:
 
 	vector<string> search(string ss, Trie *T)
 	{
-		if (!T) return;
-		//MOD LATER
-		vector<string> result;
-		return result;
+		if (!T) return vector<string>();
+		return vector<string>();
 	}
 
 	string matchSearch(vector<string> quotes, string filename)

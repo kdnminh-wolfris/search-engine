@@ -2,6 +2,7 @@
 #define __FILE_HANDLING__
 
 #include "query_handling.h"
+#include "trie.h"
 #include<iostream>
 #include<fstream>
 #include<vector>
@@ -25,7 +26,7 @@ public:
 	Trie import_data();
 	//task 3
 
-	File_Handling(string filenam);
+	File_Handling(string filename);
 };
 
 void rank(vector <string>& filename);

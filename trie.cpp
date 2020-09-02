@@ -1,12 +1,15 @@
 #include "trie.h"
 #include "system.h"
 
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <queue>
 #include <utility>
 #include <algorithm>
+
+using namespace std;
 
 int get_index(char key)
 {
@@ -19,7 +22,7 @@ int get_index(char key)
 	return -1;
 }
 
-int string_to_int(std::string str)
+int string_to_int(string str)
 {
 	int ans = 0;
 	for (int i = 0; i < str.length(); ++i)
@@ -27,8 +30,10 @@ int string_to_int(std::string str)
 	return ans;
 }
 
+
 void Trie::build(string filename, vector<pair<string, int>> data)
 {
+	TrieNode *root = this->root;
 	while (!data.empty())
 	{
 		string key = data.back().first;
@@ -64,12 +69,12 @@ void Trie::build(string filename, vector<pair<string, int>> data)
 }
 // data of a file are keywords and their frequency
 
-void Trie::save(std::string filename)
+void Trie::save(string filename)
 {
-	std::ofstream out;
-	out.open(get_link("cheatsheet", filename), std::ios::app);
+	ofstream out;
+	out.open(get_link("cheatsheet", filename), ios::app);
 
-	std::queue<TrieNode*> que;
+	queue<TrieNode*> que;
 	que.push(root);
 
 	while (!que.empty())
@@ -91,18 +96,18 @@ void Trie::save(std::string filename)
 	out.close();
 }
 
-void Trie::load(std::string filename)
+void Trie::load(string filename)
 {
-	std::ifstream inp;
+	ifstream inp;
 	inp.open(get_link("cheatsheet", filename));
 
 	if (root == nullptr)
 		root = new TrieNode;
 
-	std::string line;
-	std::getline(inp, line);
+	string line;
+	getline(inp, line);
 
-	std::queue<TrieNode*> que;
+	queue<TrieNode*> que;
 	que.push(root);
 
 	while (!inp.eof())
@@ -112,7 +117,7 @@ void Trie::load(std::string filename)
 
 		for (int c = 0; c < 36; ++c)
 		{
-			std::getline(inp, line);
+			getline(inp, line);
 
 			if (line.length() == 0)
 				break;
@@ -124,23 +129,23 @@ void Trie::load(std::string filename)
 			}
 
 			u->child[c] = new TrieNode;
-			std::istringstream iss(line);
+			istringstream iss(line);
 
 			do
 			{
-				std::string word, number;
+				string word, number;
 				iss >> word >> number;
 
-				std::cerr << word << ' ' << number << '\n';
+				cerr << word << ' ' << number << '\n';
 
 				if (word == "__END__")
 					break;
 
-				std::string file = word;
+				string file = word;
 				int frequency = string_to_int(number);
 
 
-				u->child[c]->data.push_back(std::make_pair(std::string(file), frequency));
+				u->child[c]->data.push_back(make_pair(string(file), frequency));
 			} while (iss);
 
 			que.push(u->child[c]);
@@ -148,4 +153,14 @@ void Trie::load(std::string filename)
 	}
 
 	inp.close();
+}
+
+vector<pair<string, int>> Trie::search(string keyword)
+{
+	return vector<pair<string, int>>();
+}
+
+void Trie::clear()
+{
+	return;
 }

@@ -1,5 +1,7 @@
 #include "file_handling.h"
 #include "trie.h"
+#include "search.h"
+#include "query_handling.h"
 #include <string>
 
 using namespace std;

@@ -14,37 +14,37 @@ using namespace std;
 
 class firstSearch {
 private:
-	const string PATH = "DATABASE-PATH";
-	map<string, bool>* container = nullptr;
-	//GATE CHECK
-	int gate = 0;
-
-	Trie* T = nullptr;
-	Trie* fileList = nullptr;
+	//VARIABLES
 	string query;
+	const string PATH = "DATABASE-PATH";
+	map<string, int>* container = nullptr;
+	Trie T;
+	QueryHandling* QH;
 
 	void exit();
 
-	void intersection(vector<string> f2);
+	void intersection(vector<pair<string, int>> f2);
 
-	vector<string> intersection(vector<string>* f1, vector<string>* f2);
+	vector<pair<string, int>> intersection(vector<pair<string, int>>* f1, vector<pair<string, int>>* f2);
 
-	vector<string> search(string ss, Trie* T);
+	vector<pair<string, int>> search(string ss, Trie T);
 
 	string matchSearch(vector<string> quotes, string filename);
 
 public:
 	//SS STAND FOR SEARCH_STRING
-	void intitle(string ss);
-	void quote(vector<pair<string, int>> quotes);
-	void origin(vector<pair<string, int>> origins);
+	vector<pair<string, int>> intitle(string ss);
 
-	void findOr(vector<pair<string, int>> OR);
+	vector<pair<string, int>> quote(string quotes);
 
-	void exclude(string ss);
+	vector<pair<string, int>> origin(vector<pair<string, int>> origins);
 
-	firstSearch(string query, Trie* T);
+	vector<pair<string, int>> findOr(vector<pair<string, int>> OR);
 
-	firstSearch(string query, Trie* T, Trie* fileList);
+	vector<pair<string, int>> exclude(string ss);
+
+	void trieFlow();
+
+	firstSearch(string query, Trie T);
 };
 #endif

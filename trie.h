@@ -13,7 +13,7 @@ public:
 	vector <pair <string, int>> data;
 	// first: file name; second: frequency
 
-	TrieNode* child[36];
+	TrieNode* child[256];
 };
 
 class Trie {
@@ -25,13 +25,15 @@ public:
 	// search and rank all files to a vector based on the keyword
 	// first: file name; second: point according to the keyword
 
-	void build(string key, vector<pair<string, int>> data);
+	void build(string key, pair<string, int> data);
 
 	void save(string filename);
 
 	void load(string filename);
 
 	void clear();
+
+	bool isEmpty();
 	// clear nodes
 };
 

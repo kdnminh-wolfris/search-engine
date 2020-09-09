@@ -21,15 +21,16 @@ private:
 	int gate = 0;
 
 	Trie T;
+  
 	string query;
 
 	void exit();
 
 	void intersection(vector<string> f2);
 
-	vector<string> intersection(vector<string>* f1, vector<string>* f2);
+	vector<pair<string, int>> intersection(vector<pair<string, int>> f1, vector<pair<string, int>> f2);
 
-	vector<string> search(string ss, Trie* T);
+	vector<pair<string, int>> search(string ss, Trie T);
 
 	string matchSearch(vector<string> quotes, string filename);
 
@@ -43,9 +44,14 @@ public:
 
 	void exclude(string ss);
 
-	vector <pair <string, int>> intitle(string word);
-	vector <pair <string, int>> filetype(string type);
+	vector<pair<string, int> > number_searching(int lower, int upper, bool is_price);
 
+	vector<pair<string, int> > price_searching(string object, int price);
+
+	vector <pair <string, int>> intitle(string word);
+  
+	vector <pair <string, int>> filetype(string type);
+  
 	firstSearch(string query, Trie* T);
 
 	firstSearch(string query, Trie* T, Trie* fileList);

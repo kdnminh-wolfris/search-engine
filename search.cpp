@@ -131,8 +131,62 @@ vector<pair<string, int>> firstSearch::exclude(string ss)
 	return vector<pair<string, int>>();
 }
 
+<<<<<<< HEAD
 firstSearch::firstSearch(string query, Trie T)
 {
 	if (this->T.isEmpty()) this->T = T;
 	else return;
 }
+=======
+vector<pair<string, int>> firstSearch::intitle(string word) {
+	vector <pair <string, int>> files = T.search(word);
+	vector <pair <string, int>> ret;
+	ifstream fi;
+	for (auto file : files) {
+		fi.open(file.first);
+		string t = "";
+		int freq = 0;
+		do {
+			char c = fi.get();
+			if (c == '.') break;
+			if (c == ' ') {
+				if (t == word) ++freq;
+				t = "";
+			}
+			else t += c;
+		} while (true);
+		if (t == word) ++freq;
+		if (freq) ret.push_back({ file.first, freq });
+		fi.close();
+	}
+	return ret;
+}
+
+vector<pair<string, int>> firstSearch::filetype(string type) {
+	File_Handling fh;
+	vector <string> files = fh.load_file_names("__index.txt");
+	vector <pair <string, int>> ret;
+	for (string file : files) {
+		bool flag = true;
+		for (int i = 0; i < type.length(); ++i)
+			if (*(file.back() - i - 1) != *(type.back() - i - 1)) {
+				flag = false; break;
+			}
+		if (flag) ret.push_back({ file, 0 });
+	}
+	return ret;
+}
+
+firstSearch::firstSearch(string query, Trie* T)
+{
+	if (!this->T) this->T = T;
+	this->query = query;
+}
+
+firstSearch::firstSearch(string query, Trie* T, Trie* fileList)
+{
+	if (!this->T) this->T = T;
+	if (!this->fileList) this->fileList = fileList;
+	this->query = query;
+}
+>>>>>>> parent of 3981780... Merge pull request #5 from kdnminh-wolfris/PhuongHo

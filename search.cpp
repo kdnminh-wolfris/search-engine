@@ -50,9 +50,9 @@ vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>>* f
 	return result;
 }
 
-vector<pair<string, int>> firstSearch::search(string ss, Trie* T)
+vector<pair<string, int>> firstSearch::search(string ss, Trie T)
 {
-	return vector<pair<string, int>>();
+	return T.search(ss);
 }
 
 string firstSearch::matchSearch(vector<string> quotes, string filename)
@@ -87,35 +87,16 @@ string firstSearch::matchSearch(vector<string> quotes, string filename)
 	return filename;
 }
 
+
 //SS STAND FOR SEARCH_STRING
 vector<pair<string, int>> firstSearch::intitle(string ss)
 {
 	return;
 }
 
-vector<pair<string, int>> firstSearch::quote(vector<pair<string, int>> quotes)
+vector<pair<string, int>> firstSearch::quote(string quotes)
 {
-	if (!quotes.size()) return;
-
-	string first = quotes[0].first;
-	vector<string> q;
-	/*CONSTRUCT THE FULL QUOTE
-	END CONSTRUCTING THE FULL QUOTE*/
-	vector<pair<string, int>> tempResult = this->search(first, this->T);
-	vector<pair<string, int>>* result = new vector<pair<string, int>>;
-	for (auto it = tempResult.begin(); it != tempResult.end(); it++)
-	{
-		//CHANGE RANK AFTER
-		int RANK = 10;
-		string filename = this->matchSearch(q, (*it).first);
-		if (!filename.size()) continue;
-		(*result).push_back(make_pair(filename, RANK));
-	}
-
-	this->intersection(*result);
-	delete result;
-	this->gate++;
-	return;
+	return vector<pair<string, int>>();
 }
 
 vector<pair<string, int>> firstSearch::origin(vector<pair<string, int>> origins)
@@ -137,87 +118,21 @@ vector<pair<string, int>> firstSearch::origin(vector<pair<string, int>> origins)
 
 	this->intersection((*result));
 	delete result;
-	this->gate++;
 	return;
 }
 
 vector<pair<string, int>> firstSearch::findOr(vector<pair<string, int>> OR)
 {
-	this->gate++;
 	return vector<pair<string, int>>();
 }
 
 vector<pair<string, int>> firstSearch::exclude(string ss)
 {
-	this->gate++;
 	return vector<pair<string, int>>();
 }
 
-#include "search.h"
-
-vector<pair<string, int> > firstSearch::number_searching(int lower, int upper, bool is_price)
+firstSearch::firstSearch(string query, Trie T)
 {
-	vector<pair<string, int>> ans;
-
-	for (int i = lower; i <= upper; ++i)
-		if(is_price)
-			ans = intersection(ans, search("$" + to_string(i), T));
-		else
-			ans = intersection(ans, search(to_string(i), T));
-
-	return ans;
-}
-
-vector<pair<string, int> > firstSearch::price_searching(string object, int price)
-{
-	vector<pair<string, int>> file_contain_object = search(object, T);
-	//object must be put into "". E.g: "black rose"
-
-	vector<pair<string, int>> file_contain_price = number_searching(price - 30, price + 30, true);
-
-	return intersection(file_contain_object, file_contain_price);
-
-vector<pair<string, int>> firstSearch::intitle(string word) {
-	vector <pair <string, int>> files = T.search(word);
-	vector <pair <string, int>> ret;
-	ifstream fi;
-	for (auto file : files) {
-		fi.open(file.first);
-		string t = "";
-		int freq = 0;
-		do {
-			char c = fi.get();
-			if (c == '.') break;
-			if (c == ' ') {
-				if (t == word) ++freq;
-				t = "";
-			}
-			else t += c;
-		} while (true);
-		if (t == word) ++freq;
-		if (freq) ret.push_back({ file.first, freq });
-		fi.close();
-	}
-	return ret;
-}
-
-vector<pair<string, int>> firstSearch::filetype(string type) {
-	File_Handling fh;
-	vector <string> files = fh.load_file_names("__index.txt");
-	vector <pair <string, int>> ret;
-	for (string file : files) {
-		bool flag = true;
-		for (int i = 0; i < type.length(); ++i)
-			if (*(file.back() - i - 1) != *(type.back() - i - 1)) {
-				flag = false; break;
-			}
-		if (flag) ret.push_back({ file, 0 });
-	}
-	return ret;
-}
-
-firstSearch::firstSearch(string query, Trie* T)
-{
-	if (!this->T) this->T = T;
-	this->query = query;
+	if (this->T.isEmpty()) this->T = T;
+	else return;
 }

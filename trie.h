@@ -32,6 +32,8 @@ public:
 	void load(string filename);
 
 	void clear();
+
+	bool isEmpty();
 	// clear nodes
 };
 

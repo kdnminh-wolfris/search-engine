@@ -1,5 +1,5 @@
 ﻿  search engine.cpp
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\trie.h(30,2): error C2535: 'void Trie::build(std::string,std::vector<std::pair<std::string,int>,std::allocator<std::pair<std::string,int>>>)': member function already defined or declared
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\trie.h(28): message : see declaration of 'Trie::build'
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\trie.h(32,20): warning C4018: '<': signed/unsigned mismatch
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\query_handling.h(36,19): warning C4018: '<': signed/unsigned mismatch
+  system.cpp
+  Generating Code...
+H:\Github\search-engine\query_handling.h(33,20): warning C4018: '<': signed/unsigned mismatch
+  search engine.vcxproj -> H:\Github\search-engine\Debug\search engine.exe

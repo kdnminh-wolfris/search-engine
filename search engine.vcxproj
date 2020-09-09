@@ -139,15 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="file_handling.cpp" />
+    <ClCompile Include="query_handling.cpp" />
     <ClCompile Include="search engine.cpp" />
+    <ClCompile Include="system.cpp" />
+    <ClCompile Include="trie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_handling.h" />
     <ClInclude Include="query_handling.h" />
+    <ClInclude Include="search.h" />
+    <ClInclude Include="system.h" />
     <ClInclude Include="trie.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="stopword.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

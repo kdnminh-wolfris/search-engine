@@ -155,9 +155,11 @@ void Trie::load(string filename)
 	inp.close();
 }
 
-vector<pair<string, int>> Trie::search(string keyword)
-{
-	return vector<pair<string, int>>();
+vector<pair<string, int>> Trie::search(string keyword) {
+	TrieNode* tmp = root;
+	for (int i = 0; i < keyword.length(); ++i)
+		tmp = tmp->child[keyword[i]];
+	return tmp->data;
 }
 
 void Trie::clear()

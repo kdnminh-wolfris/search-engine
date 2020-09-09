@@ -11,7 +11,6 @@ public:
 	string exclude(string& search_string);
 	string price(string& search_string);
 
-	// 
 	void ToLower(string& word);
 };
 

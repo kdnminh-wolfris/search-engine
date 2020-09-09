@@ -6,7 +6,7 @@
 class QueryHandling {
 public:
 	void filter(string& search_string);
-	vector<vector<string>> OR(string search_string);
+	vector<vector<string>> OR(string& search_string);
 	string intitle(string& search_string);
 	string exclude(string& search_string);
 	string price(string& search_string);

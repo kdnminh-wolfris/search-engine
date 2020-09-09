@@ -92,11 +92,13 @@ void QueryHandling::filter(string& search_string)
 	delete[]arr;
 }
 
-vector<vector<string>> QueryHandling::OR(string search_string)
+vector<vector<string>> QueryHandling::OR(string& search_string)
 {
 	vector<vector<string>> tmp;
 	vector<string> arr;
 	int pos = 0;
+	bool IsOrigin = true;
+	string origin;
 	for (int i = 0;i < search_string.length();++i)
 	{
 		if (search_string[i] == ' ')
@@ -108,14 +110,27 @@ vector<vector<string>> QueryHandling::OR(string search_string)
 			arr.push_back(search_string.substr(pos, i - pos + 1));
 		if (i + 4 < search_string.length() && search_string.substr(i, 4) == " OR ")
 		{
-			tmp.push_back(arr);
-			while (!arr.empty())
-				arr.pop_back();
+			if (IsOrigin == true)
+			{
+				while (!arr.empty())
+				{
+					origin += arr.front();
+					arr.erase(arr.begin());
+				}
+				IsOrigin = false;
+			}
+			else
+			{
+				tmp.push_back(arr);
+				while (!arr.empty())
+					arr.pop_back();
+			}
 			pos = i + 4;
 			i = i + 3;
 		}
 	}
 	tmp.push_back(arr);
+	search_string = origin;
 	return tmp;
 }
 

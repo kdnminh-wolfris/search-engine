@@ -27,40 +27,35 @@ int string_to_int(std::string str)
 	return ans;
 }
 
-void Trie::build(string filename, vector<pair<string, int>> data)
+void Trie::build(string key, pair<string, int> data)
 {
-	while (!data.empty())
+	if (root == nullptr)
+		root = new TrieNode;
+	TrieNode* tmproot = root;
+	for (int i = 0; i < key.length(); ++i)
 	{
-		string key = data.back().first;
-		if (root == nullptr)
-			root = new TrieNode;
-		TrieNode* tmproot = root;
-		for (int i = 0; i < key.length(); ++i)
+		int tmp = get_index(key[i]);
+
+		if (tmp == -1)
+			continue;
+
+		if (tmproot->child[tmp] == nullptr)
+			tmproot->child[tmp] = new TrieNode;
+
+		tmproot = tmproot->child[tmp];
+	}
+
+	bool IsExisted = false;
+	for (int i = 0; i < tmproot->data.size(); ++i)
+		if (data.first == tmproot->data[i].first)
 		{
-			int tmp = get_index(key[i]);
-
-			if (tmp == -1)
-				continue;
-
-			if (tmproot->child[tmp] == nullptr)
-				tmproot->child[tmp] = new TrieNode;
-
-			tmproot = tmproot->child[tmp];
+			tmproot->data[i].second += data.second;
+			IsExisted = true;
+			break;
 		}
 
-		bool IsExisted = false;
-		for (int i = 0; i < tmproot->data.size(); ++i)
-			if (filename == tmproot->data[i].first)
-			{
-				tmproot->data[i].second += data.back().second;
-				IsExisted = true;
-				break;
-			}
-
-		if (!IsExisted)
-			tmproot->data.push_back(make_pair(filename, data.back().second));
-		data.pop_back();
-	}
+	if (!IsExisted)
+		tmproot->data.push_back(make_pair(data.first, data.second));
 }
 // data of a file are keywords and their frequency
 

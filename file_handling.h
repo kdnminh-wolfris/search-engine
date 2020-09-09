@@ -17,11 +17,22 @@ Trie import_data()
 	while (!AllFileName.empty())
 	{
 		// Load file index
-		vector<pair<string, int>> wordsandfreq = import_file(AllFileName.back());
+		vector<pair<string, int>> wordsandfreq = import_file(AllFileName.back()); // <word, freq>
+		vector<pair<string, int>> fileandfreq;                                    // <filename, freq>
 
-		// Build tree
-		head.build(AllFileName.back(), wordsandfreq);
-		
+		// Convert <word,freq> to <filename, freq>
+		while (!wordsandfreq.empty())
+		{
+			// Convert <word,freq> to <filename, freq>
+			fileandfreq.push_back(make_pair(AllFileName.back(), wordsandfreq.back().second));
+
+			// Build Trie
+			head.build(wordsandfreq.back().first, fileandfreq);
+
+			// Remove 
+			wordsandfreq.pop_back();
+			fileandfreq.pop_back();
+		}
 		AllFileName.pop_back();
 	}
 	return head;

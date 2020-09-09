@@ -166,7 +166,10 @@ vector<pair<string, int> > firstSearch::number_searching(int lower, int upper, b
 	vector<pair<string, int>> ans;
 
 	for (int i = lower; i <= upper; ++i)
-		ans = intersection(ans, search(to_string(i), T));
+		if(is_price)
+			ans = intersection(ans, search("$" + to_string(i), T));
+		else
+			ans = intersection(ans, search(to_string(i), T));
 
 	return ans;
 }

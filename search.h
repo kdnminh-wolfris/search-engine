@@ -19,13 +19,16 @@ private:
 	const string PATH = "DATABASE-PATH";
 	map<string, int>* container = nullptr;
 	Trie T;
-	QueryHandling* QH;
+	QueryHandling QH;
 
 	void exit();
 
 	void intersection(vector<pair<string, int>> f2);
 
 	vector<pair<string, int>> intersection(vector<pair<string, int>>* f1, vector<pair<string, int>>* f2);
+
+	vector<string> intersection(vector<string>* f1, vector<string>* f2);
+
 
 	vector<pair<string, int>> search(string ss, Trie T);
 
@@ -44,6 +47,12 @@ public:
 	vector<pair<string, int>> exclude(string ss);
 
 	void trieFlow();
+
+	vector <pair <string, int>> intitle(string word);
+
+	vector <pair <string, int>> filetype(string type);
+
+	firstSearch(string query, Trie* T);
 
 	firstSearch(string query, Trie T);
 };

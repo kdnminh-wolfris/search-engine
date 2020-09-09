@@ -1,4 +1,4 @@
-#include "search.h"
+﻿#include "search.h"
 
 using namespace std;
 
@@ -10,6 +10,7 @@ using namespace std;
 
 #include "trie.h"
 #include "query_handling.h"
+#include "file_handling.h"
 
 void firstSearch::exit()
 {
@@ -131,8 +132,48 @@ vector<pair<string, int>> firstSearch::exclude(string ss)
 	return vector<pair<string, int>>();
 }
 
+vector<pair<string, int>> firstSearch::intitle(string word) {
+	vector <pair <string, int>> files = T.search(word);
+	vector <pair <string, int>> ret;
+	ifstream fi;
+	for (auto file : files) {
+		fi.open(file.first);
+		string t = "";
+		int freq = 0;
+		do {
+			char c = fi.get();
+			if (c == '.') break;
+			if (c == ' ') {
+				if (t == word) ++freq;
+				t = "";
+			}
+			else t += c;
+		} while (true);
+		if (t == word) ++freq;
+		if (freq) ret.push_back({ file.first, freq });
+		fi.close();
+	}
+	return ret;
+}
+
+vector<pair<string, int>> firstSearch::filetype(string type) {
+	File_Handling fh;
+	vector <string> files = fh.load_file_names("__index.txt");
+	vector <pair <string, int>> ret;
+	for (string file : files) {
+		bool flag = true;
+		for (int i = 0; i < type.length(); ++i)
+			//CHỖ NÀY IDE NÓ BÁO LỖI, TAO SỬA * THÀNH &, XEM THỬ NHA
+			if (*(file.back() - i - 1) != *(type.back() - i - 1)) {
+				flag = false; break;
+			}
+		if (flag) ret.push_back({ file, 0 });
+	}
+	return ret;
+}
+
 firstSearch::firstSearch(string query, Trie T)
 {
-	if (this->T.isEmpty()) this->T = T;
-	else return;
+	if (this->T.isEmpty) this->T = T;
+	this->query = query;
 }

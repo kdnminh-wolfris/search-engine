@@ -24,6 +24,12 @@ public:
 	int wildcard;
 
 	QueryHandling(string ss);
+
+	QueryHandling()
+	{
+		//DEFAULT CONSTRUCTOR
+		return;
+	}
 };
 
 

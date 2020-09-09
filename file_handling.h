@@ -3,10 +3,12 @@
 
 #include "query_handling.h"
 #include "trie.h"
+
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
+
 #include <sstream>
 #include <algorithm>
 
@@ -27,6 +29,11 @@ public:
 	//task 3
 
 	File_Handling(string filename);
+
+	File_Handling()
+	{
+		return;
+	}
 };
 
 void rank(vector <string>& filename);

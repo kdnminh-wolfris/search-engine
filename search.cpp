@@ -164,7 +164,7 @@ vector<pair<string, int>> firstSearch::filetype(string type) {
 		bool flag = true;
 		for (int i = 0; i < type.length(); ++i)
 			//CHỖ NÀY IDE NÓ BÁO LỖI, TAO SỬA * THÀNH &, XEM THỬ NHA
-			if (&(file.back() - i - 1) != &(type.back() - i - 1)) {
+			if (*(file.back() - i - 1) != *(type.back() - i - 1)) {
 				flag = false; break;
 			}
 		if (flag) ret.push_back({ file, 0 });

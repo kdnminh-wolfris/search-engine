@@ -9,6 +9,7 @@
 
 #include "trie.h"
 #include "query_handling.h"
+#include "file_handling.h"
 
 using namespace std;
 
@@ -19,8 +20,7 @@ private:
 	//GATE CHECK
 	int gate = 0;
 
-	Trie* T = nullptr;
-	Trie* fileList = nullptr;
+	Trie T;
 	string query;
 
 	void exit();
@@ -36,12 +36,15 @@ private:
 public:
 	//SS STAND FOR SEARCH_STRING
 	void intitle(string ss);
-	void quote(vector<pair<string, int>> quotes);
+	vector<pair<string, int>> quote(string quotes);
 	void origin(vector<pair<string, int>> origins);
 
 	void findOr(vector<pair<string, int>> OR);
 
 	void exclude(string ss);
+
+	vector <pair <string, int>> intitle(string word);
+	vector <pair <string, int>> filetype(string type);
 
 	firstSearch(string query, Trie* T);
 

@@ -71,3 +71,9 @@ void QueryHandling::filter(string& search_string)
 	search_string = tmpstr;
 	delete[]arr;
 }
+
+QueryHandling::QueryHandling(string ss)
+{
+	this->ss = ss;
+	return;
+}

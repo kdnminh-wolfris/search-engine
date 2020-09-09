@@ -50,9 +50,9 @@ vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>>* f
 	return result;
 }
 
-vector<pair<string, int>> firstSearch::search(string ss, Trie* T)
+vector<pair<string, int>> firstSearch::search(string ss, Trie T)
 {
-	return vector<pair<string, int>>();
+	return T.search(ss);
 }
 
 string firstSearch::matchSearch(vector<string> quotes, string filename)
@@ -94,29 +94,9 @@ vector<pair<string, int>> firstSearch::intitle(string ss)
 	return;
 }
 
-vector<pair<string, int>> firstSearch::quote(vector<pair<string, int>> quotes)
+vector<pair<string, int>> firstSearch::quote(string quotes)
 {
-	if (!quotes.size()) return;
-
-	string first = quotes[0].first;
-	vector<string> q;
-	/*CONSTRUCT THE FULL QUOTE
-	END CONSTRUCTING THE FULL QUOTE*/
-	vector<pair<string, int>> tempResult = this->search(first, this->T);
-	vector<pair<string, int>>* result = new vector<pair<string, int>>;
-	for (auto it = tempResult.begin(); it != tempResult.end(); it++)
-	{
-		//CHANGE RANK AFTER
-		int RANK = 10;
-		string filename = this->matchSearch(q, (*it).first);
-		if (!filename.size()) continue;
-		(*result).push_back(make_pair(filename, RANK));
-	}
-
-	this->intersection(*result);
-	delete result;
-	this->gate++;
-	return;
+	return vector<pair<string, int>>();
 }
 
 vector<pair<string, int>> firstSearch::origin(vector<pair<string, int>> origins)
@@ -138,24 +118,21 @@ vector<pair<string, int>> firstSearch::origin(vector<pair<string, int>> origins)
 
 	this->intersection((*result));
 	delete result;
-	this->gate++;
 	return;
 }
 
 vector<pair<string, int>> firstSearch::findOr(vector<pair<string, int>> OR)
 {
-	this->gate++;
 	return vector<pair<string, int>>();
 }
 
 vector<pair<string, int>> firstSearch::exclude(string ss)
 {
-	this->gate++;
 	return vector<pair<string, int>>();
 }
 
-firstSearch::firstSearch(string query, Trie* T)
+firstSearch::firstSearch(string query, Trie T)
 {
-	if (!this->T) this->T = T;
-	this->query = query;
+	if (this->T.isEmpty()) this->T = T;
+	else return;
 }

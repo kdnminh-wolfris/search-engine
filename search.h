@@ -14,12 +14,12 @@ using namespace std;
 
 class firstSearch {
 private:
+	//VARIABLES
+	string query;
 	const string PATH = "DATABASE-PATH";
 	map<string, int>* container = nullptr;
-	//GATE CHECK
-	int gate = 0;
-	Trie* T = nullptr;
-	string query;
+	Trie T;
+	QueryHandling* QH;
 
 	void exit();
 
@@ -27,7 +27,7 @@ private:
 
 	vector<pair<string, int>> intersection(vector<pair<string, int>>* f1, vector<pair<string, int>>* f2);
 
-	vector<pair<string, int>> search(string ss, Trie* T);
+	vector<pair<string, int>> search(string ss, Trie T);
 
 	string matchSearch(vector<string> quotes, string filename);
 
@@ -35,7 +35,7 @@ public:
 	//SS STAND FOR SEARCH_STRING
 	vector<pair<string, int>> intitle(string ss);
 
-	vector<pair<string, int>> quote(vector<pair<string, int>> quotes);
+	vector<pair<string, int>> quote(string quotes);
 
 	vector<pair<string, int>> origin(vector<pair<string, int>> origins);
 
@@ -45,6 +45,6 @@ public:
 
 	void trieFlow();
 
-	firstSearch(string query, Trie* T);
+	firstSearch(string query, Trie T);
 };
 #endif

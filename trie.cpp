@@ -164,3 +164,9 @@ void Trie::clear()
 {
 	return;
 }
+
+bool Trie::isEmpty()
+{
+	if (!this->root) return false;
+	else return true;
+}

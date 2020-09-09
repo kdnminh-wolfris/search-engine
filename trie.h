@@ -13,7 +13,7 @@ public:
 	vector <pair <string, int>> data;
 	// first: file name; second: frequency
 
-	TrieNode* child[36];
+	TrieNode* child[256];
 };
 
 class Trie {

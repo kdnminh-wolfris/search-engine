@@ -19,23 +19,18 @@ private:
 	const string PATH = "DATABASE-PATH";
 	map<string, int>* container = nullptr;
 	Trie T;
-<<<<<<< HEAD
-	QueryHandling* QH;
-=======
-	string query;
->>>>>>> parent of 3981780... Merge pull request #5 from kdnminh-wolfris/PhuongHo
+	QueryHandling QH;
 
 	void exit();
 
 	void intersection(vector<pair<string, int>> f2);
 
-<<<<<<< HEAD
 	vector<pair<string, int>> intersection(vector<pair<string, int>>* f1, vector<pair<string, int>>* f2);
-=======
-	vector<string> intersection(vector<string>* f1, vector<string>* f2);
->>>>>>> parent of 3981780... Merge pull request #5 from kdnminh-wolfris/PhuongHo
 
-	vector<string> search(string ss, Trie* T);
+	vector<string> intersection(vector<string>* f1, vector<string>* f2);
+
+
+	vector<pair<string, int>> search(string ss, Trie T);
 
 	string matchSearch(vector<string> quotes, string filename);
 
@@ -47,18 +42,17 @@ public:
 
 	vector<pair<string, int>> origin(vector<pair<string, int>> origins);
 
-<<<<<<< HEAD
 	vector<pair<string, int>> findOr(vector<pair<string, int>> OR);
 
 	vector<pair<string, int>> exclude(string ss);
 
 	void trieFlow();
-=======
+
 	vector <pair <string, int>> intitle(string word);
+
 	vector <pair <string, int>> filetype(string type);
 
 	firstSearch(string query, Trie* T);
->>>>>>> parent of 3981780... Merge pull request #5 from kdnminh-wolfris/PhuongHo
 
 	firstSearch(string query, Trie T);
 };

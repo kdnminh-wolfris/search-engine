@@ -3,17 +3,12 @@
 
 #include "query_handling.h"
 #include "trie.h"
-<<<<<<< HEAD
+
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
-=======
-#include<iostream>
-#include<fstream>
-#include<vector>
-#include<string>
->>>>>>> parent of 3981780... Merge pull request #5 from kdnminh-wolfris/PhuongHo
+
 #include <sstream>
 #include <algorithm>
 
@@ -34,6 +29,11 @@ public:
 	//task 3
 
 	File_Handling(string filename);
+
+	File_Handling()
+	{
+		return;
+	}
 };
 
 void rank(vector <string>& filename);

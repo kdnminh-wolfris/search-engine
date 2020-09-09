@@ -16,33 +16,36 @@ using namespace std;
 class firstSearch {
 private:
 	const string PATH = "DATABASE-PATH";
-	map<string, bool>* container = nullptr;
+	map<string, int>* container = nullptr;
 	//GATE CHECK
 	int gate = 0;
-
-	Trie T;
   
+	Trie T;
 	string query;
 
 	void exit();
 
-	void intersection(vector<string> f2);
+	void intersection(vector<pair<string, int>> f2);
 
-	vector<pair<string, int>> intersection(vector<pair<string, int>> f1, vector<pair<string, int>> f2);
+	vector<pair<string, int>> intersection(vector<pair<string, int>>* f1, vector<pair<string, int>>* f2);
 
-	vector<pair<string, int>> search(string ss, Trie T);
+	vector<pair<string, int>> search(string ss, Trie* T);
 
 	string matchSearch(vector<string> quotes, string filename);
 
 public:
-	//SS STAND FOR SEARCH_STRING
-	void intitle(string ss);
+	//SS STAND FOR SEARCH_STRING  
 	vector<pair<string, int>> quote(string quotes);
+  
 	void origin(vector<pair<string, int>> origins);
 
-	void findOr(vector<pair<string, int>> OR);
+	vector<pair<string, int>> quote(vector<pair<string, int>> quotes);
 
-	void exclude(string ss);
+	vector<pair<string, int>> origin(vector<pair<string, int>> origins);
+
+	vector<pair<string, int>> findOr(vector<pair<string, int>> OR);
+
+	vector<pair<string, int>> exclude(string ss);
 
 	vector<pair<string, int> > number_searching(int lower, int upper, bool is_price);
 
@@ -51,9 +54,9 @@ public:
 	vector <pair <string, int>> intitle(string word);
   
 	vector <pair <string, int>> filetype(string type);
-  
-	firstSearch(string query, Trie* T);
 
-	firstSearch(string query, Trie* T, Trie* fileList);
+	void trieFlow();
+
+	firstSearch(string query, Trie* T);
 };
 #endif

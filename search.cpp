@@ -137,24 +137,21 @@ vector<pair<string, int>> firstSearch::quote(string quotes) {
 
 vector<pair<string, int>> firstSearch::origin(vector<pair<string, int>> origins)
 {
-	vector<pair<string, int>>* result = nullptr;
+	vector<pair<string, int>> result;
 	for (vector<pair<string, int>>::iterator it = origins.begin(); it != origins.end(); it++)
 	{
-		if (!result)
+		if (result.empty())
 		{
-			result = new vector<pair<string, int>>;
-			(*result) = this->search((*it).first, this->T);
+			result = this->search((*it).first, this->T);
 			continue;
 		}
-		vector<pair<string, int>>* temp = new vector<pair<string, int>>;
-		(*temp) = this->search((*it).first, this->T);
-		(*result) = this->intersection(result, temp);
-		delete temp;
+		vector<pair<string, int>> temp;
+		temp = this->search((*it).first, this->T);
+		result = this->intersection(result, temp);
 	}
 
-	this->intersection((*result));
-	delete result;
-	return;
+	this->intersection(result);
+	return result;
 }
 
 vector<pair<string, int>> firstSearch::findOr(vector<pair<string, int>> OR)
@@ -209,6 +206,6 @@ vector<pair<string, int>> firstSearch::filetype(string type) {
 
 firstSearch::firstSearch(string query, Trie T)
 {
-	if (this->T.isEmpty) this->T = T;
+	if (this->T.isEmpty()) this->T = T;
 	this->query = query;
 }

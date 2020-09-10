@@ -7,6 +7,6 @@
 using namespace std;
 
 int main() {
-	File_Handling FH("data\000.txt");
+	File_Handling FH("data\\000.txt");
 	return 0;
 }

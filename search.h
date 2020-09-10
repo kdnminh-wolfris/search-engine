@@ -25,9 +25,9 @@ private:
 
 	void intersection(vector<pair<string, int>> f2);
 
-	vector<pair<string, int>> intersection(vector<pair<string, int>>* f1, vector<pair<string, int>>* f2);
+	vector<pair<string, int>> intersection(vector<pair<string, int>> f1, vector<pair<string, int>> f2);
 
-	vector<string> intersection(vector<string>* f1, vector<string>* f2);
+	vector<string> intersection(vector<string> f1, vector<string> f2);
 
 
 	vector<pair<string, int>> search(string ss, Trie T);
@@ -36,8 +36,6 @@ private:
 
 public:
 	//SS STAND FOR SEARCH_STRING
-	vector<pair<string, int>> intitle(string ss);
-
 	vector<pair<string, int>> quote(string quotes);
 
 	vector<pair<string, int>> origin(vector<pair<string, int>> origins);

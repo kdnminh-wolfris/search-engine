@@ -50,8 +50,6 @@ public:
 
 	vector <pair <string, int>> filetype(string type);
 
-	firstSearch(string query, Trie* T);
-
 	firstSearch(string query, Trie T);
 };
 #endif

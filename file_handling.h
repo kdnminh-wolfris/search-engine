@@ -8,6 +8,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <regex>
 
 #include <sstream>
 #include <algorithm>
@@ -18,6 +19,9 @@ private:
 	void importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr);
 	void filterPunctation(string& str);
 	bool isStopWord(string cmpstr, string* stopword);
+
+	//REGULAR EXPRESSION
+	regex unicode = regex("[^\\u0000-\\u007F]+");
 public:
 	vector <string> load_file_names(string index_file);
 	//Task 2: load file names to a vector from __index.txt

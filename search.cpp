@@ -44,7 +44,7 @@ void firstSearch::intersection(vector<pair<string, int>> f2)
 	return;
 }
 
-vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>> f1, vector<pair<string, int>> f2)
+vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>>* f1, vector<pair<string, int>>* f2)
 {
 	//code goes here;
 	vector<pair<string, int>> result;
@@ -90,49 +90,14 @@ string firstSearch::matchSearch(vector<string> quotes, string filename)
 
 
 //SS STAND FOR SEARCH_STRING
+vector<pair<string, int>> firstSearch::intitle(string ss)
+{
+	return;
+}
 
-vector<pair<string, int>> firstSearch::quote(string quotes) {
-	const int lim = 5;
-
-	string tmp = quotes;
-	QueryHandling qh;
-	qh.filter(tmp);
-
-	vector <pair <string, int>> cur;
-	int cnt = 0;
-	string word = "";
-	for (int i = 0; i < tmp.length(); ++i)
-		if (tmp[i] == ' ' || tmp[i] == '*') {
-			if (word == "") continue;
-			if (!cnt) cur = T.search(word);
-			else cur = intersection(cur, T.search(word));
-			++cnt; word = "";
-			if (cnt == lim) break;
-		}
-
-	vector <pair <string, int>> ret;
-
-	ifstream fi;
-	for (auto file : cur) {
-		fi.open(file.first);
-		int checkpoint = 0;
-		int score = 0;
-		int cur = 0;
-		for (char c; !fi.eof();) {
-			c = fi.get();
-			if (c == quotes[cur]) {
-				++cur;
-				if (cur < quotes.length() && quotes[cur] == '*')
-					checkpoint = ++cur;
-				if (cur == quotes.length())
-					++score, checkpoint = cur = 0;
-			}
-			else cur = checkpoint;
-		}
-		if (score) ret.push_back({ file.first, score });
-		fi.close();
-	}
-	return ret;
+vector<pair<string, int>> firstSearch::quote(string quotes)
+{
+	return vector<pair<string, int>>();
 }
 
 vector<pair<string, int>> firstSearch::origin(vector<pair<string, int>> origins)
@@ -199,7 +164,7 @@ vector<pair<string, int>> firstSearch::filetype(string type) {
 		bool flag = true;
 		for (int i = 0; i < type.length(); ++i)
 			//CHỖ NÀY IDE NÓ BÁO LỖI, TAO SỬA * THÀNH &, XEM THỬ NHA
-			if (file[file.length() - i - 1] != type[type.length() - i - 1]) {
+			if (*(file.back() - i - 1) != *(type.back() - i - 1)) {
 				flag = false; break;
 			}
 		if (flag) ret.push_back({ file, 0 });

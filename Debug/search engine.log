@@ -1,10 +1,5 @@
-﻿  search.cpp
-D:\GitHub\search engine\search.cpp(104,20): warning C4018: '<': signed/unsigned mismatch
-D:\GitHub\search engine\search.cpp(125,13): warning C4018: '<': signed/unsigned mismatch
-D:\GitHub\search engine\search.cpp(151,46): error C2664: 'std::vector<std::string,std::allocator<std::string>> firstSearch::intersection(std::vector<std::string,std::allocator<std::string>>,std::vector<std::string,std::allocator<std::string>>)': cannot convert argument 1 from 'std::vector<std::pair<std::string,int>,std::allocator<std::pair<std::string,int>>> *' to 'std::vector<std::pair<std::string,int>,std::allocator<std::pair<std::string,int>>>'
-D:\GitHub\search engine\search.cpp(151,46): message : No constructor could take the source type, or constructor overload resolution was ambiguous
-D:\GitHub\search engine\search.cpp(47,40): message : see declaration of 'firstSearch::intersection'
-D:\GitHub\search engine\search.cpp(157,2): error C2561: 'firstSearch::origin': function must return a value
-D:\GitHub\search engine\search.cpp(138): message : see declaration of 'firstSearch::origin'
-D:\GitHub\search engine\search.cpp(200,21): warning C4018: '<': signed/unsigned mismatch
-D:\GitHub\search engine\search.cpp(212,21): error C3867: 'Trie::isEmpty': non-standard syntax; use '&' to create a pointer to member
+﻿  search engine.cpp
+  system.cpp
+  Generating Code...
+H:\Github\search-engine\query_handling.h(33,20): warning C4018: '<': signed/unsigned mismatch
+  search engine.vcxproj -> H:\Github\search-engine\Debug\search engine.exe

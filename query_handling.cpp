@@ -5,7 +5,7 @@ void QueryHandling::ToLower(string& word)
 	for (int i = 0;i < word.length();++i)
 	{
 		if (word[i] >= 'A' && word[i] <= 'Z')
-			word[i] += 22;
+			word[i] += 32;
 	}
 }
 
@@ -26,15 +26,16 @@ void QueryHandling::filter(string& search_string)
 		while (!LoadStopWord.eof())
 		{
 			LoadStopWord >> arr[i];
+			++i;
 		}
 	}
 	LoadStopWord.close();
 
 	// Compare each word in search_string to stop-words and erase it from string
-	string word;
+	string word = "";
 	string tmpstr = search_string;
 	int pos = 0; // first position of each word
-	for (int i = 0;i < tmpstr.length();++i)
+	for (int i = 0;i <= tmpstr.length();++i)
 	{
 		if (tmpstr[i] == ' ')
 		{
@@ -55,7 +56,6 @@ void QueryHandling::filter(string& search_string)
 					break;
 				}
 			}
-			word = "";
 			if (!IsExisted)
 			{
 				pos = i + 1;
@@ -64,6 +64,7 @@ void QueryHandling::filter(string& search_string)
 			{
 				i -= word.length() + 1;
 			}
+			word = "";
 		}
 		else if (tmpstr[i] == '\0') // end of string
 		{

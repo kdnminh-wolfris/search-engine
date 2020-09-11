@@ -2,3 +2,6 @@ H:\Github\search-engine\.vs\search engine\v16\Browse.VC.db
 H:\Github\search-engine\.vs\search engine\v16\.suo
 .vs/search engine/v16/.suo
 .vs/search engine/v16/Browse.VC.db
+*.opendb
+.vs/search engine/v16/ipch/AutoPCH/4f5cab2ff87fb3d5/SYSTEM.ipch
+*.ipch

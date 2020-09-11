@@ -1,10 +1,14 @@
-#include "file_handling.h"
 #include <string>
 #include <vector>
 #include <fstream>
+#include <iostream>
 #include <iosfwd>
 #include <ctype.h>
+#include <regex>
+
 #include "trie.h"
+#include "file_handling.h"
+
 
 using namespace std;
 
@@ -69,7 +73,29 @@ void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmp
 
 vector<string> File_Handling::load_file_names(string index_file)
 {
-	return vector<string>();
+	ifstream fin;
+	fin.open(index_file);
+	if (!fin.is_open())
+	{
+		cout << "Error loading index file" << endl;
+		return vector<string>();
+	}
+	else
+		cout << "Successfully open index file" << endl;
+	char c;
+	string temp = "";
+	vector<string> result;
+	while (fin >> c)
+	{
+		temp.push_back(c);
+		if (temp.find("txt", 0) != string::npos)
+		{
+			result.push_back(temp);
+			temp = "";
+		}
+	}
+	
+	return result;
 }
 
 vector <pair <string, int>> File_Handling::import_file(string filename)
@@ -101,9 +127,12 @@ vector <pair <string, int>> File_Handling::import_file(string filename)
 		LoadStopWord.close();
 
 		string temp;
+		
+		cout << temp;
 		while (!fin.eof())
 		{
 			getline(fin, temp, '\n');
+			temp = std::regex_replace(temp, this->unicode, " ");
 			this->importfileExe(result, temp, arr);
 		}
 		fin.close();
@@ -114,19 +143,20 @@ vector <pair <string, int>> File_Handling::import_file(string filename)
 Trie File_Handling::import_data()
 {
 	Trie head;
-	//vector<string> AllFileName = this->load_file_names("___index.txt");
+	vector<string> AllFileName = this->load_file_names("data\\___index.txt");
 	//TEST WITH ONE FILE FIRST
+	/*
 	vector<string> AllFileName;
 	string FILENAME = this->FILENAME;
 	AllFileName.push_back(FILENAME);
-
+	*/
 	while (!AllFileName.empty())
 	{
 		// Load file index
-		vector<pair<string, int>> wordsandfreq = import_file(AllFileName.back());
-
-		// Build tree
-		head.build(AllFileName.back(), wordsandfreq);
+		string filename = "data\\" + AllFileName.back();
+		vector<pair<string, int>> wordsandfreq = import_file(filename);
+		/*TEST*/
+		head.build(filename, wordsandfreq);
 
 		AllFileName.pop_back();
 	}
@@ -136,5 +166,18 @@ Trie File_Handling::import_data()
 
 File_Handling::File_Handling(string filename)
 {
+	//DEBUG 1
 	this->FILENAME = filename;
+	cout << this->FILENAME << endl;
+	this->import_file(this->FILENAME);
+	this->head = this->import_data();
+	if (this->head.isEmpty()) cout << "This is fcking dead!!" << endl;
+}
+
+File_Handling::File_Handling()
+{
+	this->head = this->import_data();
+	cout << "DONE IMPORTING" << endl;
+	this->head.save("save");
+	cout << "DONE SAVING" << endl;
 }

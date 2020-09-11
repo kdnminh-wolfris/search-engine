@@ -9,26 +9,26 @@
 
 #include "trie.h"
 #include "query_handling.h"
-#include "file_handling.h"
 
 using namespace std;
 
 class firstSearch {
 private:
-	const string PATH = "DATABASE-PATH";
-	map<string, bool>* container = nullptr;
-	//GATE CHECK
-	int gate = 0;
-
-	Trie T;
-  
+	//VARIABLES
 	string query;
+	const string PATH = "DATABASE-PATH";
+	map<string, int>* container = nullptr;
+	Trie T;
+	QueryHandling QH;
 
 	void exit();
 
-	void intersection(vector<string> f2);
+	void intersection(vector<pair<string, int>> f2);
 
 	vector<pair<string, int>> intersection(vector<pair<string, int>> f1, vector<pair<string, int>> f2);
+
+	vector<string> intersection(vector<string> f1, vector<string> f2);
+
 
 	vector<pair<string, int>> search(string ss, Trie T);
 
@@ -36,24 +36,20 @@ private:
 
 public:
 	//SS STAND FOR SEARCH_STRING
-	void intitle(string ss);
 	vector<pair<string, int>> quote(string quotes);
-	void origin(vector<pair<string, int>> origins);
 
-	void findOr(vector<pair<string, int>> OR);
+	vector<pair<string, int>> origin(vector<pair<string, int>> origins);
 
-	void exclude(string ss);
+	vector<pair<string, int>> findOr(vector<pair<string, int>> OR);
 
-	vector<pair<string, int> > number_searching(int lower, int upper, bool is_price);
+	vector<pair<string, int>> exclude(string ss);
 
-	vector<pair<string, int> > price_searching(string object, int price);
+	void trieFlow();
 
 	vector <pair <string, int>> intitle(string word);
-  
-	vector <pair <string, int>> filetype(string type);
-  
-	firstSearch(string query, Trie* T);
 
-	firstSearch(string query, Trie* T, Trie* fileList);
+	vector <pair <string, int>> filetype(string type);
+
+	firstSearch(string query, Trie T);
 };
 #endif

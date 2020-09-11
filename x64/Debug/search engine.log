@@ -1,0 +1,8 @@
+﻿  file_handling.cpp
+D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\file_handling.cpp(23,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\file_handling.cpp(28,20): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  query_handling.cpp
+D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\query_handling.cpp(65,27): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+  search engine.cpp
+  Generating Code...
+  search engine.vcxproj -> D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\x64\Debug\search engine.exe

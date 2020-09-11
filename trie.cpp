@@ -10,7 +10,17 @@
 
 int get_index(char key)
 {
-	return (int)key;
+	if ('0' <= key && key <= '9')
+		return key - '0';
+	if ('a' <= key && key <= 'z')
+		return key - 'a' + 10;
+	if ('A' <= key && key <= 'Z')
+		return key - 'A' + 10;
+	if (key == '$')
+		return 36;
+	if (key == '#')
+		return 37;
+	return -1;
 }
 
 int string_to_int(std::string str)
@@ -73,7 +83,7 @@ void Trie::save(std::string filename)
 		for (int i = 0; i < u->data.size(); ++i)
 			out << u->data[i].first << ' ' << u->data[i].second << ' ';
 		out << "__END__ -1\n";
-		for (int c = 0; c < 256; ++c)
+		for (int c = 0; c < 38; ++c)
 			que.push(u->child[c]);
 	}
 
@@ -99,7 +109,7 @@ void Trie::load(std::string filename)
 		TrieNode*& u = que.front();
 		que.pop();
 
-		for (int c = 0; c < 256; ++c)
+		for (int c = 0; c < 38; ++c)
 		{
 			std::getline(inp, line);
 

@@ -1,0 +1,2 @@
+C:\Users\annaw\Documents\GitHub\search-engine\Debug\search engine.exe
+C:\Users\annaw\Documents\GitHub\search-engine\Debug\search engine.pdb

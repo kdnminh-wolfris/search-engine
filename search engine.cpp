@@ -14,7 +14,9 @@ int main() {
 	//Trie T = FH.head;
 	Trie T;
 	T.load("save");
-	vector<pair<string, int>> temp = T.search("commercial");
+	vector<pair<string, int>> temp = T.search("countering");
+
+	std::cout << temp.size();
 	for (auto it = temp.begin(); it != temp.end(); it++)
 	{
 		cout << it->first << " " << it->second << endl;

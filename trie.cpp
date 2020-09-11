@@ -13,8 +13,8 @@ using namespace std;
 
 void Trie::build(string filename, vector<pair<string, int>> data)
 {
-	cout << filename << " " << data.size() << endl;
-	TrieNode *root = this->root;
+	cerr << filename << " " << data.size() << "\n";
+	TrieNode* root = this->root;
 	while (!data.empty())
 	{
 		string key = data.back().first;
@@ -95,6 +95,8 @@ void Trie::load(string filename)
 
 	while (!inp.eof())
 	{
+		if (que.empty())
+			break;
 		TrieNode*& u = que.front();
 		que.pop();
 
@@ -148,7 +150,7 @@ vector<pair<string, int>> Trie::search(string keyword) {
 		if (!tmp) return vector<pair<string, int>>();
 		tmp = tmp->child[get_index(keyword[i])];
 	}
-		
+
 	return tmp->data;
 }
 

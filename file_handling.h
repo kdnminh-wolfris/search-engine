@@ -24,23 +24,16 @@ private:
 	regex unicode = regex("[^\\u0000-\\u007F]+");
 public:
 	vector <string> load_file_names(string index_file);
-	//Task 2: load file names to a vector from __index.txt
 
 	vector <pair <string, int>> import_file(string filename);
-	//task 1: filter out stopwords, read keywords and their frequency and return to vector
 
 	Trie import_data();
-	//task 3
+
+	Trie head;
 
 	File_Handling(string filename);
 
-	File_Handling()
-	{
-		return;
-	}
+	File_Handling();
 };
-
-void rank(vector <string>& filename);
-// rank files based on query and then sort them
 
 #endif

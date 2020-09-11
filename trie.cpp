@@ -11,29 +11,10 @@
 
 using namespace std;
 
-int get_index(char key)
-{
-	if ('0' <= key && key <= '9')
-		return key - '0';
-	if ('a' <= key && key <= 'z')
-		return key - 'a' + 10;
-	if ('A' <= key && key <= 'Z')
-		return key - 'A' + 10;
-	return -1;
-}
-
-int string_to_int(string str)
-{
-	int ans = 0;
-	for (int i = 0; i < str.length(); ++i)
-		ans = ans * 10 + (str[i] - '0');
-	return ans;
-}
-
-
 void Trie::build(string filename, vector<pair<string, int>> data)
 {
-	TrieNode *root = this->root;
+	cerr << filename << " " << data.size() << "\n";
+	TrieNode* root = this->root;
 	while (!data.empty())
 	{
 		string key = data.back().first;
@@ -66,6 +47,8 @@ void Trie::build(string filename, vector<pair<string, int>> data)
 			tmproot->data.push_back(make_pair(filename, data.back().second));
 		data.pop_back();
 	}
+
+	if (!this->root) this->root = root;
 }
 // data of a file are keywords and their frequency
 
@@ -89,7 +72,7 @@ void Trie::save(string filename)
 		for (int i = 0; i < u->data.size(); ++i)
 			out << u->data[i].first << ' ' << u->data[i].second << ' ';
 		out << "__END__ -1\n";
-		for (int c = 0; c < 36; ++c)
+		for (int c = 0; c < 38; ++c)
 			que.push(u->child[c]);
 	}
 
@@ -112,10 +95,12 @@ void Trie::load(string filename)
 
 	while (!inp.eof())
 	{
+		if (que.empty())
+			break;
 		TrieNode*& u = que.front();
 		que.pop();
 
-		for (int c = 0; c < 36; ++c)
+		for (int c = 0; c < 38; ++c)
 		{
 			getline(inp, line);
 
@@ -136,8 +121,6 @@ void Trie::load(string filename)
 				string word, number;
 				iss >> word >> number;
 
-				cerr << word << ' ' << number << '\n';
-
 				if (word == "__END__")
 					break;
 
@@ -156,9 +139,18 @@ void Trie::load(string filename)
 }
 
 vector<pair<string, int>> Trie::search(string keyword) {
+	if (!root)
+	{
+		return vector<pair<string, int>>();
+	}
+
 	TrieNode* tmp = root;
 	for (int i = 0; i < keyword.length(); ++i)
-		tmp = tmp->child[keyword[i]];
+	{
+		if (!tmp) return vector<pair<string, int>>();
+		tmp = tmp->child[get_index(keyword[i])];
+	}
+
 	return tmp->data;
 }
 
@@ -169,6 +161,5 @@ void Trie::clear()
 
 bool Trie::isEmpty()
 {
-	if (!this->root) return false;
-	else return true;
+	return (!this->root);
 }

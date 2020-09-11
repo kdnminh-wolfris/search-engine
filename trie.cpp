@@ -1,12 +1,15 @@
 #include "trie.h"
 #include "system.h"
 
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <queue>
 #include <utility>
 #include <algorithm>
+
+using namespace std;
 
 int get_index(char key)
 {
@@ -16,14 +19,10 @@ int get_index(char key)
 		return key - 'a' + 10;
 	if ('A' <= key && key <= 'Z')
 		return key - 'A' + 10;
-	if (key == '$')
-		return 36;
-	if (key == '#')
-		return 37;
 	return -1;
 }
 
-int string_to_int(std::string str)
+int string_to_int(string str)
 {
 	int ans = 0;
 	for (int i = 0; i < str.length(); ++i)
@@ -31,44 +30,54 @@ int string_to_int(std::string str)
 	return ans;
 }
 
-void Trie::build(string key, pair<string, int> data)
+
+void Trie::build(string filename, vector<pair<string, int>> data)
 {
-	if (root == nullptr)
-		root = new TrieNode;
-	TrieNode* tmproot = root;
-	for (int i = 0; i < key.length(); ++i)
+	cout << filename << " " << data.size() << endl;
+	TrieNode *root = this->root;
+	while (!data.empty())
 	{
-		int tmp = get_index(key[i]);
-
-		if (tmp == -1)
-			continue;
-
-		if (tmproot->child[tmp] == nullptr)
-			tmproot->child[tmp] = new TrieNode;
-
-		tmproot = tmproot->child[tmp];
-	}
-
-	bool IsExisted = false;
-	for (int i = 0; i < tmproot->data.size(); ++i)
-		if (data.first == tmproot->data[i].first)
+		string key = data.back().first;
+		if (root == nullptr)
+			root = new TrieNode;
+		TrieNode* tmproot = root;
+		for (int i = 0; i < key.length(); ++i)
 		{
-			tmproot->data[i].second += data.second;
-			IsExisted = true;
-			break;
+			int tmp = get_index(key[i]);
+
+			if (tmp == -1)
+				continue;
+
+			if (tmproot->child[tmp] == nullptr)
+				tmproot->child[tmp] = new TrieNode;
+
+			tmproot = tmproot->child[tmp];
 		}
 
-	if (!IsExisted)
-		tmproot->data.push_back(make_pair(data.first, data.second));
+		bool IsExisted = false;
+		for (int i = 0; i < tmproot->data.size(); ++i)
+			if (filename == tmproot->data[i].first)
+			{
+				tmproot->data[i].second += data.back().second;
+				IsExisted = true;
+				break;
+			}
+
+		if (!IsExisted)
+			tmproot->data.push_back(make_pair(filename, data.back().second));
+		data.pop_back();
+	}
+
+	if (!this->root) this->root = root;
 }
 // data of a file are keywords and their frequency
 
-void Trie::save(std::string filename)
+void Trie::save(string filename)
 {
-	std::ofstream out;
-	out.open(get_link("cheatsheet", filename), std::ios::app);
+	ofstream out;
+	out.open(get_link("cheatsheet", filename), ios::app);
 
-	std::queue<TrieNode*> que;
+	queue<TrieNode*> que;
 	que.push(root);
 
 	while (!que.empty())
@@ -90,18 +99,18 @@ void Trie::save(std::string filename)
 	out.close();
 }
 
-void Trie::load(std::string filename)
+void Trie::load(string filename)
 {
-	std::ifstream inp;
+	ifstream inp;
 	inp.open(get_link("cheatsheet", filename));
 
 	if (root == nullptr)
 		root = new TrieNode;
 
-	std::string line;
-	std::getline(inp, line);
+	string line;
+	getline(inp, line);
 
-	std::queue<TrieNode*> que;
+	queue<TrieNode*> que;
 	que.push(root);
 
 	while (!inp.eof())
@@ -111,7 +120,7 @@ void Trie::load(std::string filename)
 
 		for (int c = 0; c < 38; ++c)
 		{
-			std::getline(inp, line);
+			getline(inp, line);
 
 			if (line.length() == 0)
 				break;
@@ -123,23 +132,21 @@ void Trie::load(std::string filename)
 			}
 
 			u->child[c] = new TrieNode;
-			std::istringstream iss(line);
+			istringstream iss(line);
 
 			do
 			{
-				std::string word, number;
+				string word, number;
 				iss >> word >> number;
-
-				std::cerr << word << ' ' << number << '\n';
 
 				if (word == "__END__")
 					break;
 
-				std::string file = word;
+				string file = word;
 				int frequency = string_to_int(number);
 
 
-				u->child[c]->data.push_back(std::make_pair(std::string(file), frequency));
+				u->child[c]->data.push_back(make_pair(string(file), frequency));
 			} while (iss);
 
 			que.push(u->child[c]);
@@ -150,13 +157,27 @@ void Trie::load(std::string filename)
 }
 
 vector<pair<string, int>> Trie::search(string keyword) {
+	if (!root)
+	{
+		return vector<pair<string, int>>();
+	}
+
 	TrieNode* tmp = root;
 	for (int i = 0; i < keyword.length(); ++i)
-		tmp = tmp->child[keyword[i]];
+	{
+		if (!tmp) return vector<pair<string, int>>();
+		tmp = tmp->child[get_index(keyword[i])];
+	}
+		
 	return tmp->data;
 }
 
 void Trie::clear()
 {
 	return;
+}
+
+bool Trie::isEmpty()
+{
+	return (!this->root);
 }

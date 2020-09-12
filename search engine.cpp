@@ -2,11 +2,16 @@
 #include "trie.h"
 #include "search.h"
 #include "query_handling.h"
+#include "system.h"
 #include <string>
 
 using namespace std;
 
 int main() {
-	File_Handling FH("data\\000.txt");
-	return 0;
+	cout << "---------------Search Engine----------Group 10-----\n";
+	cout << "---------------------------------------------------\n";
+	cout << "Search: ";
+	string query; getline(cin, query);
+	cout << "\nTop 5 results:\n";
+
 }

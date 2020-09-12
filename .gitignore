@@ -6,3 +6,8 @@ H:\Github\search-engine\.vs\search engine\v16\.suo
 *.db
 *.ipch
 *.db
+*.db
+*.obj
+*.exe
+*.ilk
+*.log

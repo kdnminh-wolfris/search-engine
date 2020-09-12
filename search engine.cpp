@@ -10,9 +10,9 @@
 using namespace std;
 
 int main() {
-	//File_Handling FH;
-	//Trie T = FH.head;
-	Trie T;
+	File_Handling FH;
+	Trie T = FH.head;
+	/*Trie T;
 	T.load("save");
 	vector<pair<string, int>> temp = T.search("countering");
 
@@ -21,5 +21,5 @@ int main() {
 	{
 		cout << it->first << " " << it->second << endl;
 	}
-	return 0;
+	return 0;*/
 }

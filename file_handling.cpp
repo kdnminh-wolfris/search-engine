@@ -176,8 +176,9 @@ File_Handling::File_Handling(string filename)
 
 File_Handling::File_Handling()
 {
+	cout << "nom\n";
 	this->head = this->import_data();
 	cout << "DONE IMPORTING" << endl;
-	this->head.save("save");
-	cout << "DONE SAVING" << endl;
+	//this->head.save("save");
+	//cout << "DONE SAVING" << endl;
 }

@@ -10,16 +10,15 @@
 using namespace std;
 
 int main() {
-	//File_Handling FH;
-	//Trie T = FH.head;
-	Trie T;
-	T.load("save");
-	vector<pair<string, int>> temp = T.search("countering");
+	File_Handling FH;
+	//Trie T;
+	//T.load("save");
+	//vector<pair<string, int>> temp = T.search("countering");
 
-	std::cout << temp.size();
-	for (auto it = temp.begin(); it != temp.end(); it++)
-	{
-		cout << it->first << " " << it->second << endl;
-	}
-	return 0;
+	//std::cout << temp.size();
+	//for (auto it = temp.begin(); it != temp.end(); it++)
+	//{
+	//	cout << it->first << " " << it->second << endl;
+	//}
+	//return 0;
 }

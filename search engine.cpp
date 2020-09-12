@@ -2,7 +2,9 @@
 #include "trie.h"
 #include "search.h"
 #include "query_handling.h"
-#include "system.h"
+
+#include <vector>
+#include <iostream>
 #include <string>
 
 using namespace std;

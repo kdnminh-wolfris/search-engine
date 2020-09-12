@@ -8,4 +8,8 @@ using namespace std;
 
 string get_link(string folder, string filename);
 
+int get_index(char key);
+
+int string_to_int(string str);
+
 #endif

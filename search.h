@@ -51,5 +51,7 @@ public:
 	vector <pair <string, int>> filetype(string type);
 
 	firstSearch(string query, Trie T);
+
+	vector <pair <string, int>> search(string query);
 };
 #endif

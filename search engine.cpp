@@ -10,10 +10,10 @@
 using namespace std;
 
 int main() {
-	//File_Handling FH;
-	//Trie T = FH.head;
-	Trie T;
-	T.load("save");
+	File_Handling FH;
+	Trie T = FH.head;
+	//Trie T;
+	//load("save");
 	vector<pair<string, int>> temp = T.search("commercial");
 	for (auto it = temp.begin(); it != temp.end(); it++)
 	{

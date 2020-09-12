@@ -12,8 +12,6 @@ public:
 	string price(string& search_string);
 
 	void ToLower(string& word);
-
-	vector <pair <string, int>> solve(string query);
 };
 
 #endif

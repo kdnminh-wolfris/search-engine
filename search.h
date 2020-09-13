@@ -52,6 +52,6 @@ public:
 
 	firstSearch(string query, Trie T);
 
-	vector <pair <string, int>> search(string query);
+	vector <pair <string, int>> search();
 };
 #endif

@@ -9,5 +9,6 @@ using namespace std;
 
 int int_option(int numberChoice = 20);
 bool bool_option(string operation);
+void esc_pressed();
 
 #endif

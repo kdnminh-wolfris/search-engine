@@ -209,3 +209,8 @@ firstSearch::firstSearch(string query, Trie T)
 	if (this->T.isEmpty()) this->T = T;
 	this->query = query;
 }
+
+vector<pair<string, int>> firstSearch::search()
+{
+	return vector<pair<string, int>>();
+}

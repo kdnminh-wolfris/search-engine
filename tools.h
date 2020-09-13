@@ -17,6 +17,7 @@ string AcademicYearCode(int academic_year);
 string SemesterCode(int semester);
 string weekdayCode(int day);
 
-void preview(string filename, int char_lim = 100);
+void preview(string filename, int char_lim = 700);
+void fullview(string filename);
 
 #endif

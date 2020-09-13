@@ -121,3 +121,30 @@ string weekdayCode(int day) {
 		case 7: return "SAT";
 	}
 }
+
+void preview(string filename, int char_lim) {
+	ifstream fi;
+	fi.open(filename);
+	if (!fi.is_open()) {
+		cout << "Error reading " << filename << '\n';
+		return;
+	}
+	for (int i = 0; i < char_lim && fi.good(); ++i) {
+		char c = fi.get(); cout << c;
+	}
+	if (fi.good()) cout << "...";
+	fi.close();
+}
+
+void fullview(string filename) {
+	ifstream fi;
+	fi.open(filename);
+	if (!fi.is_open()) {
+		cout << "Error reading " << filename << '\n';
+		return;
+	}
+	char c;
+	while (fi.good())
+		fi.get(c), cout << c;
+	fi.close();
+}

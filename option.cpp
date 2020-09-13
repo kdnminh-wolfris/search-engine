@@ -47,3 +47,9 @@ bool bool_option(string operation) {
 	while (!(ch == 'Y' || ch == 'y' || ch == 'N' || ch == 'n'));
 	return ch == 'Y' || ch == 'y';
 }
+
+void esc_pressed() {
+	char ch;
+	do ch = _getch();
+	while (int(ch) == 27);
+}

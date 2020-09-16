@@ -1,4 +1,5 @@
 #include "query_handling.h"
+#include <sstream>
 
 void QueryHandling::ToLower(string& word)
 {
@@ -223,4 +224,99 @@ string QueryHandling::price(string& search_string)
 		}
 	}
 	return "";
+}
+
+pair<string, string> QueryHandling::range(string extract_string)
+{
+	string first, second, tmp;
+	pair<string, string> result;
+	stringstream ss;
+	ss << extract_string;
+	bool flag = false;
+	while (ss >> tmp)
+	{
+		for (int i = 0; i < tmp.length(); i++)
+		{
+			if (tmp[i] == '.' && tmp[i + 1] == '.' && tmp[i + 2] != '.')
+			{
+				flag = true;
+				for (int j = 0; j < i; j++)
+				{
+					first.push_back(tmp[j]);
+				}
+				for (int j = i + 2; j < tmp.length(); j++)
+				{
+					second.push_back(tmp[j]);
+				}
+			}
+		}
+		if (flag == true)
+			return result = make_pair(first, second);
+	}
+	return result = make_pair("-1", "-1");
+}
+
+vector<string> QueryHandling::quotes(string extract_string)
+{
+	string first, second, tmp;
+	vector<string> result;
+	stringstream ss;
+	bool flag = false;
+	for (int i = 0; i < extract_string.length(); i++)
+	{
+		if (extract_string[i] == '"')
+		{
+			for (int j = i + 1; j < extract_string.length(); j++)
+			{
+				if (extract_string[j] == '"')
+				{
+					flag = true;
+					for (int k = i + 1; k < j; k++)
+					{
+						tmp.push_back(extract_string[k]);
+					}
+				}
+			}
+
+		}
+	}
+	ss << tmp;
+	tmp.erase();
+	while (ss >> tmp)
+	{
+		result.push_back(tmp);
+	}
+	if (flag != true)
+		result.push_back("-1");
+	return result;
+}
+
+vector<string> QueryHandling::origin(string& ss)
+{
+	if(ss.empty()) return vector<string>();
+	istringstream iss(ss);
+	string word;
+	vector<string> result;
+	while (iss >> word) result.push_back(word);
+	return result;
+}
+
+//CONSTRUSTOR
+
+QueryHandling::QueryHandling()
+{
+	return;
+}
+
+QueryHandling::QueryHandling(string& query)
+{
+	this->filter(query);
+	intitleRe = this->intitle(query);
+	excludeRe = this->exclude(query);
+	priceRe = this->price(query);
+	rangeRe = this->range(query);
+	quotesRe = this->quotes(query);
+	orRe = this->OR(query);
+	originRe = this->origin(query);
+	return;
 }

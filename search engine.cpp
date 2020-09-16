@@ -13,19 +13,12 @@ using namespace std;
 
 int main() {
 	Trie T;
-
 	T.load("save");
+	vector<pair<string, int>> temp = T.search("Buddhists");
 
-	T.trieTraverse();
-
-	/*Trie T;
-	T.load("save");
-	vector<pair<string, int>> temp = T.search("countering");
-
-	std::cout << temp.size();
 	for (auto it = temp.begin(); it != temp.end(); it++)
 	{
 		cout << it->first << " " << it->second << endl;
 	}
-	return 0;*/
+	return 0;
 }

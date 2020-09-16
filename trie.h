@@ -14,6 +14,9 @@ public:
 	// first: file name; second: frequency
 
 	TrieNode* child[38];
+
+
+	void trieTraverse(TrieNode* head);
 };
 
 class Trie {
@@ -36,12 +39,8 @@ public:
 	bool isEmpty();
 	// clear nodes
 
-	void trieTraverse(TrieNode *head);
+	void trieTraverse();
 
-	void trieTraverse()
-	{
-		this->trieTraverse(this->root);
-	}
 };
 
 #endif

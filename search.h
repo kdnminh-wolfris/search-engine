@@ -29,6 +29,7 @@ private:
 
 	vector<string> intersection(vector<string> f1, vector<string> f2);
 
+	vector<pair<string, int>> unionSet(vector<pair<string, int>> f1, vector<string, int>> f2);
 
 	vector<pair<string, int>> search(string ss, Trie T);
 

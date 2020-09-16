@@ -1,2 +1,32 @@
+<<<<<<< HEAD
 ﻿  search engine.cpp
+=======
+﻿  file_handling.cpp
+C:\Users\annaw\Documents\GitHub\search-engine\file_handling.cpp(58,23): warning C4018: '<': signed/unsigned mismatch
+  query_handling.cpp
+C:\Users\annaw\Documents\GitHub\search-engine\query_handling.cpp(5,19): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\query_handling.cpp(38,19): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\query_handling.cpp(103,19): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\query_handling.cpp(112,13): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\query_handling.cpp(140,19): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\query_handling.cpp(145,26): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\query_handling.cpp(170,19): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\query_handling.cpp(175,26): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\query_handling.cpp(200,19): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\query_handling.cpp(205,25): warning C4018: '<': signed/unsigned mismatch
+  search engine.cpp
+  search.cpp
+C:\Users\annaw\Documents\GitHub\search-engine\search.cpp(104,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\search.cpp(125,13): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\search.cpp(197,21): warning C4018: '<': signed/unsigned mismatch
+  system.cpp
+C:\Users\annaw\Documents\GitHub\search-engine\system.cpp(21,20): warning C4018: '<': signed/unsigned mismatch
+  trie.cpp
+C:\Users\annaw\Documents\GitHub\search-engine\trie.cpp(24,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\trie.cpp(38,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\trie.cpp(72,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\annaw\Documents\GitHub\search-engine\trie.cpp(148,20): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  LINK : C:\Users\annaw\Documents\GitHub\search-engine\Debug\search engine.exe not found or not built by the last incremental link; performing full link
+>>>>>>> origin/debug-file-handling
   search engine.vcxproj -> C:\Users\annaw\Documents\GitHub\search-engine\Debug\search engine.exe

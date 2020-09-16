@@ -14,12 +14,14 @@ int main() {
 	//Trie T = FH.head;
 	Trie T;
 	T.load("save");
-	vector<pair<string, int>> temp = T.search("climate");
+	cout << "If Trie was loaded succesfully: " << T.isEmpty() << endl;
+	T.trieTraverse();
+	//vector<pair<string, int>> temp = T.search("greedy");
 
-	std::cout << temp.size();
+	/*std::cout << temp.size();
 	for (auto it = temp.begin(); it != temp.end(); it++)
 	{
 		cout << it->first << " " << it->second << endl;
 	}
-	return 0;
+	return 0;*/
 }

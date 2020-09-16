@@ -163,3 +163,14 @@ bool Trie::isEmpty()
 {
 	return (!this->root);
 }
+
+void Trie::trieTraverse(TrieNode* head)
+{
+	if (!head) return;
+	if (head->data.size() != 0)
+	{
+		for (auto it = head->data.begin(); it != head->data.end(); it++)
+			cout << it->first << " " << it->second << endl;
+	}
+	for (int i = 0; i < 38; i++) this->trieTraverse(head->child[i]);
+}

@@ -114,8 +114,8 @@ vector<string> File_Handling::load_file_names(string index_file)
 		temp.push_back(c);
 		if (temp.find("txt", 0) != string::npos)
 		{
-			//temp = regex_replace(temp, this->unicode, "");
-			//cout << temp << endl;
+			temp = regex_replace(temp, this->unicode, "");
+			cout << temp << endl;
 			result.push_back(temp);
 			temp = "";
 		}

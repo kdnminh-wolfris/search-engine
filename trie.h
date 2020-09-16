@@ -35,6 +35,13 @@ public:
 
 	bool isEmpty();
 	// clear nodes
+
+	void trieTraverse(TrieNode *head);
+
+	void trieTraverse()
+	{
+		this->trieTraverse(this->root);
+	}
 };
 
 #endif

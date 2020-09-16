@@ -1,3 +1,5 @@
+
+
 #include "file_handling.h"
 #include "trie.h"
 #include "search.h"
@@ -10,8 +12,12 @@
 using namespace std;
 
 int main() {
-	File_Handling FH;
-	Trie T = FH.head;
+	Trie T;
+
+	T.load("save");
+
+	T.trieTraverse();
+
 	/*Trie T;
 	T.load("save");
 	vector<pair<string, int>> temp = T.search("countering");

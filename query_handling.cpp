@@ -294,8 +294,11 @@ vector<string> QueryHandling::quotes(string extract_string)
 vector<string> QueryHandling::origin(string& ss)
 {
 	if(ss.empty()) return vector<string>();
-	
+	istringstream iss(ss);
+	string word;
 	vector<string> result;
+	while (iss >> word) result.push_back(word);
+	return result;
 }
 
 //CONSTRUSTOR
@@ -314,5 +317,6 @@ QueryHandling::QueryHandling(string& query)
 	rangeRe = this->range(query);
 	quotesRe = this->quotes(query);
 	orRe = this->OR(query);
+	originRe = this->origin(query);
 	return;
 }

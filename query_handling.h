@@ -35,6 +35,8 @@ public:
 
 	vector<string> quotesRe;
 
+	vector<string> originRe;
+
 	QueryHandling();
 
 	QueryHandling(string& query);

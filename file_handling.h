@@ -10,14 +10,21 @@
 #include <string>
 #include <regex>
 
-#include <sstream>
+#include <sstream>	
 #include <algorithm>
 
 class File_Handling{
 private:
 	string FILENAME;
+
+	string* stopword = nullptr;
+
+	string* loadStopword();
+
 	void importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr);
+
 	void filterPunctation(string& str);
+
 	bool isStopWord(string cmpstr, string* stopword);
 
 	//REGULAR EXPRESSION

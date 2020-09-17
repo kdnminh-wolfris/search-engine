@@ -13,7 +13,10 @@ public:
 	vector <pair <string, int>> data;
 	// first: file name; second: frequency
 
-	TrieNode* child[256];
+	TrieNode* child[38];
+
+
+	void trieTraverse(TrieNode* head);
 };
 
 class Trie {
@@ -35,6 +38,9 @@ public:
 
 	bool isEmpty();
 	// clear nodes
+
+	void trieTraverse();
+
 };
 
 #endif

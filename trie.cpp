@@ -11,30 +11,10 @@
 
 using namespace std;
 
-int get_index(char key)
-{
-	if ('0' <= key && key <= '9')
-		return key - '0';
-	if ('a' <= key && key <= 'z')
-		return key - 'a' + 10;
-	if ('A' <= key && key <= 'Z')
-		return key - 'A' + 10;
-	return -1;
-}
-
-int string_to_int(string str)
-{
-	int ans = 0;
-	for (int i = 0; i < str.length(); ++i)
-		ans = ans * 10 + (str[i] - '0');
-	return ans;
-}
-
-
 void Trie::build(string filename, vector<pair<string, int>> data)
 {
-	cout << filename << " " << data.size() << endl;
-	TrieNode *root = this->root;
+	cerr << filename << " " << data.size() << "\n";
+	TrieNode* root = this->root;
 	while (!data.empty())
 	{
 		string key = data.back().first;
@@ -76,22 +56,31 @@ void Trie::save(string filename)
 {
 	ofstream out;
 	out.open(get_link("cheatsheet", filename), ios::app);
+	//out.open("output.txt", ios::app);
 
 	queue<TrieNode*> que;
 	que.push(root);
 
+	int cnt = 0;
 	while (!que.empty())
 	{
 		TrieNode* u = que.front();
 		que.pop();
+
 		if (u == nullptr)
 		{
 			out << "0\n";
 			continue;
 		}
 		for (int i = 0; i < u->data.size(); ++i)
+		{
+			for (int j = 0; j < u->data[i].first.length(); ++j)
+				if (u->data[i].first[j] == ' ')
+					u->data[i].first[j] = '@';
 			out << u->data[i].first << ' ' << u->data[i].second << ' ';
+		}
 		out << "__END__ -1\n";
+
 		for (int c = 0; c < 38; ++c)
 			que.push(u->child[c]);
 	}
@@ -103,9 +92,11 @@ void Trie::load(string filename)
 {
 	ifstream inp;
 	inp.open(get_link("cheatsheet", filename));
-
+	//inp.open("input.txt");
 	if (root == nullptr)
 		root = new TrieNode;
+
+	//	std::cerr << "nom\n";
 
 	string line;
 	getline(inp, line);
@@ -115,7 +106,9 @@ void Trie::load(string filename)
 
 	while (!inp.eof())
 	{
-		TrieNode*& u = que.front();
+		if (que.empty())
+			break;
+		TrieNode* u = que.front();
 		que.pop();
 
 		for (int c = 0; c < 38; ++c)
@@ -142,9 +135,12 @@ void Trie::load(string filename)
 				if (word == "__END__")
 					break;
 
+				for (int j = 0; j < word.length(); ++j)
+					if (word[j] == '@')
+						word[j] = ' ';
+
 				string file = word;
 				int frequency = string_to_int(number);
-
 
 				u->child[c]->data.push_back(make_pair(string(file), frequency));
 			} while (iss);
@@ -168,7 +164,7 @@ vector<pair<string, int>> Trie::search(string keyword) {
 		if (!tmp) return vector<pair<string, int>>();
 		tmp = tmp->child[get_index(keyword[i])];
 	}
-		
+
 	return tmp->data;
 }
 
@@ -180,4 +176,20 @@ void Trie::clear()
 bool Trie::isEmpty()
 {
 	return (!this->root);
+}
+
+void TrieNode::trieTraverse(TrieNode* head)
+{
+	if (!head) return;
+	if (head->data.size() != 0)
+	{
+		for (auto it = head->data.begin(); it != head->data.end(); it++)
+			cout << it->first << " " << it->second << endl;
+	}
+	for (int i = 0; i < 38; i++) this->trieTraverse(head->child[i]);
+}
+
+void Trie::trieTraverse()
+{
+	root->trieTraverse(root);
 }

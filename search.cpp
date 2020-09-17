@@ -54,7 +54,7 @@ vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>> f1
 	vector<pair<string, int>> result;
 	for (int i = 0; i < f1.size(); ++i)
 	{
-		int j = lower_bound(f2.begin(), f2.end(), f1[i]) - f2.begin();
+		int j = lower_bound(f2.begin(), f2.end(), make_pair(f1[i].first, 0)) - f2.begin();
 		if (j == f2.size() || f1[i].first != f2[j].first)
 			continue;
 		result.push_back(make_pair(f1[i].first, min(f1[i].second, f2[j].second)));
@@ -72,10 +72,19 @@ void firstSearch::unionSet(vector<pair<string, int>> f1)
 }
 
 
-vector<pair<string, int>> firstSearch::unionSet(vector<pair<string, int>> f1, vector<pair<string, int >> f2)
+vector<pair<string, int>> firstSearch::unionSet(vector<pair<string, int>> f1, vector<pair<string, int >> f2) 
 {
-	//UNION BETWEEN 2 VEC
-	return vector<pair<string, int>>();
+	sort(f1.begin(), f1.end());
+	sort(f2.begin(), f2.end());
+	vector <pair <string, int>> ret;
+	for (int i = 0, j = 0; i < f1.size() || j < f2.size();) {
+		if (i < f1.size() && (j == f2.size() || f1[i].first < f2[j].first))
+			ret.push_back(f1[i++]);
+		else if (i == f1.size() || f1[i].first > f2[j].first)
+			ret.push_back(f2[j++]);
+		else ret.push_back({ f1[i].first, f1[i].second + f2[j].second }), ++i, ++j;
+	}
+	return ret;
 }
 
 

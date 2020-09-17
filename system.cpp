@@ -9,9 +9,9 @@ int get_index(char key)
 	if ('A' <= key && key <= 'Z')
 		return key - 'A' + 10;
 	if (key == '$')
-		return 35;
-	if (key == '#')
 		return 36;
+	if (key == '#')
+		return 37;
 	return -1;
 }
 

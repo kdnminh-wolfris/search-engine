@@ -138,6 +138,13 @@ void Trie::load(string filename)
 	inp.close();
 }
 
+void Trie::__clear(TrieNode* node) {
+	if (node == nullptr) return;
+	for (int i = 0; i < 38; ++i)
+		__clear(node->child[i]);
+	delete node;
+}
+
 vector<pair<string, int>> Trie::search(string keyword) {
 	if (!root)
 	{
@@ -154,9 +161,9 @@ vector<pair<string, int>> Trie::search(string keyword) {
 	return tmp->data;
 }
 
-void Trie::clear()
-{
-	return;
+void Trie::clear() {
+	__clear(root);
+	root = nullptr;
 }
 
 bool Trie::isEmpty()

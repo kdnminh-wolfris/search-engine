@@ -18,8 +18,9 @@ bool cmp(pair <string, int> a, pair <string, int> b) {
 
 int main() {
 	File_Handling fh;
-	Trie tree = fh.import_data();
+	Trie tree = fh.head;
 	do {
+		system("clrscr");
 		cout << "---------------Search Engine----------Group 10-----\n";
 		cout << "---------------------------------------------------\n";
 		cout << "Search (or leave a blank and enter to exit): ";
@@ -35,9 +36,10 @@ int main() {
 			preview(res[i].first); cout << '\n';
 		}
 		int opt = int_option(6);
-		if (opt == 0) continue;
 		system("clrscr");
-		fullview(res[opt - 1].first);
+		if (opt == 0) continue;
+		int tmp = opt - 1; // ???
+		fullview(res[tmp].first);
 		esc_pressed();
 	} while (true);
 }

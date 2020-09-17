@@ -201,9 +201,9 @@ vector<pair<string, int>> firstSearch::number_searching(int lower, int upper, bo
 
 	for (int i = lower; i <= upper; ++i)
 		if (is_price)
-			ans = intersection(ans, search("$" + to_string(i), T));
+			ans = unionSet(ans, search("$" + to_string(i), T));
 		else
-			ans = intersection(ans, search(to_string(i), T));
+			ans = unionSet(ans, search(to_string(i), T));
 
 	return ans;
 }

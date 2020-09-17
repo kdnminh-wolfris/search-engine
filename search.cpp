@@ -1,4 +1,4 @@
-﻿clude "search.h"
+﻿#include "search.h"
 
 using namespace std;
 
@@ -264,7 +264,8 @@ firstSearch::firstSearch(string query, Trie T)
 
 vector<pair<string, int>> firstSearch::search()
 {
-	//FIRST 7 OPE ON TRIE: AND(by default) + FILETYPE + TITLE + QUOTE/WILD + OR + EXCLUDE
+	//FIRST 7 OPE ON TRIE: AND(by default) + FILETYPE + TITLE + QUOTE/WILD + OR + EXCLUDE + HASHTAG(DEFUALT IN ORIGIN)
+	//PRICE AND RANGE NOT DONE
 	if (QH.filetypeRe != "txt") this->intersection(this->filetype(QH.filetypeRe));
 	this->intersection(this->intitle(QH.intitleRe));
 	this->intersection(this->quote(QH.quotesRe));
@@ -274,7 +275,5 @@ vector<pair<string, int>> firstSearch::search()
 		this->unionSet(this->findOr(it));
 	}
 	this->exclude(QH.excludeRe);
-
-	//4 OPE FOR FULL SEARCH: PRICE + HASHTAG(DEFAULT) + RANGE
 	return vector<pair<string, int>>();
 }

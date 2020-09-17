@@ -50,8 +50,11 @@ public:
 
 	vector <pair <string, int>> intitle(string word);//1OPE
 
-	vector <pair <string, int>> filetype(string type);//1 OPE
+	vector <pair <string, int>> filetype(string type); //1 OPE
 
+	vector<pair<string, int>> number_searching(int lower, int upper, bool is_price); //RANGE
+
+	vector<pair<string, int>> price_searching(string object, int price);//PRICE
 	firstSearch(string query, Trie T);
 
 	vector<pair<string, int>> search();

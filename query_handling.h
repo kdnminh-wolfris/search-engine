@@ -13,6 +13,8 @@ private:
 
 	string price(string& search_string);
 
+	string filetype(string& search_string);
+
 	void ToLower(string& word);
 
 	pair<string, string> range(string extract_string);

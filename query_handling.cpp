@@ -203,7 +203,7 @@ string QueryHandling::price(string& search_string)
 		if (search_string[i] == '$' && search_string[i + 1] != '\0' && (search_string[i + 1] >= 48 && search_string[i + 1] <= 57) && (i == 0 || (i > 0 && search_string[i - 1] == ' ')))
 		{
 			int pos = 0;
-			for (int j = i + 1;j < search_string.length();++j)
+			for (int j = i + 1;j <= search_string.length();++j)
 			{
 				if (search_string[j] == '\0' || search_string[j] == ' ')
 				{
@@ -212,6 +212,36 @@ string QueryHandling::price(string& search_string)
 				}
 			}
 			string tmp = search_string.substr(i + 1, pos - i - 1);
+			if (i == 0 && search_string[pos] == '\0')
+				search_string.erase(i, pos - i);
+			else if (i == 0 && search_string[pos] == ' ')
+				search_string.erase(i, pos - i + 1);
+			else if (i != 0 && search_string[pos] == '\0')
+				search_string.erase(i - 1, pos - i + 1);
+			else if (i != 0 && search_string[pos] == ' ')
+				search_string.erase(i, pos - i + 1);
+			return tmp;
+		}
+	}
+	return "";
+}
+
+string QueryHandling::filetype(string& search_string)
+{
+	for (int i = 0; i < search_string.length();++i)
+	{
+		if (search_string.substr(i, 9) == "filetype:" && (i == 0 || search_string[i - 1] == ' ') && (search_string[i + 1] == '\0' || search_string[i + 1] != ' '))
+		{
+			int pos = 0;
+			for (int j = i + 1;j <= search_string.length();++j)
+			{
+				if (search_string[j] == '\0' || search_string[j] == ' ')
+				{
+					pos = j;
+					break;
+				}
+			}
+			string tmp = search_string.substr(i + 9, pos - i - 9);
 			if (i == 0 && search_string[pos] == '\0')
 				search_string.erase(i, pos - i);
 			else if (i == 0 && search_string[pos] == ' ')

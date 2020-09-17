@@ -256,7 +256,7 @@ string QueryHandling::filetype(string& search_string)
 	return "";
 }
 
-pair<string, string> QueryHandling::range(string extract_string)
+pair<string, string> QueryHandling::range(string &extract_string)
 {
 	string first, second, tmp;
 	pair<string, string> result;
@@ -281,12 +281,16 @@ pair<string, string> QueryHandling::range(string extract_string)
 			}
 		}
 		if (flag == true)
+		{
 			return result = make_pair(first, second);
+			string erase = result.first + ".." + result.second;
+			extract_string.erase(extract_string.find(erase), erase.size);
+		}
 	}
 	return result = make_pair("-1", "-1");
 }
 
-string QueryHandling::quotes(string extract_string)
+string QueryHandling::quotes(string &extract_string)
 {
 	string tmp;
 	vector<string> result;

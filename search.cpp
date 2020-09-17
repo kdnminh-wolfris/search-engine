@@ -7,6 +7,7 @@ using namespace std;
 #include <vector>
 #include <map>
 #include <string>
+#include <algorithm>
 
 #include "trie.h"
 #include "system.h"
@@ -52,7 +53,15 @@ vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>> f1
 	//code goes here;
 	//CODE CÁI NÀY NÈ
 	//GIAO 2 TẬP F1 F2
+	sort(f2.begin(), f2.end());
 	vector<pair<string, int>> result;
+	for (int i = 0; i < f1.size(); ++i)
+	{
+		int j = lower_bound(f2.begin(), f2.end(), f1[i]) - f2.begin();
+		if (j == f2.size() || f1[i].first != f2[j].first)
+			continue;
+		result.push_back(make_pair(f1[i].first, min(f1[i].second, f2[j].second));
+	}
 	return result;
 }
 

@@ -50,6 +50,8 @@ void firstSearch::intersection(vector<pair<string, int>> f2)
 vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>> f1, vector<pair<string, int>> f2)
 {
 	//code goes here;
+	//CODE CÁI NÀY NÈ
+	//GIAO 2 TẬP F1 F2
 	vector<pair<string, int>> result;
 	return result;
 }
@@ -57,6 +59,11 @@ vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>> f1
 void firstSearch::unionSet(vector<pair<string, int>> f1)
 {
 	//UNION WITH THIS->CONTAINER
+	//HONG CÓ VIẾT CÁI NÀY :))
+	for (auto it : f1)
+	{
+		if (this->container->find(it.first) == this->container->end()) (*this->container)[it.first] = it.second;
+	}
 	return;
 }
 
@@ -64,6 +71,8 @@ void firstSearch::unionSet(vector<pair<string, int>> f1)
 vector<pair<string, int>> firstSearch::unionSet(vector<pair<string, int>> f1, vector<pair<string, int >> f2)
 {
 	//UNION BETWEEN 2 VEC
+	//CODE CÁI NÀY NÈ
+	//UNION 2 TẬP F1 F2
 	return vector<pair<string, int>>();
 }
 

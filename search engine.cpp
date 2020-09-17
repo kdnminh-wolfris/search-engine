@@ -10,6 +10,8 @@
 using namespace std;
 
 int main() {
+	Trie T;
+	T.load("save");
 	/*
 	string tmp;
 	do
@@ -32,8 +34,8 @@ int main() {
 	getline(cin, tmp, '\n');
 	while (tmp != "exit")
 	{
-	QueryHandling QH(tmp);
-	cout << "\n\n\nQuery: ";
-	getline(cin, tmp, '\n');
+		firstSearch FS(tmp, T);
+		cout << "\n\n\nQuery: ";
+		getline(cin, tmp, '\n');
 	}
 }

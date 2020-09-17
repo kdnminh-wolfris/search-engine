@@ -88,7 +88,7 @@ vector<pair<string, int>> firstSearch::unionSet(vector<pair<string, int>> f1, ve
 }
 
 
-/*------------------------------------------------------------------------------------------------------------*/
+//----------------------------------------------------SEARCH--------------------------------------------------//
 vector<pair<string, int>> firstSearch::search(string ss, Trie T)
 {
 	if (!T.isEmpty()) return T.search(ss);
@@ -103,7 +103,8 @@ vector<pair<string, int>> firstSearch::search(string ss)
 
 //SS STAND FOR SEARCH_STRING
 //OPERATORS
-//----------------------------------------------------------------------------------------------------------//
+//------------------------------------------------QUOTES----------------------------------------------------//
+
 vector<pair<string, int>> firstSearch::quote(string quotes) {
 	const int lim = 5;
 
@@ -148,8 +149,10 @@ vector<pair<string, int>> firstSearch::quote(string quotes) {
 	return ret;
 }
 
+//------------------------------------------------ORIGIN----------------------------------------------------//
 vector<pair<string, int>> firstSearch::origin(vector<string> origins)
 {
+	if (!origins.size()) return vector<pair<string, int>>();
 	vector<pair<string, int>> result;
 	for (auto it = origins.begin(); it != origins.end(); it++)
 	{
@@ -167,8 +170,10 @@ vector<pair<string, int>> firstSearch::origin(vector<string> origins)
 	return result;
 }
 
+//------------------------------------------------OR----------------------------------------------------//
 vector<pair<string, int>> firstSearch::findOr(vector<string> OR)
 {
+	if (!OR.size()) return vector<pair<string, int>>();
 	vector<pair<string, int>> result;
 	for (auto it : OR)
 	{
@@ -178,8 +183,10 @@ vector<pair<string, int>> firstSearch::findOr(vector<string> OR)
 	return result;
 }
 
+//------------------------------------------------EXCLUDE----------------------------------------------------//
 void firstSearch::exclude(string ss)
 {
+	if (!ss.size()) return;
 	vector<pair<string, int>> tmp = this->search(ss);
 	for (auto it : tmp)
 	{
@@ -189,7 +196,9 @@ void firstSearch::exclude(string ss)
 	return;
 }
 
+//------------------------------------------------TITLE----------------------------------------------------//
 vector<pair<string, int>> firstSearch::intitle(string word) {
+	if (!word.size()) return vector<pair<string, int>>();
 	vector <pair <string, int>> files = this->search(word);
 	vector <pair <string, int>> ret;
 	ifstream fi;
@@ -213,6 +222,7 @@ vector<pair<string, int>> firstSearch::intitle(string word) {
 	return ret;
 }
 
+//------------------------------------------------RANGE----------------------------------------------------//
 vector<pair<string, int>> firstSearch::number_searching(int lower, int upper, bool is_price)
 {
 	vector<pair<string, int>> ans;
@@ -226,6 +236,7 @@ vector<pair<string, int>> firstSearch::number_searching(int lower, int upper, bo
 	return ans;
 }
 
+//------------------------------------------------PRICE----------------------------------------------------//
 vector<pair<string, int>> firstSearch::price_searching(string object, int price)
 {
 	vector<pair<string, int>> file_contain_object = search(object, T);
@@ -241,7 +252,9 @@ vector<pair<string, int>> firstSearch::price_searching(int price)
 	return number_searching(price - 30, price + 30, true);
 }
 
+//------------------------------------------------FILETYPE----------------------------------------------------//
 vector<pair<string, int>> firstSearch::filetype(string type) {
+	if (type == "txt" || type.size() == 0) return vector<pair<string, int>>();
 	File_Handling fh;
 	vector <string> files = fh.load_file_names("__index.txt");
 	vector <pair <string, int>> ret;
@@ -255,6 +268,8 @@ vector<pair<string, int>> firstSearch::filetype(string type) {
 	}
 	return ret;
 }
+
+//----------------------------------------------CONSTRUCTOR AND MISC--------------------------------------------//
 
 vector<pair<string, int>> firstSearch::map_to_vector(map<string, int> *con)
 {
@@ -299,5 +314,11 @@ firstSearch::firstSearch(string query, Trie T)
 	if (this->T.isEmpty()) this->T = T;
 	this->query = query;
 	this->QH = QueryHandling(query);
+	vector<pair<string, int>> tmp = this->search();
+	cout << "RESULT: " << endl;
+	for (auto it : tmp)
+	{
+		cout << it.first << " " << it.second << endl;
+	}
 }
 

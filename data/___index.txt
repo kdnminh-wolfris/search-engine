@@ -1,2 +1,158 @@
 ﻿0.txt
-dummyText.txt
+000.txt
+1.txt
+01.txt
+001.txt
+2.txt
+02.txt
+002.txt
+3.txt
+03.txt
+003.txt
+4.txt
+04.txt
+004.txt
+5 Times People Used Trees to Change the World.txt
+5.txt
+05.txt
+005.txt
+6 Amazing Structures Built by Surprising Creatures.txt
+6.txt
+06.txt
+006.txt
+7.txt
+07.txt
+007.txt
+8.txt
+08.txt
+008.txt
+9.txt
+09.txt
+009.txt
+10 2.txt
+10 cool summer destinations in US .txt
+10 unforgettable animal-watching adventures'.txt
+10.txt
+010.txt
+11 2.txt
+11.txt
+011.txt
+12 2.txt
+12 travel books you won’t be able to put down this summer.txt
+12-foot bird lived alongside early human relatives, fossils reveal.txt
+12.txt
+012.txt
+13 2.txt
+13.txt
+013.txt
+14 2.txt
+14.txt
+014.txt
+15 2.txt
+15.txt
+015.txt
+16 2.txt
+16.txt
+016.txt
+17 2.txt
+17.txt
+017.txt
+18 2.txt
+18.txt
+018.txt
+19 2.txt
+19 iconic trees around the world.txt
+19.txt
+019.txt
+20 2.txt
+20.txt
+020.txt
+21 2.txt
+21.txt
+021.txt
+22 2.txt
+22.txt
+022.txt
+23 2.txt
+23.txt
+023.txt
+24 2.txt
+24.txt
+024.txt
+25 2.txt
+25.txt
+025.txt
+26 2.txt
+26.txt
+026.txt
+27 2.txt
+27.txt
+027.txt
+28 2.txt
+28.txt
+028.txt
+29 2.txt
+29.txt
+029.txt
+30 2.txt
+30.txt
+030.txt
+31 2.txt
+31.txt
+031.txt
+32 2.txt
+32.txt
+032.txt
+33 2.txt
+33.txt
+033.txt
+34 2.txt
+34.txt
+034.txt
+35 2.txt
+35.txt
+035.txt
+36 2.txt
+36.txt
+036.txt
+37 2.txt
+37.txt
+037.txt
+38 2.txt
+38.txt
+038.txt
+39 2.txt
+39.txt
+039.txt
+40 2.txt
+40.txt
+040.txt
+41 2.txt
+41.txt
+041.txt
+42 2.txt
+42.txt
+042.txt
+43 2.txt
+43.txt
+043.txt
+44 2.txt
+44.txt
+044.txt
+45 2.txt
+45.txt
+045.txt
+46 2.txt
+46.txt
+046.txt
+47 2.txt
+47.txt
+047.txt
+48 2.txt
+48.txt
+048.txt
+49 2.txt
+49.txt
+049.txt
+50 2.txt
+50 dramatic photos of life on Earth.txt

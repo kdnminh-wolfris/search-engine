@@ -54,7 +54,8 @@ public:
 
 	vector<pair<string, int>> number_searching(int lower, int upper, bool is_price); //RANGE
 
-	vector<pair<string, int>> price_searching(string object, int price);//PRICE
+	vector<pair<string, int>> price_searching(string object, int price); //PRICE
+
 	firstSearch(string query, Trie T);
 
 	vector<pair<string, int>> search();

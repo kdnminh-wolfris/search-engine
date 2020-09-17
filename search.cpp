@@ -221,6 +221,29 @@ vector<pair<string, int>> firstSearch::intitle(string word) {
 	return ret;
 }
 
+vector<pair<string, int>> firstSearch::number_searching(int lower, int upper, bool is_price)
+{
+	vector<pair<string, int>> ans;
+
+	for (int i = lower; i <= upper; ++i)
+		if (is_price)
+			ans = unionSet(ans, search("$" + to_string(i), T));
+		else
+			ans = unionSet(ans, search(to_string(i), T));
+
+	return ans;
+}
+
+vector<pair<string, int>> firstSearch::price_searching(string object, int price)
+{
+	vector<pair<string, int>> file_contain_object = search(object, T);
+	//object must be put into "". E.g: "black rose"
+
+	vector<pair<string, int>> file_contain_price = number_searching(price - 30, price + 30, true);
+
+	return intersection(file_contain_object, file_contain_price);
+}
+
 vector<pair<string, int>> firstSearch::filetype(string type) {
 	File_Handling fh;
 	vector <string> files = fh.load_file_names("__index.txt");

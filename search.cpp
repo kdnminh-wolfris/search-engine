@@ -23,9 +23,9 @@ void firstSearch::exit()
 
 void firstSearch::intersection(vector<pair<string, int>> f2)
 {
-	if (f2.size == 0) return;
+	if (f2.size() == 0) return;
 	//IF CONTAINER IS EMPTY -> INITILIZE IT FIRST
-	if (!(this->container && !this->container->size))
+	if (!(this->container && !this->container->size()))
 	{
 		if (!this->container) this->container = new map<string, int>;
 		for (auto it = f2.begin(); it != f2.end(); it++)
@@ -50,9 +50,6 @@ void firstSearch::intersection(vector<pair<string, int>> f2)
 
 vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>> f1, vector<pair<string, int>> f2)
 {
-	//code goes here;
-	//CODE CÁI NÀY NÈ
-	//GIAO 2 TẬP F1 F2
 	sort(f2.begin(), f2.end());
 	vector<pair<string, int>> result;
 	for (int i = 0; i < f1.size(); ++i)
@@ -60,15 +57,13 @@ vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>> f1
 		int j = lower_bound(f2.begin(), f2.end(), f1[i]) - f2.begin();
 		if (j == f2.size() || f1[i].first != f2[j].first)
 			continue;
-		result.push_back(make_pair(f1[i].first, min(f1[i].second, f2[j].second));
+		result.push_back(make_pair(f1[i].first, min(f1[i].second, f2[j].second)));
 	}
 	return result;
 }
 
 void firstSearch::unionSet(vector<pair<string, int>> f1)
 {
-	//UNION WITH THIS->CONTAINER
-	//HONG CÓ VIẾT CÁI NÀY :))
 	for (auto it : f1)
 	{
 		if (this->container->find(it.first) == this->container->end()) (*this->container)[it.first] = it.second;
@@ -80,8 +75,6 @@ void firstSearch::unionSet(vector<pair<string, int>> f1)
 vector<pair<string, int>> firstSearch::unionSet(vector<pair<string, int>> f1, vector<pair<string, int >> f2)
 {
 	//UNION BETWEEN 2 VEC
-	//CODE CÁI NÀY NÈ
-	//UNION 2 TẬP F1 F2
 	return vector<pair<string, int>>();
 }
 
@@ -98,39 +91,6 @@ vector<pair<string, int>> firstSearch::search(string ss)
 	if (!T.isEmpty()) return this->search(ss, this->T);
 	else return vector<pair<string, int>>();
 }
-
-string firstSearch::matchSearch(vector<string> quotes, string filename)
-{
-	//REMEMBER TO CHANGE PATH FOR FILENAME
-	ifstream f;
-	string path = this->PATH + filename;
-	f.open(path);
-
-	int i = 0, size = quotes.size();
-	bool flag = false;
-	char t;
-	string temp;
-	while (f >> t && i < size)
-	{
-		if (t == ' ' || t < 'a' || t > 'z' || t < '0' || t >'9')
-		{
-			if (flag == false)
-			{
-				if (temp == quotes[0]) flag = true, i++;
-				temp = "";
-				continue;
-			}
-
-			if (temp == quotes[i]) i++;
-			else return "";
-			temp = "";
-			continue;
-		}
-		temp.push_back(t);
-	}
-	return filename;
-}
-
 
 //SS STAND FOR SEARCH_STRING
 //OPERATORS
@@ -267,6 +227,11 @@ vector<pair<string, int>> firstSearch::price_searching(string object, int price)
 	return intersection(file_contain_object, file_contain_price);
 }
 
+vector<pair<string, int>> firstSearch::price_searching(int price)
+{
+	return number_searching(price - 30, price + 30, true);
+}
+
 vector<pair<string, int>> firstSearch::filetype(string type) {
 	File_Handling fh;
 	vector <string> files = fh.load_file_names("__index.txt");
@@ -280,37 +245,6 @@ vector<pair<string, int>> firstSearch::filetype(string type) {
 		if (flag) ret.push_back({ file, 0 });
 	}
 	return ret;
-}
-
-vector<pair<string, int>> firstSearch::number_searching(int lower, int upper, bool is_price)
-{
-	vector<pair<string, int>> ans;
-
-	for (int i = lower; i <= upper; ++i)
-		ans = intersection(ans, search(to_string(i)));
-
-	return ans;
-}
-
-vector<pair<string, int>> firstSearch::price_searching(string object, int price)
-{
-	vector<pair<string, int>> file_contain_object = search(object);
-	//object must be put into "". E.g: "black rose"
-
-	vector<pair<string, int>> file_contain_price = number_searching(price - 30, price + 30, true);
-
-	return intersection(file_contain_object, file_contain_price);
-}
-
-vector<pair<string, int>> firstSearch::price_searching(int price)
-{
-	return number_searching(price - 30, price + 30, true);
-}
-
-firstSearch::firstSearch(string query, Trie T)
-{
-	if (this->T.isEmpty()) this->T = T;
-	this->query = query;
 }
 
 vector<pair<string, int>> firstSearch::map_to_vector(map<string, int> *con)
@@ -350,3 +284,11 @@ vector<pair<string, int>> firstSearch::search()
 	this->container = nullptr;
 	return result;
 }
+
+firstSearch::firstSearch(string query, Trie T)
+{
+	if (this->T.isEmpty()) this->T = T;
+	this->query = query;
+	this->QH = QueryHandling(query);
+}
+

@@ -41,6 +41,8 @@ public:
 
 	string filetypeRe;
 
+	void show();
+
 	QueryHandling();
 
 	QueryHandling(string& query);

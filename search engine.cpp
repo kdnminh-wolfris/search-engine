@@ -10,21 +10,9 @@
 using namespace std;
 
 int main() {
-	/*TRIE LOAD TEST*/
-
-	Trie T;
-
-	T.load("save");
-
-	//T.trieTraverse();
-
-	/*FILE FEEDING AND TRIE SAVING TEST*/
-	//File_Handling FH;
-	//Trie T = FH.head;
-	
-	/*TRIE SEARCHING TEST*/
+	/*
 	string tmp;
-	do 
+	do
 	{
 		cout << "Searching for: ";
 		tmp = "";
@@ -36,4 +24,16 @@ int main() {
 			cout << it->first << " " << it->second << endl;
 	} while (tmp != "exit");
 	return 0;
+	*/
+
+	/*QUERY HANDLING*/
+	cout << "Query: ";
+	string tmp;
+	getline(cin, tmp, '\n');
+	while (tmp != "exit")
+	{
+	QueryHandling QH(tmp);
+	cout << "\n\n\nQuery: ";
+	getline(cin, tmp, '\n');
+	}
 }

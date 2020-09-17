@@ -16,7 +16,6 @@ class firstSearch {
 private:
 	//VARIABLES
 	string query;
-	const string PATH = "DATABASE-PATH";
 	map<string, int>* container = nullptr;
 	Trie T;
 	QueryHandling QH;
@@ -35,11 +34,9 @@ private:
 
 	vector<pair<string, int>> search(string ss);
 
-	string matchSearch(vector<string> quotes, string filename);
-
 	vector<pair<string, int>> map_to_vector(map<string, int> *con);
 
-public:
+
 	//SS STAND FOR SEARCH_STRING
 	//OPERATOR COUNT: 6 + AND = 7 + 1 HASHTAG = 8 (thiếu price và range)
 	vector<pair<string, int>> quote(string quotes); //TASK QUOTE + WILDCARD -> 2OPE
@@ -60,10 +57,10 @@ public:
 
 	vector<pair<string, int>> price_searching(int price); //PRICE WITHOUT OBJECT
 
-	//CONSTRUCTOR
-
-	firstSearch(string query, Trie T);
+public:
 
 	vector<pair<string, int>> search();
+
+	firstSearch(string query, Trie T);
 };
 #endif

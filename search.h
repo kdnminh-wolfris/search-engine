@@ -37,6 +37,8 @@ private:
 
 	string matchSearch(vector<string> quotes, string filename);
 
+	vector<pair<string, int>> map_to_vector(map<string, int> *con);
+
 public:
 	//SS STAND FOR SEARCH_STRING
 	//OPERATOR COUNT: 6 + AND = 7 + 1 HASHTAG = 8 (thiếu price và range)
@@ -55,6 +57,10 @@ public:
 	vector<pair<string, int>> number_searching(int lower, int upper, bool is_price); //RANGE
 
 	vector<pair<string, int>> price_searching(string object, int price); //PRICE
+
+	vector<pair<string, int>> price_searching(int price); //PRICE WITHOUT OBJECT
+
+	//CONSTRUCTOR
 
 	firstSearch(string query, Trie T);
 

@@ -9,6 +9,7 @@ using namespace std;
 #include <string>
 
 #include "trie.h"
+#include "system.h"
 #include "query_handling.h"
 #include "file_handling.h"
 
@@ -21,6 +22,8 @@ void firstSearch::exit()
 
 void firstSearch::intersection(vector<pair<string, int>> f2)
 {
+	if (f2.size == 0) return;
+	//IF CONTAINER IS EMPTY -> INITILIZE IT FIRST
 	if (!(this->container && !this->container->size))
 	{
 		if (!this->container) this->container = new map<string, int>;
@@ -53,12 +56,14 @@ vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>> f1
 
 void firstSearch::unionSet(vector<pair<string, int>> f1)
 {
+	//UNION WITH THIS->CONTAINER
 	return;
 }
 
 
 vector<pair<string, int>> firstSearch::unionSet(vector<pair<string, int>> f1, vector<pair<string, int >> f2)
 {
+	//UNION BETWEEN 2 VEC
 	return vector<pair<string, int>>();
 }
 
@@ -264,19 +269,24 @@ vector<pair<string, int>> firstSearch::number_searching(int lower, int upper, bo
 	vector<pair<string, int>> ans;
 
 	for (int i = lower; i <= upper; ++i)
-		ans = intersection(ans, search(to_string(i), T));
+		ans = intersection(ans, search(to_string(i)));
 
 	return ans;
 }
 
 vector<pair<string, int>> firstSearch::price_searching(string object, int price)
 {
-	vector<pair<string, int>> file_contain_object = search(object, T);
+	vector<pair<string, int>> file_contain_object = search(object);
 	//object must be put into "". E.g: "black rose"
 
 	vector<pair<string, int>> file_contain_price = number_searching(price - 30, price + 30, true);
 
 	return intersection(file_contain_object, file_contain_price);
+}
+
+vector<pair<string, int>> firstSearch::price_searching(int price)
+{
+	return number_searching(price - 30, price + 30, true);
 }
 
 firstSearch::firstSearch(string query, Trie T)
@@ -285,10 +295,20 @@ firstSearch::firstSearch(string query, Trie T)
 	this->query = query;
 }
 
+vector<pair<string, int>> firstSearch::map_to_vector(map<string, int> *con)
+{
+	vector<pair<string, int>> result;
+	for (auto it = con->begin(); it!= con->end(); it++)
+	{
+		result.push_back(make_pair(it->first, it->second));
+	}
+	delete con;
+	return vector<pair<string, int>>();
+}
+
 vector<pair<string, int>> firstSearch::search()
 {
-	//FIRST 7 OPE ON TRIE: AND(by default) + FILETYPE + TITLE + QUOTE/WILD + OR + EXCLUDE + HASHTAG(DEFUALT IN ORIGIN)
-	//PRICE AND RANGE NOT DONE
+	//FIRST 8 AND(by default) + FILETYPE + TITLE + QUOTE/WILD + OR + EXCLUDE + HASHTAG(DEFUALT IN ORIGIN)
 	if (QH.filetypeRe != "txt") this->intersection(this->filetype(QH.filetypeRe));
 	this->intersection(this->intitle(QH.intitleRe));
 	this->intersection(this->quote(QH.quotesRe));
@@ -298,5 +318,17 @@ vector<pair<string, int>> firstSearch::search()
 		this->unionSet(this->findOr(it));
 	}
 	this->exclude(QH.excludeRe);
-	return vector<pair<string, int>>();
+
+	//PRICE AND RANGE -> 10 OPE
+	if (QH.rangeRe.first != "-1")
+	{
+		int lower = string_to_int(QH.rangeRe.first);
+		int upper = string_to_int(QH.rangeRe.second);
+		this->intersection(this->number_searching(lower, upper, false));
+	}
+
+	if (QH.priceRe != "-1") this->intersection(this->price_searching(string_to_int(QH.priceRe)));
+	vector<pair<string, int>> result = this->map_to_vector(this->container);
+	this->container = nullptr;
+	return result;
 }

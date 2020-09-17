@@ -51,7 +51,7 @@ vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>> f1
 	return result;
 }
 
-vector<pair<string, int>> firstSearch::unionSet(vector<pair<string, int>> f1, vector<string, int >> f2)
+vector<pair<string, int>> firstSearch::unionSet(vector<pair<string, int>> f1, vector<pair<string, int>> f2)
 {
 	return vector<pair<string, int>>();
 }

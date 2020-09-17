@@ -51,6 +51,10 @@ public:
 
 	vector <pair <string, int>> filetype(string type);
 
+	vector<pair<string, int>> number_searching(int lower, int upper, bool is_price);
+
+	vector<pair<string, int>> price_searching(string object, int price);
+
 	firstSearch(string query, Trie T);
 };
 #endif

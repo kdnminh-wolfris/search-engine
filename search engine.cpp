@@ -10,6 +10,7 @@
 using namespace std;
 
 int main() {
+	/*TRIE LOAD TEST*/
 
 	Trie T;
 

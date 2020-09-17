@@ -19,6 +19,7 @@ public:
 class Trie {
 private:
 	TrieNode* root = nullptr;
+	void __clear(TrieNode* node);
 
 public:
 	vector <pair <string, int>> search(string keyword);

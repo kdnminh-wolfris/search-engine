@@ -11,14 +11,13 @@ using namespace std;
 
 int main() {
 
-	/*TRIE LOAD TEST*/
 	Trie T;
 
 	T.load("save");
 
 	//T.trieTraverse();
 
-	/*FILE FEEDING AND TRIE SAVING TEST*//*
+	/*FILE FEEDING AND TRIE SAVING TEST*/
 	File_Handling FH;
 	Trie T = FH.head;
 	

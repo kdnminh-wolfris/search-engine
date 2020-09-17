@@ -73,7 +73,12 @@ void Trie::save(string filename)
 			continue;
 		}
 		for (int i = 0; i < u->data.size(); ++i)
+		{
+			for (int j = 0; j < u->data[i].first.length(); ++j)
+				if (u->data[i].first[j] == ' ')
+					u->data[i].first[j] = '@';
 			out << u->data[i].first << ' ' << u->data[i].second << ' ';
+		}
 		out << "__END__ -1\n";
 
 		for (int c = 0; c < 38; ++c)
@@ -130,9 +135,12 @@ void Trie::load(string filename)
 				if (word == "__END__")
 					break;
 
+				for (int j = 0; j < word.length(); ++j)
+					if (word[j] == '@')
+						word[j] = ' ';
+
 				string file = word;
 				int frequency = string_to_int(number);
-
 
 				u->child[c]->data.push_back(make_pair(string(file), frequency));
 			} while (iss);

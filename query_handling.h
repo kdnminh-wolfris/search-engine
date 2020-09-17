@@ -17,7 +17,7 @@ private:
 
 	pair<string, string> range(string extract_string);
 
-	vector<string> quotes(string extract_string);
+	string quotes(string extract_string);
 
 	vector<string> origin(string& ss);
 public:
@@ -33,9 +33,11 @@ public:
 
 	pair<string, string> rangeRe;
 
-	vector<string> quotesRe;
+	string quotesRe;
 
 	vector<string> originRe;
+
+	string filetypeRe;
 
 	QueryHandling();
 

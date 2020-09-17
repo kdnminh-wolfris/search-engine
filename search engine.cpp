@@ -18,8 +18,8 @@ int main() {
 	//T.trieTraverse();
 
 	/*FILE FEEDING AND TRIE SAVING TEST*/
-	File_Handling FH;
-	Trie T = FH.head;
+	//File_Handling FH;
+	//Trie T = FH.head;
 	
 	/*TRIE SEARCHING TEST*/
 	string tmp;

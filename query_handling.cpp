@@ -256,9 +256,9 @@ pair<string, string> QueryHandling::range(string extract_string)
 	return result = make_pair("-1", "-1");
 }
 
-vector<string> QueryHandling::quotes(string extract_string)
+string QueryHandling::quotes(string extract_string)
 {
-	string first, second, tmp;
+	string tmp;
 	vector<string> result;
 	stringstream ss;
 	bool flag = false;
@@ -280,15 +280,7 @@ vector<string> QueryHandling::quotes(string extract_string)
 
 		}
 	}
-	ss << tmp;
-	tmp.erase();
-	while (ss >> tmp)
-	{
-		result.push_back(tmp);
-	}
-	if (flag != true)
-		result.push_back("-1");
-	return result;
+	return tmp;
 }
 
 vector<string> QueryHandling::origin(string& ss)

@@ -21,7 +21,7 @@ void firstSearch::exit()
 
 void firstSearch::intersection(vector<pair<string, int>> f2)
 {
-	if (!this->container || this->container->size() == 0)
+	if (!(this->container && !this->container->size))
 	{
 		if (!this->container) this->container = new map<string, int>;
 		for (auto it = f2.begin(); it != f2.end(); it++)
@@ -36,7 +36,7 @@ void firstSearch::intersection(vector<pair<string, int>> f2)
 	{
 		auto temp = this->container->find((*it).first);
 		if (temp == this->container->end()) continue;
-		(*newContainer)[temp->first] = true;
+		(*newContainer)[temp->first] = temp->second;
 	}
 
 	delete this->container;
@@ -51,6 +51,11 @@ vector<pair<string, int>> firstSearch::intersection(vector<pair<string, int>> f1
 	return result;
 }
 
+void firstSearch::unionSet(vector<pair<string, int>> f1)
+{
+	return;
+}
+
 
 vector<pair<string, int>> firstSearch::unionSet(vector<pair<string, int>> f1, vector<pair<string, int >> f2)
 {
@@ -61,7 +66,14 @@ vector<pair<string, int>> firstSearch::unionSet(vector<pair<string, int>> f1, ve
 /*------------------------------------------------------------------------------------------------------------*/
 vector<pair<string, int>> firstSearch::search(string ss, Trie T)
 {
-	return T.search(ss);
+	if (!T.isEmpty()) return T.search(ss);
+	else vector<pair<string, int>>();
+}
+
+vector<pair<string, int>> firstSearch::search(string ss)
+{
+	if (!T.isEmpty()) return this->search(ss, this->T);
+	else return vector<pair<string, int>>();
 }
 
 string firstSearch::matchSearch(vector<string> quotes, string filename)
@@ -98,7 +110,8 @@ string firstSearch::matchSearch(vector<string> quotes, string filename)
 
 
 //SS STAND FOR SEARCH_STRING
-
+//OPERATORS
+//----------------------------------------------------------------------------------------------------------//
 vector<pair<string, int>> firstSearch::quote(string quotes) {
 	const int lim = 5;
 
@@ -112,8 +125,8 @@ vector<pair<string, int>> firstSearch::quote(string quotes) {
 	for (int i = 0; i < tmp.length(); ++i)
 		if (tmp[i] == ' ' || tmp[i] == '*') {
 			if (word == "") continue;
-			if (!cnt) cur = T.search(word);
-			else cur = intersection(cur, T.search(word));
+			if (!cnt) cur = this->search(word);
+			else cur = intersection(cur, this->search(word));
 			++cnt; word = "";
 			if (cnt == lim) break;
 		}
@@ -143,18 +156,18 @@ vector<pair<string, int>> firstSearch::quote(string quotes) {
 	return ret;
 }
 
-vector<pair<string, int>> firstSearch::origin(vector<pair<string, int>> origins)
+vector<pair<string, int>> firstSearch::origin(vector<string> origins)
 {
 	vector<pair<string, int>> result;
-	for (vector<pair<string, int>>::iterator it = origins.begin(); it != origins.end(); it++)
+	for (auto it = origins.begin(); it != origins.end(); it++)
 	{
 		if (result.empty())
 		{
-			result = this->search((*it).first, this->T);
+			result = this->search((*it), this->T);
 			continue;
 		}
 		vector<pair<string, int>> temp;
-		temp = this->search((*it).first, this->T);
+		temp = this->search((*it), this->T);
 		result = this->intersection(result, temp);
 	}
 
@@ -162,18 +175,30 @@ vector<pair<string, int>> firstSearch::origin(vector<pair<string, int>> origins)
 	return result;
 }
 
-vector<pair<string, int>> firstSearch::findOr(vector<pair<string, int>> OR)
+vector<pair<string, int>> firstSearch::findOr(vector<string> OR)
 {
-	return vector<pair<string, int>>();
+	vector<pair<string, int>> result;
+	for (auto it : OR)
+	{
+		vector<pair<string, int>> tmp = this->search(it);
+		tmp = this->unionSet(result, tmp);
+	}
+	return result;
 }
 
-vector<pair<string, int>> firstSearch::exclude(string ss)
+void firstSearch::exclude(string ss)
 {
-	return vector<pair<string, int>>();
+	vector<pair<string, int>> tmp = this->search(ss);
+	for (auto it : tmp)
+	{
+		auto cur = container->find(it.first);
+		if (cur != container->end()) container->erase(cur);
+	}
+	return;
 }
 
 vector<pair<string, int>> firstSearch::intitle(string word) {
-	vector <pair <string, int>> files = T.search(word);
+	vector <pair <string, int>> files = this->search(word);
 	vector <pair <string, int>> ret;
 	ifstream fi;
 	for (auto file : files) {
@@ -203,7 +228,6 @@ vector<pair<string, int>> firstSearch::filetype(string type) {
 	for (string file : files) {
 		bool flag = true;
 		for (int i = 0; i < type.length(); ++i)
-			//CHỖ NÀY IDE NÓ BÁO LỖI, TAO SỬA * THÀNH &, XEM THỬ NHA
 			if (file[file.length() - i - 1] != type[type.length() - i - 1]) {
 				flag = false; break;
 			}
@@ -216,4 +240,21 @@ firstSearch::firstSearch(string query, Trie T)
 {
 	if (this->T.isEmpty()) this->T = T;
 	this->query = query;
+}
+
+vector<pair<string, int>> firstSearch::search()
+{
+	//FIRST 7 OPE ON TRIE: AND(by default) + FILETYPE + TITLE + QUOTE/WILD + OR + EXCLUDE
+	if (QH.filetypeRe != "txt") this->intersection(this->filetype(QH.filetypeRe));
+	this->intersection(this->intitle(QH.intitleRe));
+	this->intersection(this->quote(QH.quotesRe));
+	this->intersection(this->origin(QH.originRe));
+	for (auto it : QH.orRe)
+	{
+		this->unionSet(this->findOr(it));
+	}
+	this->exclude(QH.excludeRe);
+
+	//4 OPE FOR FULL SEARCH: PRICE + HASHTAG(DEFAULT) + RANGE
+	return vector<pair<string, int>>();
 }

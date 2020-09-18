@@ -28,7 +28,7 @@ private:
 	bool isStopWord(string cmpstr, string* stopword);
 
 	//REGULAR EXPRESSION
-	regex unicode = regex("[^\\u0000-\\u007F]+");
+	regex unicode = regex("[^\\u0020-\\u0024\\u0030-\\u0039\\u0041-\\u005A\\u0061-\\u007A\\u002E]+");
 public:
 	vector <string> load_file_names(string index_file);
 

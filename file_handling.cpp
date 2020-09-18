@@ -18,7 +18,6 @@ TrieNode* File_Handling::loadStopword()
 {
 	// Create array of stopwords
 	string* arr = new string[174]; // 174 stopwords
-	
 
 	ifstream LoadStopWord;
 	LoadStopWord.open("stopword.txt");
@@ -67,7 +66,6 @@ bool File_Handling::isStopWord(string cmpstr, TrieNode* stopword)
 {
 	if (stopword == nullptr)
 		return false;
-
 	for (int i = 0; i < cmpstr.length(); ++i)
 	{
 		int tmp = get_index(cmpstr[i]);
@@ -95,6 +93,8 @@ void File_Handling::filterPunctation(string& str)
 void File_Handling::importfileExe(unordered_map<string, int> &result, string& cmpstr, TrieNode* stopword)
 {
 	for (int i = 0; i < cmpstr.length(); ++i)
+		if (get_index(cmpstr[i]) == -1) cmpstr[i] = ' ';
+
 	stringstream ss;
 	ss << cmpstr;
 	cmpstr = "";
@@ -103,6 +103,8 @@ void File_Handling::importfileExe(unordered_map<string, int> &result, string& cm
 	{
 		ss >> cmpstr;
 		//cmpstr.erase(remove_if(cmpstr.begin(), cmpstr.end(), ispunct), cmpstr.end());
+
+		//cout << cmpstr << ' ' << this->isStopWord(cmpstr, stopword) << endl;
 		if (!this->isStopWord(cmpstr, stopword) && !cmpstr.empty())
 		{
 			++result[cmpstr];

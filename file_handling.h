@@ -9,7 +9,7 @@
 #include <vector>
 #include <string>
 #include <regex>
-#include <map>
+#include <unordered_map>
 
 #include <sstream>	
 #include <algorithm>
@@ -22,7 +22,7 @@ private:
 
 	TrieNode* loadStopword();
 
-	void importfileExe(map<string, int> &result, string& cmpstr, TrieNode* stopword);
+	void importfileExe(unordered_map<string, int> &result, string& cmpstr, TrieNode* stopword);
 
 	void filterPunctation(string& str);
 
@@ -33,7 +33,7 @@ private:
 public:
 	vector<string> load_file_names(string index_file);
 
-	map<string, int> import_file(string filename);
+	unordered_map<string, int> import_file(string filename);
 
 	Trie import_data();
 

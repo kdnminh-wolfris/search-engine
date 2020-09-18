@@ -12,14 +12,9 @@
 
 using namespace std;
 
-bool File_Handling::isStopWord(string cmpstr, string* stopword)
+bool File_Handling::isStopWord(string cmpstr)
 {
-	for (int i = 0; i < 174; i++)
-	{
-		if (cmpstr == stopword[i])
-			return true;
-	}
-	return false;
+	return *(lower_bound(stopword, stopword + 174, cmpstr)) == cmpstr;
 }
 
 void File_Handling::filterPunctation(string& str)
@@ -34,7 +29,7 @@ void File_Handling::filterPunctation(string& str)
 	}
 }
 
-void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr)
+void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmpstr)
 {
 	stringstream ss;
 	ss << cmpstr;
@@ -46,7 +41,7 @@ void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmp
 
 		cmpstr.erase(remove_if(cmpstr.begin(), cmpstr.end(), ispunct), cmpstr.end());
 
-		if (!this->isStopWord(cmpstr, arr) && !cmpstr.empty())
+		if (!this->isStopWord(cmpstr) && !cmpstr.empty())
 		{
 			if (result.size() == 0)
 			{
@@ -73,6 +68,7 @@ void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmp
 
 vector<string> File_Handling::load_file_names(string index_file)
 {
+	int __debug = 0;
 	ifstream fin;
 	fin.open(index_file);
 	if (!fin.is_open())
@@ -81,7 +77,7 @@ vector<string> File_Handling::load_file_names(string index_file)
 		return vector<string>();
 	}
 	else
-		cout << "Successfully open index file" << endl;
+		if (__debug) cout << "Successfully open index file" << endl;
 	char c;
 	string temp = "";
 	vector<string> result;
@@ -106,26 +102,7 @@ vector <pair <string, int>> File_Handling::import_file(string filename)
 	if (!fin.is_open())
 		cout << "Open file error" << endl;
 	else
-	{
-		// Create array of stopwords
-		string* arr = new string[174]; // 174 stopwords
-		ifstream LoadStopWord;
-		LoadStopWord.open("stopword.txt");
-		if (!LoadStopWord.is_open())
-		{
-			cout << "File is not existed." << endl;
-		}
-		else
-		{
-			int i = 0;
-			while (!LoadStopWord.eof())
-			{
-				LoadStopWord >> arr[i];
-				++i;
-			}
-		}
-		LoadStopWord.close();
-
+	{ 
 		string temp;
 		
 		cout << temp;
@@ -133,7 +110,7 @@ vector <pair <string, int>> File_Handling::import_file(string filename)
 		{
 			getline(fin, temp, '\n');
 			temp = std::regex_replace(temp, this->unicode, " ");
-			this->importfileExe(result, temp, arr);
+			this->importfileExe(result, temp);
 		}
 		fin.close();
 	}
@@ -176,8 +153,34 @@ File_Handling::File_Handling(string filename)
 
 File_Handling::File_Handling()
 {
+	// Create array of stopwords
+	stopword = new string[174]; // 174 stopwords
+	ifstream LoadStopWord;
+	LoadStopWord.open("stopword.txt");
+	if (!LoadStopWord.is_open())
+	{
+		cout << "File is not existed." << endl;
+	}
+	else
+	{
+		int i = 0;
+		while (!LoadStopWord.eof())
+		{
+			LoadStopWord >> stopword[i];
+			++i;
+		}
+	}
+	LoadStopWord.close();
+	sort(stopword, stopword + 174);
+
 	this->head = this->import_data();
 	cout << "DONE IMPORTING" << endl;
 	this->head.save("save");
 	cout << "DONE SAVING" << endl;
+}
+
+void File_Handling::clear() {
+	head.clear();
+	delete[] stopword;
+	stopword = nullptr;
 }

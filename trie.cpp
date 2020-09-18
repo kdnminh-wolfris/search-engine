@@ -13,7 +13,8 @@ using namespace std;
 
 void Trie::build(string filename, vector<pair<string, int>> data)
 {
-	cerr << filename << " " << data.size() << "\n";
+	int __debug = 0;
+	if (__debug) cerr << filename << " " << data.size() << "\n";
 	TrieNode* root = this->root;
 	while (!data.empty())
 	{

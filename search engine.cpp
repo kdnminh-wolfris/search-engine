@@ -42,4 +42,5 @@ int main() {
 		fullview(res[tmp].first);
 		esc_pressed();
 	} while (true);
+	fh.clear();
 }

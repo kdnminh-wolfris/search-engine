@@ -16,9 +16,10 @@
 class File_Handling{
 private:
 	string FILENAME;
-	void importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr);
+	string* stopword;
+	void importfileExe(vector<pair<string, int>>& result, string& cmpstr);
 	void filterPunctation(string& str);
-	bool isStopWord(string cmpstr, string* stopword);
+	bool isStopWord(string cmpstr);
 
 	//REGULAR EXPRESSION
 	regex unicode = regex("[^\\u0000-\\u007F]+");
@@ -34,6 +35,8 @@ public:
 	File_Handling(string filename);
 
 	File_Handling();
+
+	void clear();
 };
 
 #endif

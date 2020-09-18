@@ -15,6 +15,7 @@ public:
 
 	TrieNode* child[38];
 
+	bool exist = false;
 
 	void trieTraverse(TrieNode* head);
 };

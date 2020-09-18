@@ -25,3 +25,18 @@ data\How to celebrate summer in the worlds coldest city.txt
 data\How sustainable plantations help save Ugandas decimated forests.txt
 data\He created an app that put Chinas worst polluters on watch.txt
 data\12 travel books you wont be able to put down this summer.txt
+data\12 travel books you wont be able to put down this summer.txt
+data\You voted Heres our top photo of the year.txt
+data\Whats really in Antarcticas mysterious blood falls.txt
+data\This vanishing forest protects the coastsand livesof two countries.txt
+data\Sapa Trekking Vietnams Emerald North.txt
+data\Pilots stunning aerial desert picture wins National Geographics 2018 photo contest.txt
+data\INSIDERS GUIDEs CRUISING THE GALAPAGOS.txt
+data\Icelands tallest church was inspired by volcanoes.txt
+data\How to celebrate summer in the worlds coldest city.txt
+data\How sustainable plantations help save Ugandas decimated forests.txt
+data\He created an app that put Chinas worst polluters on watch.txt
+data\.txt
+data\Group08News59txt
+data\First blue feathers found on a fossilized birdu.txt
+data\Egypts pharaohs welcomed summer with this fabulous festival.txt

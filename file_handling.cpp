@@ -89,7 +89,7 @@ void File_Handling::filterPunctation(string& str)
 	}
 }
 
-void File_Handling::importfileExe(map<string, int> &result, string& cmpstr, TrieNode* stopword)
+void File_Handling::importfileExe(unordered_map<string, int> &result, string& cmpstr, TrieNode* stopword)
 {
 	stringstream ss;
 	ss << cmpstr;
@@ -102,7 +102,7 @@ void File_Handling::importfileExe(map<string, int> &result, string& cmpstr, Trie
 		
 		if (!this->isStopWord(cmpstr, stopword) && !cmpstr.empty())
 		{
-			result[cmpstr] += 1;
+			++result[cmpstr];
 		}
 	}
 }
@@ -138,12 +138,12 @@ vector<string> File_Handling::load_file_names(string index_file)
 	return result;
 }
 
-map<string, int> File_Handling::import_file(string filename)
+unordered_map<string, int> File_Handling::import_file(string filename)
 {
 	ifstream fin;
 	//ofstream err;
 	//err.open("log.txt", ios::app);
-	map<string, int> result;
+	unordered_map<string, int> result;
 	fin.open(filename);
 	if (!fin.is_open())
 	{
@@ -177,7 +177,7 @@ Trie File_Handling::import_data()
 		if (count % 1000 == 0) cout << count << endl;
 		// Load file index
 		string filename = "data\\" + AllFileName.back();
-		map<string, int> wordsandfreq = import_file(filename);
+		unordered_map<string, int> wordsandfreq = import_file(filename);
 
 		head.build(filename, wordsandfreq);
 
@@ -191,7 +191,7 @@ File_Handling::File_Handling(string filename)
 {
 	//DEBUG 1
 	this->FILENAME = filename;
-	map<string, int> temp = this->import_file(this->FILENAME);
+	unordered_map<string, int> temp = this->import_file(this->FILENAME);
 	this->head = this->import_data();
 	if (this->head.isEmpty()) cout << "This is fcking dead!!" << endl;
 }

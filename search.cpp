@@ -45,7 +45,7 @@ void firstSearch::intersection(vector<pair<string, int>> f2)
 	{
 		auto temp = this->container->find(it->first);
 		if (temp == this->container->end()) continue;
-		else (*newContainer)[it->first] = it->second;
+		else (*newContainer)[it->first] = min(temp->second, it->second);
 	}
 
 	delete this->container;
@@ -71,7 +71,8 @@ void firstSearch::unionSet(vector<pair<string, int>> f1)
 {
 	for (auto it : f1)
 	{
-		if (this->container->find(it.first) == this->container->end()) (*this->container)[it.first] = it.second;
+		auto tmp = this->container->find(it.first);
+		if (tmp == this->container->end()) (*this->container)[it.first] = it.second + tmp->second;
 	}
 	return;
 }

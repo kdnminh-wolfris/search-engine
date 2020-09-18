@@ -35,18 +35,7 @@ void Trie::build(string filename, map<string, int> data)
 
 			tmproot = tmproot->child[tmp];
 		}
-
-		bool IsExisted = false;
-		for (int i = 0; i < tmproot->data.size(); ++i)
-			if (filename == tmproot->data[i].first)
-			{
-				tmproot->data[i].second += it.second;
-				IsExisted = true;
-				break;
-			}
-
-		if (!IsExisted)
-			tmproot->data.push_back(make_pair(filename, it.second));
+		tmproot->data[filename] += it.second;
 	}
 
 	if (!this->root) this->root = root;
@@ -73,13 +62,21 @@ void Trie::save(string filename)
 			out << "0\n";
 			continue;
 		}
-		for (int i = 0; i < u->data.size(); ++i)
+
+		map <string, int> tmp;
+
+		for (auto& it: u->data)
 		{
-			for (int j = 0; j < u->data[i].first.length(); ++j)
-				if (u->data[i].first[j] == ' ')
-					u->data[i].first[j] = '@';
-			out << u->data[i].first << ' ' << u->data[i].second << ' ';
+			string tmpstr = "";
+			for (int j = 0; j < it.first.length(); ++j)
+				if (it.first[j] == ' ') tmpstr += '@';
+				else tmpstr += it.first[j];
+			tmp[tmpstr] = it.second;
+			out << tmpstr << ' ' << it.second << ' ';
 		}
+		u->data.clear();
+		u->data = tmp;
+			
 		out << "__END__ -1\n";
 
 		for (int c = 0; c < 38; ++c)
@@ -143,7 +140,7 @@ void Trie::load(string filename)
 				string file = word;
 				int frequency = string_to_int(number);
 
-				u->child[c]->data.push_back(make_pair(string(file), frequency));
+				u->child[c]->data[string(file)] = frequency;
 			} while (iss);
 
 			que.push(u->child[c]);
@@ -166,7 +163,7 @@ vector<pair<string, int>> Trie::search(string keyword) {
 		tmp = tmp->child[get_index(keyword[i])];
 	}
 
-	return tmp->data;
+	return to_vector(tmp->data);
 }
 
 void Trie::clear()

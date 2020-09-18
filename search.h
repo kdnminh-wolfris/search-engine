@@ -38,7 +38,7 @@ private:
 
 
 	//SS STAND FOR SEARCH_STRING
-	//OPERATOR COUNT: 6 + AND = 7 + 1 HASHTAG = 8 (thiếu price và range)
+	//OPERATOR COUNT: 6 + AND = 7 + 1 HASHTAG = 8 + 2 = 10
 	vector<pair<string, int>> quote(string quotes); //TASK QUOTE + WILDCARD -> 2OPE
 
 	vector<pair<string, int>> origin(vector<string> origins);

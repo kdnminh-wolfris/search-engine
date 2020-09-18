@@ -23,9 +23,14 @@ void firstSearch::exit()
 
 void firstSearch::intersection(vector<pair<string, int>> f2)
 {
-	if (f2.size() == 0) return;
+	if (f2.size() == 0)
+	{
+		delete this->container;
+		this->container = nullptr;
+		return;
+	}
 	//IF CONTAINER IS EMPTY -> INITILIZE IT FIRST
-	if (!(this->container && !this->container->size()))
+	if (!(this->container != nullptr && this->container->size() != 0))
 	{
 		if (!this->container) this->container = new map<string, int>;
 		for (auto it = f2.begin(); it != f2.end(); it++)
@@ -38,9 +43,9 @@ void firstSearch::intersection(vector<pair<string, int>> f2)
 	map<string, int>* newContainer = new map<string, int>;
 	for (auto it = f2.begin(); it != f2.end(); it++)
 	{
-		auto temp = this->container->find((*it).first);
+		auto temp = this->container->find(it->first);
 		if (temp == this->container->end()) continue;
-		(*newContainer)[temp->first] = temp->second;
+		else (*newContainer)[it->first] = it->second;
 	}
 
 	delete this->container;
@@ -165,8 +170,6 @@ vector<pair<string, int>> firstSearch::origin(vector<string> origins)
 		temp = this->search((*it), this->T);
 		result = this->intersection(result, temp);
 	}
-
-	this->intersection(result);
 	return result;
 }
 
@@ -187,6 +190,8 @@ vector<pair<string, int>> firstSearch::findOr(vector<string> OR)
 void firstSearch::exclude(string ss)
 {
 	if (!ss.size()) return;
+	if (!container) return;
+	else if (!container->size()) return;
 	vector<pair<string, int>> tmp = this->search(ss);
 	for (auto it : tmp)
 	{
@@ -273,37 +278,69 @@ vector<pair<string, int>> firstSearch::filetype(string type) {
 
 vector<pair<string, int>> firstSearch::map_to_vector(map<string, int> *con)
 {
+	if (!con) return vector<pair<string, int>>();
+	else if (!con->size()) return vector<pair<string, int>>();
 	vector<pair<string, int>> result;
 	for (auto it = con->begin(); it!= con->end(); it++)
 	{
 		result.push_back(make_pair(it->first, it->second));
 	}
 	delete con;
-	return vector<pair<string, int>>();
+	return result;
+}
+
+void show(map<string, int>* container, string header)
+{
+	cout << "THIS IS DEBUG RESULT FOR " << header << ":";
+	if(!container)
+	{
+		cout << "EMPTY" << endl;
+		return;
+	}
+	else if (!container->size())
+	{
+		cout << "EMPTY" << endl;
+		return;
+	}
+	cout << " - SIZE: " << container->size() << endl;
+	for (auto it : (*container))
+	{
+		cout << it.first << " " << it.second << endl;
+	}
 }
 
 vector<pair<string, int>> firstSearch::search()
 {
 	//FIRST 8 AND(by default) + FILETYPE + TITLE + QUOTE/WILD + OR + EXCLUDE + HASHTAG(DEFUALT IN ORIGIN)
-	if (QH.filetypeRe != "txt") this->intersection(this->filetype(QH.filetypeRe));
-	this->intersection(this->intitle(QH.intitleRe));
-	this->intersection(this->quote(QH.quotesRe));
-	this->intersection(this->origin(QH.originRe));
+	if (QH.filetypeRe.size() != 0 && QH.filetypeRe != "txt")
+		this->intersection(this->filetype(QH.filetypeRe));
+
+	if(QH.intitleRe.size())
+		this->intersection(this->intitle(QH.intitleRe)), show(this->container, "INTITLE");
+
+	if(QH.quotesRe.size())
+		this->intersection(this->quote(QH.quotesRe)), show(this->container, "AFTER QUOTES");
+
+	if(QH.originRe.size())
+		this->intersection(this->origin(QH.originRe)), show(this->container, "AFTER ORIGIN");
+
 	for (auto it : QH.orRe)
 	{
 		this->unionSet(this->findOr(it));
 	}
-	this->exclude(QH.excludeRe);
+	if(QH.excludeRe.size())
+		this->exclude(QH.excludeRe), show(this->container, "AFTER EXCLUDE");
 
 	//PRICE AND RANGE -> 10 OPE
-	if (QH.rangeRe.first != "-1")
+	if (QH.rangeRe.first.size() && QH.rangeRe.first != "-1")
 	{
 		int lower = string_to_int(QH.rangeRe.first);
 		int upper = string_to_int(QH.rangeRe.second);
 		this->intersection(this->number_searching(lower, upper, false));
+		show(this->container, "AFTER RANGE");
 	}
 
-	if (QH.priceRe != "-1") this->intersection(this->price_searching(string_to_int(QH.priceRe)));
+	if (QH.priceRe.size()) this->intersection(this->price_searching(string_to_int(QH.priceRe)));
 	vector<pair<string, int>> result = this->map_to_vector(this->container);
 	this->container = nullptr;
 	return result;

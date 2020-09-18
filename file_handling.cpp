@@ -5,6 +5,7 @@
 #include <iosfwd>
 #include <ctype.h>
 #include <regex>
+#include <unordered_map>
 
 #include "trie.h"
 #include "file_handling.h"
@@ -74,7 +75,8 @@ bool File_Handling::isStopWord(string cmpstr, TrieNode* stopword)
 		stopword = stopword->child[tmp];
 	}
 
-	return stopword->exist;
+	if (stopword) return stopword->exist;
+	else return false;
 }
 
 void File_Handling::filterPunctation(string& str)
@@ -163,6 +165,7 @@ unordered_map<string, int> File_Handling::import_file(string filename)
 		fin.close();
 	}
 	//err.close();
+	cout << filename << " " << result.size() << endl;
 	return result;
 }
 

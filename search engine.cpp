@@ -10,9 +10,11 @@
 using namespace std;
 
 int main() {
+	File_Handling FH;
+
+	/*
 	Trie T;
 	T.load("save");
-	/*
 	string tmp;
 	do
 	{
@@ -26,9 +28,7 @@ int main() {
 			cout << it->first << " " << it->second << endl;
 	} while (tmp != "exit");
 	return 0;
-	*/
 
-	/*QUERY HANDLING*/
 	cout << "Query: ";
 	string tmp;
 	getline(cin, tmp, '\n');
@@ -38,4 +38,5 @@ int main() {
 		cout << "\n\n\nQuery: ";
 		getline(cin, tmp, '\n');
 	}
+	*/
 }

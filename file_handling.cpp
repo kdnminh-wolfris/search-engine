@@ -8,16 +8,19 @@
 
 #include "trie.h"
 #include "file_handling.h"
+#include "system.h"
 
 
 using namespace std;
 
-string* File_Handling::loadStopword()
+TrieNode* File_Handling::loadStopword()
 {
 	// Create array of stopwords
 	string* arr = new string[174]; // 174 stopwords
+	
 	ifstream LoadStopWord;
 	LoadStopWord.open("stopword.txt");
+	
 	if (!LoadStopWord.is_open())
 	{
 		cout << "File is not existed." << endl;
@@ -28,21 +31,50 @@ string* File_Handling::loadStopword()
 		while (!LoadStopWord.eof())
 		{
 			LoadStopWord >> arr[i];
+			arr[i] = 1;
 			++i;
 		}
 	}
 	LoadStopWord.close();
-	return arr;
+
+	TrieNode* root = new TrieNode;
+	TrieNode* tmproot = root;
+
+	for (int i = 0; i < 174; ++i)
+	{
+		for (int j = 0; j < arr[i].length(); ++j)
+		{
+			int tmp = get_index(arr[i][j]);
+
+			if (tmp == -1)
+				continue;
+
+			if (tmproot->child[tmp] == nullptr)
+				tmproot->child[tmp] = new TrieNode;
+
+			tmproot = tmproot->child[tmp];
+		}
+
+		tmproot->exist = true;
+	}
+
+	return root;
 }
 
-bool File_Handling::isStopWord(string cmpstr, string* stopword)
+bool File_Handling::isStopWord(string cmpstr, TrieNode* stopword)
 {
-	for (int i = 0; i < 174; i++)
+	if (stopword == nullptr)
+		return false;
+
+	for (int i = 0; i < cmpstr.length(); ++i)
 	{
-		if (cmpstr == stopword[i])
-			return true;
+		int tmp = get_index(cmpstr[i]);
+		if (stopword->child[tmp] == nullptr)
+			return false;
+		stopword = stopword->child[tmp];
 	}
-	return false;
+
+	return stopword->exist;
 }
 
 void File_Handling::filterPunctation(string& str)
@@ -57,7 +89,7 @@ void File_Handling::filterPunctation(string& str)
 	}
 }
 
-void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr)
+void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmpstr, TrieNode* stopword)
 {
 	stringstream ss;
 	ss << cmpstr;
@@ -69,7 +101,7 @@ void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmp
 
 		//cmpstr.erase(remove_if(cmpstr.begin(), cmpstr.end(), ispunct), cmpstr.end());
 		
-		if (!this->isStopWord(cmpstr, arr) && !cmpstr.empty())
+		if (!this->isStopWord(cmpstr, stopword) && !cmpstr.empty())
 		{
 			if (result.size() == 0)
 			{

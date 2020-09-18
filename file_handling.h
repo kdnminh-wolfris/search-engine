@@ -17,15 +17,15 @@ class File_Handling{
 private:
 	string FILENAME;
 
-	string* stopword = nullptr;
+	TrieNode* stopword = nullptr;
 
-	string* loadStopword();
+	TrieNode* loadStopword();
 
-	void importfileExe(vector<pair<string, int>>& result, string& cmpstr, string* arr);
+	void importfileExe(vector<pair<string, int>>& result, string& cmpstr, TrieNode* stopword);
 
 	void filterPunctation(string& str);
 
-	bool isStopWord(string cmpstr, string* stopword);
+	bool isStopWord(string cmpstr, TrieNode* stopword);
 
 	//REGULAR EXPRESSION
 	regex unicode = regex("[^\\u0020-\\u0024\\u0030-\\u0039\\u0041-\\u005A\\u0061-\\u007A\\u002E]+");

@@ -107,9 +107,7 @@ void File_Handling::importfileExe(map<string, int> &result, string& cmpstr, Trie
 		//cout << cmpstr << ' ' << this->isStopWord(cmpstr, stopword) << endl;
 		if (!this->isStopWord(cmpstr, stopword) && !cmpstr.empty())
 		{
-			auto tmp = result.find(cmpstr);
-			if (tmp == result.end()) tmp->second = 0;
-			tmp->second++;
+			result[cmpstr] += 1;
 		}
 	}
 }

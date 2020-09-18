@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <string>
 
 #include "trie.h"
@@ -16,7 +16,7 @@ class firstSearch {
 private:
 	//VARIABLES
 	string query;
-	map<string, int>* container = nullptr;
+	unordered_map<string, int>* container = nullptr;
 	Trie T;
 	QueryHandling QH;
 
@@ -34,7 +34,7 @@ private:
 
 	vector<pair<string, int>> search(string ss);
 
-	vector<pair<string, int>> map_to_vector(map<string, int> *con);
+	vector<pair<string, int>> map_to_vector(unordered_map<string, int> *con);
 
 
 	//SS STAND FOR SEARCH_STRING

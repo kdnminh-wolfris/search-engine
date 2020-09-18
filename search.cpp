@@ -5,7 +5,7 @@ using namespace std;
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <algorithm>
 
@@ -32,7 +32,7 @@ void firstSearch::intersection(vector<pair<string, int>> f2)
 	//IF CONTAINER IS EMPTY -> INITILIZE IT FIRST
 	if (!(this->container != nullptr && this->container->size() != 0))
 	{
-		if (!this->container) this->container = new map<string, int>;
+		if (!this->container) this->container = new unordered_map<string, int>;
 		for (auto it = f2.begin(); it != f2.end(); it++)
 		{
 			(*this->container)[it->first] = it->second;
@@ -40,7 +40,7 @@ void firstSearch::intersection(vector<pair<string, int>> f2)
 		return;
 	}
 	//HAVE NOT OPTIMIZED YET
-	map<string, int>* newContainer = new map<string, int>;
+	unordered_map<string, int>* newContainer = new unordered_map<string, int>;
 	for (auto it = f2.begin(); it != f2.end(); it++)
 	{
 		auto temp = this->container->find(it->first);
@@ -277,7 +277,7 @@ vector<pair<string, int>> firstSearch::filetype(string type) {
 
 //----------------------------------------------CONSTRUCTOR AND MISC--------------------------------------------//
 
-vector<pair<string, int>> firstSearch::map_to_vector(map<string, int> *con)
+vector<pair<string, int>> firstSearch::map_to_vector(unordered_map<string, int> *con)
 {
 	if (!con) return vector<pair<string, int>>();
 	else if (!con->size()) return vector<pair<string, int>>();
@@ -290,7 +290,7 @@ vector<pair<string, int>> firstSearch::map_to_vector(map<string, int> *con)
 	return result;
 }
 
-void show(map<string, int>* container, string header)
+void show(unordered_map<string, int>* container, string header)
 {
 	cout << "THIS IS DEBUG RESULT FOR " << header << ":";
 	if(!container)

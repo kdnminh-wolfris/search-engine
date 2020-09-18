@@ -67,7 +67,7 @@ void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmp
 	{
 		ss >> cmpstr;
 
-		cmpstr.erase(remove_if(cmpstr.begin(), cmpstr.end(), ispunct), cmpstr.end());
+		//cmpstr.erase(remove_if(cmpstr.begin(), cmpstr.end(), ispunct), cmpstr.end());
 		
 		if (!this->isStopWord(cmpstr, arr) && !cmpstr.empty())
 		{

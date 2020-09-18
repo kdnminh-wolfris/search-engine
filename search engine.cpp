@@ -1,5 +1,3 @@
-
-
 #include "file_handling.h"
 #include "trie.h"
 #include "search.h"
@@ -12,28 +10,32 @@
 using namespace std;
 
 int main() {
-	/*TRIE LOAD TEST*//*
 	Trie T;
-
 	T.load("save");
-
-	T.trieTraverse();
-	*/
-
-	/*FILE FEEDING AND TRIE SAVING TEST*/
-	File_Handling FH;
-	Trie T = FH.head;
-
-
-	/*TRIE SEARCHING TEST*/
+	/*
 	string tmp;
 	do
 	{
+		cout << "Searching for: ";
+		tmp = "";
 		cin >> tmp;
 		cout << "Search result for: " << tmp << endl;
 		vector<pair<string, int>> result = T.search(tmp);
+		if (!result.size()) continue;
 		for (auto it = result.begin(); it != result.end(); it++)
 			cout << it->first << " " << it->second << endl;
 	} while (tmp != "exit");
-	return 0;	
+	return 0;
+	*/
+
+	/*QUERY HANDLING*/
+	cout << "Query: ";
+	string tmp;
+	getline(cin, tmp, '\n');
+	while (tmp != "exit")
+	{
+		firstSearch FS(tmp, T);
+		cout << "\n\n\nQuery: ";
+		getline(cin, tmp, '\n');
+	}
 }

@@ -2,7 +2,7 @@
 #include "system.h"
 
 #include <string>
-#include <unordered_map>
+#include <map>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -12,7 +12,7 @@
 
 using namespace std;
 
-void Trie::build(string filename, unordered_map<string, int> data)
+void Trie::build(string filename, map<string, int> data)
 {
 	if (data.size() == 0) return;
 	//cerr << filename << " " << data.size() << "\n";
@@ -63,7 +63,7 @@ void Trie::save(string filename)
 			continue;
 		}
 
-		unordered_map <string, int> tmp;
+		map <string, int> tmp;
 
 		for (auto& it: u->data)
 		{

@@ -130,7 +130,7 @@ vector<string> File_Handling::load_file_names(string index_file)
 		if (temp.find("txt", 0) != string::npos)
 		{
 			temp = regex_replace(temp, this->unicode, "");
-			//cout << temp << endl;
+			cout << temp << endl;
 			result.push_back(temp);
 			temp = "";
 		}
@@ -176,7 +176,7 @@ Trie File_Handling::import_data()
 	while (!AllFileName.empty())
 	{
 		count++;
-		if (count % 1000 == 0) cout << count << endl;
+		if (count % 100 == 0) cout << count << endl;
 		// Load file index
 		string filename = "data\\" + AllFileName.back();
 		map<string, int> wordsandfreq = import_file(filename);

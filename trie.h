@@ -6,13 +6,12 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "tools.h"
 
 using namespace std;
 
 class TrieNode {
 public:
-	map <string, int> data;
+	vector <pair <string, int>> data;
 	// first: file name; second: frequency
 
 	TrieNode* child[38];

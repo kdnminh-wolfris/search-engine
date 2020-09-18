@@ -40,3 +40,26 @@ data\.txt
 data\Group08News59txt
 data\First blue feathers found on a fossilized birdu.txt
 data\Egypts pharaohs welcomed summer with this fabulous festival.txt
+data\You voted Heres our top photo of the year.txt
+data\Why Californias wildfires are so hard to fight.txt
+data\When dragons unicorns and lions dance.txt
+data\Whats really in Antarcticas mysterious blood falls.txt
+data\We visited the border wall. Heres what it looks like.txt
+data\Vintage Images of Yellowstone Show the Parks Wild Beauty.txt
+data\Timelapse shows how 337 dead whales can reshape a landscape.txt
+data\This vanishing forest protects the coastsand livesof two countries.txt
+data\These monkeys are 3000 years into their own Stone Age.txt
+data\The Surprising Origins of Hawaiis Feral Chickens.txt
+data\The brief and bizarre history of selfies in space.txt
+data\She designs hightech responses to human health problems.txt
+data\Sapa Trekking Vietnams Emerald North.txt
+data\Planteating crocodiles thrived in dinosaur times.txt
+data\Pilots stunning aerial desert picture wins National Geographics 2018 photo contest.txt
+data\Physicists discover croissantshaped twists of light.txt
+data\Photos show Hurricane Michaels historic strength.txt
+data\Kids suing governments about climate Its a global trend.txt
+data\INSIDERS GUIDEs CRUISING THE GALAPAGOS.txt
+data\Icelands tallest church was inspired by volcanoes.txt
+data\How to celebrate summer in the worlds coldest city.txt
+data\How sustainable plantations help save Ugandas decimated forests.txt
+data\He created an app that put Chinas worst polluters on watch.txt

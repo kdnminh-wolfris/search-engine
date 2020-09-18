@@ -4,39 +4,25 @@
 #include "query_handling.h"
 
 #include <vector>
+#include <chrono>
+#include <ctime>
+#include <time.h>
 #include <iostream>
 #include <string>
 
 using namespace std;
 
 int main() {
+	auto start = std::chrono::system_clock::now();
+	// Some computation here
 	File_Handling FH;
+	auto end = std::chrono::system_clock::now();
 
-	/*
-	Trie T;
-	T.load("save");
-	string tmp;
-	do
-	{
-		cout << "Searching for: ";
-		tmp = "";
-		cin >> tmp;
-		cout << "Search result for: " << tmp << endl;
-		vector<pair<string, int>> result = T.search(tmp);
-		if (!result.size()) continue;
-		for (auto it = result.begin(); it != result.end(); it++)
-			cout << it->first << " " << it->second << endl;
-	} while (tmp != "exit");
-	return 0;
+	std::chrono::duration<double> elapsed_seconds = end - start;
+	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
 
-	cout << "Query: ";
-	string tmp;
-	getline(cin, tmp, '\n');
-	while (tmp != "exit")
-	{
-		firstSearch FS(tmp, T);
-		cout << "\n\n\nQuery: ";
-		getline(cin, tmp, '\n');
-	}
-	*/
+	char str[26];
+	ctime_s(str, sizeof(str), &end_time);
+	std::cout << "finished computation at " << str
+		<< " elapsed time: " << elapsed_seconds.count() << "s\n";
 }

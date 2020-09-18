@@ -89,7 +89,7 @@ void File_Handling::filterPunctation(string& str)
 	}
 }
 
-void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmpstr, TrieNode* stopword)
+void File_Handling::importfileExe(map<string, int> &result, string& cmpstr, TrieNode* stopword)
 {
 	stringstream ss;
 	ss << cmpstr;
@@ -98,31 +98,13 @@ void File_Handling::importfileExe(vector<pair<string, int>>& result, string& cmp
 	while (!ss.eof())
 	{
 		ss >> cmpstr;
-
 		//cmpstr.erase(remove_if(cmpstr.begin(), cmpstr.end(), ispunct), cmpstr.end());
 		
 		if (!this->isStopWord(cmpstr, stopword) && !cmpstr.empty())
 		{
-			if (result.size() == 0)
-			{
-				result.push_back(make_pair(cmpstr, 1));
-			}
-			else
-			{
-				bool existed = false;
-				for (int i = 0; i < result.size(); i++)
-				{
-					if (result[i].first == cmpstr)
-					{
-						result[i].second += 1;
-						existed = true;
-					}
-				}
-				if (existed == false)
-					result.push_back(make_pair(cmpstr, 1));
-			}
+			if (result.find(cmpstr) == result.end()) result[cmpstr] = 0;
+			result[cmpstr]++;
 		}
-
 	}
 }
 
@@ -157,22 +139,22 @@ vector<string> File_Handling::load_file_names(string index_file)
 	return result;
 }
 
-vector <pair <string, int>> File_Handling::import_file(string filename)
+map<string, int> File_Handling::import_file(string filename)
 {
 	ifstream fin;
-	ofstream err;
-	err.open("log.txt", ios::app);
-	vector<pair<string, int>> result;
+	//ofstream err;
+	//err.open("log.txt", ios::app);
+	map<string, int> result;
 	fin.open(filename);
 	if (!fin.is_open())
 	{
-		cout << "Open file error" << endl;
-		err << filename << endl;
+		return result;
+		//cout << "Open file error" << endl;
+		//err << filename << endl;
 	}
 	else
 	{
 		string temp;
-		
 		while (!fin.eof())
 		{
 			getline(fin, temp, '\n');
@@ -181,7 +163,7 @@ vector <pair <string, int>> File_Handling::import_file(string filename)
 		}
 		fin.close();
 	}
-	err.close();
+	//err.close();
 	return result;
 }
 
@@ -189,11 +171,14 @@ Trie File_Handling::import_data()
 {
 	Trie head;
 	vector<string> AllFileName = this->load_file_names("data\\___index.txt");
+	int count = 0;
 	while (!AllFileName.empty())
 	{
+		count++;
+		if (count % 100 == 0) cout << count << endl;
 		// Load file index
 		string filename = "data\\" + AllFileName.back();
-		vector<pair<string, int>> wordsandfreq = import_file(filename);
+		map<string, int> wordsandfreq = import_file(filename);
 
 		head.build(filename, wordsandfreq);
 
@@ -207,8 +192,7 @@ File_Handling::File_Handling(string filename)
 {
 	//DEBUG 1
 	this->FILENAME = filename;
-	cout << this->FILENAME << endl;
-	vector<pair<string, int>> temp = this->import_file(this->FILENAME);
+	map<string, int> temp = this->import_file(this->FILENAME);
 	this->head = this->import_data();
 	if (this->head.isEmpty()) cout << "This is fcking dead!!" << endl;
 }

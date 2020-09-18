@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -29,7 +30,7 @@ public:
 	// search and rank all files to a vector based on the keyword
 	// first: file name; second: point according to the keyword
 
-	void build(string key, vector<pair<string, int>> data);
+	void build(string key, map<string, int> data);
 
 	void save(string filename);
 

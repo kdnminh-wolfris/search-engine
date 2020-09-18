@@ -2,6 +2,7 @@
 #include "system.h"
 
 #include <string>
+#include <map>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -11,13 +12,14 @@
 
 using namespace std;
 
-void Trie::build(string filename, vector<pair<string, int>> data)
+void Trie::build(string filename, map<string, int> data)
 {
-	cerr << filename << " " << data.size() << "\n";
+	if (data.size() == 0) return;
+	//cerr << filename << " " << data.size() << "\n";
 	TrieNode* root = this->root;
-	while (!data.empty())
+	for (auto it : data)
 	{
-		string key = data.back().first;
+		string key = it.first;
 		if (root == nullptr)
 			root = new TrieNode;
 		TrieNode* tmproot = root;
@@ -38,14 +40,13 @@ void Trie::build(string filename, vector<pair<string, int>> data)
 		for (int i = 0; i < tmproot->data.size(); ++i)
 			if (filename == tmproot->data[i].first)
 			{
-				tmproot->data[i].second += data.back().second;
+				tmproot->data[i].second += it.second;
 				IsExisted = true;
 				break;
 			}
 
 		if (!IsExisted)
-			tmproot->data.push_back(make_pair(filename, data.back().second));
-		data.pop_back();
+			tmproot->data.push_back(make_pair(filename, it.second));
 	}
 
 	if (!this->root) this->root = root;

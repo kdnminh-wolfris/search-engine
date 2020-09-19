@@ -17,7 +17,7 @@ bool cmp(pair <string, int> a, pair <string, int> b) {
 }
 
 int main() {
-	int mode = 1;
+	int mode = 0;
 	Trie tree;
 	if (mode) {
 		auto start = std::chrono::system_clock::now();

@@ -12,6 +12,10 @@
 
 using namespace std;
 
+bool cmp(pair <string, int> a, pair <string, int> b) {
+	return a.second > b.second;
+}
+
 int main() {
 	auto start = std::chrono::system_clock::now();
 	File_Handling fh;

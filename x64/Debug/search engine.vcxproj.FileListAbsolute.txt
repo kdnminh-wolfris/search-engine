@@ -1,0 +1,2 @@
+D:\GitHub\search engine\x64\Debug\search engine.exe
+D:\GitHub\search engine\x64\Debug\search engine.pdb

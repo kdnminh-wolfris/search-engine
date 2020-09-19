@@ -352,13 +352,5 @@ firstSearch::firstSearch(string query, Trie T)
 	if (this->T.isEmpty()) this->T = T;
 	this->query = query;
 	this->QH = QueryHandling(query);
-	vector<pair<string, int>> tmp = this->search();
-	/*
-	cout << "RESULT: " << endl;
-	for (auto it : tmp)
-	{
-		cout << it.first << " " << it.second << endl;
-	}
-	*/
 }
 

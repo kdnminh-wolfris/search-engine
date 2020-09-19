@@ -11,13 +11,14 @@
 #include <string>
 
 using namespace std;
+using namespace std::chrono;
 
 bool cmp(pair <string, int> a, pair <string, int> b) {
 	return a.second > b.second;
 }
 
 int main() {
-	int mode = 1;
+	int mode = 0;
 	Trie tree;
 	if (mode) {
 		auto start = std::chrono::system_clock::now();
@@ -36,16 +37,27 @@ int main() {
 	else tree.load("save");
 
 	do {
-		system("cls");
+		//system("cls");
 		cout << "---------------Search Engine----------Group 10-----\n";
 		cout << "---------------------------------------------------\n";
 		cout << "Search (or leave a blank and enter to exit): ";
 		string query; getline(cin, query);
 		if (query == "") break;
 		cout << "\nTop 5 results:\n";
-		numtag(0); cout << " Do another search\n\n";
+		
+		//CLOCK
+		auto start = high_resolution_clock::now();
+
 		firstSearch SE(query, tree);
 		vector <pair <string, int>> res = SE.search();
+
+		auto stop = high_resolution_clock::now();
+		auto duration = duration_cast<microseconds>(stop - start);
+		//END CLOCK
+		cout << "Searched in: "
+			<< duration.count() << " microseconds" << endl << endl;
+
+		numtag(0); cout << " Do another search\n\n";
 		if (res.size() == 0)
 			cout << "There are no results that match your search :(\n";
 		sort(res.begin(), res.end(), cmp);

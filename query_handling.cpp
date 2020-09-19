@@ -41,7 +41,7 @@ void QueryHandling::filter(string& search_string)
 	{
 		if (tmpstr[i] == ' ')
 		{
-			if (word == "AND" || word == "OR")
+			if (word == "OR")
 			{
 				word = "";
 				continue;
@@ -348,12 +348,12 @@ QueryHandling::QueryHandling()
 
 QueryHandling::QueryHandling(string& query)
 {
+	quotesRe = this->quotes(query);
 	this->filter(query);
 	intitleRe = this->intitle(query);
 	excludeRe = this->exclude(query);
 	priceRe = this->price(query);
 	rangeRe = this->range(query);
-	quotesRe = this->quotes(query);
 	orRe = this->OR(query);
 	originRe = this->origin(query);
 	//this->show();

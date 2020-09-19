@@ -17,7 +17,7 @@ bool cmp(pair <string, int> a, pair <string, int> b) {
 }
 
 int main() {
-	int mode = 0;
+	int mode = 1;
 	Trie tree;
 	if (mode) {
 		auto start = std::chrono::system_clock::now();
@@ -59,7 +59,7 @@ int main() {
 		int tmp = opt - 1; // ???
 		fullview(res[tmp].first);
 		cout << "\n\nPress ESC to exit...";
-		ESC: esc_pressed();
+		esc_pressed();
 	} while (true);
 	tree.clear();
 }

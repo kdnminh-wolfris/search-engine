@@ -316,21 +316,21 @@ vector<pair<string, int>> firstSearch::search()
 	if (QH.filetypeRe.size() != 0 && QH.filetypeRe != "txt")
 		this->intersection(this->filetype(QH.filetypeRe));
 
-	if(QH.intitleRe.size())
-		this->intersection(this->intitle(QH.intitleRe)), show(this->container, "INTITLE");
+	if (QH.intitleRe.size())
+		this->intersection(this->intitle(QH.intitleRe));
 
-	if(QH.quotesRe.size())
-		this->intersection(this->quote(QH.quotesRe)), show(this->container, "AFTER QUOTES");
+	if (QH.quotesRe.size())
+		this->intersection(this->quote(QH.quotesRe));
 
-	if(QH.originRe.size())
-		this->intersection(this->origin(QH.originRe)), show(this->container, "AFTER ORIGIN");
+	if (QH.originRe.size())
+		this->intersection(this->origin(QH.originRe));
 
 	for (auto it : QH.orRe)
 	{
 		this->unionSet(this->findOr(it));
 	}
-	if(QH.excludeRe.size())
-		this->exclude(QH.excludeRe), show(this->container, "AFTER EXCLUDE");
+	if (QH.excludeRe.size())
+		this->exclude(QH.excludeRe);
 
 	//PRICE AND RANGE -> 10 OPE
 	if (QH.rangeRe.first.size() && QH.rangeRe.first != "-1")
@@ -338,7 +338,6 @@ vector<pair<string, int>> firstSearch::search()
 		int lower = string_to_int(QH.rangeRe.first);
 		int upper = string_to_int(QH.rangeRe.second);
 		this->intersection(this->number_searching(lower, upper, false));
-		show(this->container, "AFTER RANGE");
 	}
 
 	if (QH.priceRe.size()) this->intersection(this->price_searching(string_to_int(QH.priceRe)));
@@ -352,11 +351,5 @@ firstSearch::firstSearch(string query, Trie T)
 	if (this->T.isEmpty()) this->T = T;
 	this->query = query;
 	this->QH = QueryHandling(query);
-	vector<pair<string, int>> tmp = this->search();
-	cout << "RESULT: " << endl;
-	for (auto it : tmp)
-	{
-		cout << it.first << " " << it.second << endl;
-	}
 }
 

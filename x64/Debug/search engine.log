@@ -1,3 +1,0 @@
-﻿  tools.cpp
-D:\GitHub\search engine\tools.cpp(123): warning C4715: 'weekdayCode': not all control paths return a value
-  search engine.vcxproj -> D:\GitHub\search engine\x64\Debug\search engine.exe

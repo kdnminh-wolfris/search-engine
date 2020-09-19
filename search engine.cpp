@@ -18,7 +18,7 @@ bool cmp(pair <string, int> a, pair <string, int> b) {
 }
 
 int main() {
-	int mode = 0;
+	int mode = 1;
 	Trie tree;
 	if (mode) {
 		auto start = std::chrono::system_clock::now();
@@ -32,7 +32,7 @@ int main() {
 		ctime_s(str, sizeof(str), &end_time);
 		std::cout << "finished computation at " << str
 			<< " elapsed time: " << elapsed_seconds.count() << "s\n";
-		fh.clear();
+		//fh.clear();
 	}
 	else tree.load("save");
 

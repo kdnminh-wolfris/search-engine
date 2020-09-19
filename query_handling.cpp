@@ -299,7 +299,8 @@ pair<string, string> QueryHandling::range(string &extract_string)
 
 string QueryHandling::quotes(string &extract_string)
 {
-	if (!extract_string.size()) return string();
+	if (!extract_string.size()) 
+		return string();
 	string tmp;
 	bool flag = false;
 	for (int i = 0; i < extract_string.length(); i++)

@@ -103,7 +103,6 @@ void File_Handling::importfileExe(unordered_map<string, int> &result, string& cm
 	{
 		ss >> cmpstr;
 		//cmpstr.erase(remove_if(cmpstr.begin(), cmpstr.end(), ispunct), cmpstr.end());
-
 		//cout << cmpstr << ' ' << this->isStopWord(cmpstr, stopword) << endl;
 		if (!this->isStopWord(cmpstr, stopword) && !cmpstr.empty())
 		{

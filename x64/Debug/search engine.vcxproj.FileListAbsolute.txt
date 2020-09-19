@@ -1,6 +1,0 @@
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\x64\Debug\search engine.exe
-D:\CS\2019-2020\HK3\Group-FinalProject\search-engine\x64\Debug\search engine.pdb
-D:\GitHub\search engine\x64\Debug\search engine.exe
-D:\GitHub\search engine\x64\Debug\search engine.pdb
-C:\Users\annaw\Documents\GitHub\search-engine\x64\Debug\search engine.exe
-C:\Users\annaw\Documents\GitHub\search-engine\x64\Debug\search engine.pdb

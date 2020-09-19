@@ -1,4 +1,0 @@
-﻿  file_handling.cpp
-D:\GitHub\search engine\file_handling.cpp(83,2): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\GitHub\search engine\file_handling.cpp(88,20): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  search engine.vcxproj -> D:\GitHub\search engine\x64\Debug\search engine.exe

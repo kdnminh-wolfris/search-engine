@@ -6,6 +6,8 @@
 #include <string>
 #include <conio.h>
 #include <iomanip>
+#include <unordered_map>
+#include <vector>
 #include "option.h"
 
 using namespace std;
@@ -19,5 +21,7 @@ string weekdayCode(int day);
 
 void preview(string filename, int char_lim = 700);
 void fullview(string filename);
+
+vector <pair <string, int>> to_vector(unordered_map <string, int> MAP);
 
 #endif

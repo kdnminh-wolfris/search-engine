@@ -148,3 +148,10 @@ void fullview(string filename) {
 		fi.get(c), cout << c;
 	fi.close();
 }
+
+vector<pair<string, int>> to_vector(unordered_map<string, int> MAP) {
+	vector <pair <string, int>> ret;
+	for (auto it : MAP)
+		ret.push_back(it);
+	return ret;
+}

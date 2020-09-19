@@ -2,6 +2,7 @@
 #include "system.h"
 
 #include <string>
+#include <unordered_map>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -11,13 +12,14 @@
 
 using namespace std;
 
-void Trie::build(string filename, vector<pair<string, int>> data)
+void Trie::build(string filename, unordered_map<string, int> data)
 {
-	cerr << filename << " " << data.size() << "\n";
+	if (data.size() == 0) return;
+	//cerr << filename << " " << data.size() << "\n";
 	TrieNode* root = this->root;
-	while (!data.empty())
+	for (auto it : data)
 	{
-		string key = data.back().first;
+		string key = it.first;
 		if (root == nullptr)
 			root = new TrieNode;
 		TrieNode* tmproot = root;
@@ -33,19 +35,7 @@ void Trie::build(string filename, vector<pair<string, int>> data)
 
 			tmproot = tmproot->child[tmp];
 		}
-
-		bool IsExisted = false;
-		for (int i = 0; i < tmproot->data.size(); ++i)
-			if (filename == tmproot->data[i].first)
-			{
-				tmproot->data[i].second += data.back().second;
-				IsExisted = true;
-				break;
-			}
-
-		if (!IsExisted)
-			tmproot->data.push_back(make_pair(filename, data.back().second));
-		data.pop_back();
+		tmproot->data[filename] += it.second;
 	}
 
 	if (!this->root) this->root = root;
@@ -56,22 +46,39 @@ void Trie::save(string filename)
 {
 	ofstream out;
 	out.open(get_link("cheatsheet", filename), ios::app);
+	//out.open("output.txt", ios::app);
 
 	queue<TrieNode*> que;
 	que.push(root);
 
+	int cnt = 0;
 	while (!que.empty())
 	{
 		TrieNode* u = que.front();
 		que.pop();
+
 		if (u == nullptr)
 		{
 			out << "0\n";
 			continue;
 		}
-		for (int i = 0; i < u->data.size(); ++i)
-			out << u->data[i].first << ' ' << u->data[i].second << ' ';
+
+		unordered_map <string, int> tmp;
+
+		for (auto& it: u->data)
+		{
+			string tmpstr = "";
+			for (int j = 0; j < it.first.length(); ++j)
+				if (it.first[j] == ' ') tmpstr += '@';
+				else tmpstr += it.first[j];
+			tmp[tmpstr] = it.second;
+			out << tmpstr << ' ' << it.second << ' ';
+		}
+		u->data.clear();
+		u->data = tmp;
+			
 		out << "__END__ -1\n";
+
 		for (int c = 0; c < 38; ++c)
 			que.push(u->child[c]);
 	}
@@ -83,9 +90,11 @@ void Trie::load(string filename)
 {
 	ifstream inp;
 	inp.open(get_link("cheatsheet", filename));
-
+	//inp.open("input.txt");
 	if (root == nullptr)
 		root = new TrieNode;
+
+	//	std::cerr << "nom\n";
 
 	string line;
 	getline(inp, line);
@@ -97,7 +106,7 @@ void Trie::load(string filename)
 	{
 		if (que.empty())
 			break;
-		TrieNode*& u = que.front();
+		TrieNode* u = que.front();
 		que.pop();
 
 		for (int c = 0; c < 38; ++c)
@@ -124,11 +133,14 @@ void Trie::load(string filename)
 				if (word == "__END__")
 					break;
 
+				for (int j = 0; j < word.length(); ++j)
+					if (word[j] == '@')
+						word[j] = ' ';
+
 				string file = word;
 				int frequency = string_to_int(number);
 
-
-				u->child[c]->data.push_back(make_pair(string(file), frequency));
+				u->child[c]->data[string(file)] = frequency;
 			} while (iss);
 
 			que.push(u->child[c]);
@@ -158,7 +170,7 @@ vector<pair<string, int>> Trie::search(string keyword) {
 		tmp = tmp->child[get_index(keyword[i])];
 	}
 
-	return tmp->data;
+	return to_vector(tmp->data);
 }
 
 void Trie::clear() {
@@ -169,4 +181,20 @@ void Trie::clear() {
 bool Trie::isEmpty()
 {
 	return (!this->root);
+}
+
+void TrieNode::trieTraverse(TrieNode* head)
+{
+	if (!head) return;
+	if (head->data.size() != 0)
+	{
+		for (auto it = head->data.begin(); it != head->data.end(); it++)
+			cout << it->first << " " << it->second << endl;
+	}
+	for (int i = 0; i < 38; i++) this->trieTraverse(head->child[i]);
+}
+
+void Trie::trieTraverse()
+{
+	root->trieTraverse(root);
 }

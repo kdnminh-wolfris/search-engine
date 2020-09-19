@@ -2,23 +2,29 @@
 #include "trie.h"
 #include "search.h"
 #include "query_handling.h"
-#include "system.h"
-#include "option.h"
-#include "tools.h"
 
 #include <vector>
+#include <chrono>
+#include <ctime>
+#include <time.h>
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-bool cmp(pair <string, int> a, pair <string, int> b) {
-	return a.second > b.second;
-}
-
 int main() {
+	auto start = std::chrono::system_clock::now();
 	File_Handling fh;
 	Trie tree = fh.head;
+	auto end = std::chrono::system_clock::now();
+	std::chrono::duration<double> elapsed_seconds = end - start;
+	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+
+	char str[26];
+	ctime_s(str, sizeof(str), &end_time);
+	std::cout << "finished computation at " << str
+		<< " elapsed time: " << elapsed_seconds.count() << "s\n";
+
 	do {
 		system("cls");
 		cout << "---------------Search Engine----------Group 10-----\n";
@@ -41,5 +47,5 @@ int main() {
 		int tmp = opt - 1; // ???
 		fullview(res[tmp].first);
 		esc_pressed();
-	} while (true);
+	} while (true);	
 }

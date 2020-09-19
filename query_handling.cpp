@@ -1,4 +1,5 @@
 #include "query_handling.h"
+#include <sstream>
 
 void QueryHandling::ToLower(string& word)
 {
@@ -11,6 +12,7 @@ void QueryHandling::ToLower(string& word)
 
 void QueryHandling::filter(string& search_string)
 {
+	
 	string substring;
 	ifstream LoadStopWord;
 	string* arr = new string[174]; // 174 stopwords
@@ -95,6 +97,8 @@ void QueryHandling::filter(string& search_string)
 
 vector<vector<string>> QueryHandling::OR(string& search_string)
 {
+	if (!search_string.size()) return vector<vector<string>>();
+	else if (search_string.find("OR") == search_string.npos) return vector<vector<string>>();
 	vector<vector<string>> tmp;
 	vector<string> arr;
 	int pos = 0;
@@ -137,7 +141,8 @@ vector<vector<string>> QueryHandling::OR(string& search_string)
 
 string QueryHandling::intitle(string& search_string)
 {
-	for (int i = 0;i < search_string.length() - 8;++i)
+	if (!search_string.size()) return string();
+	for (int i = 0; i+8 < search_string.length();++i)
 	{
 		if (search_string.substr(i, 8) == "intitle:" && (search_string[i + 8] != '\0' && search_string[i + 8] != ' ') && (i == 0 || (i > 0 && search_string[i - 1] == ' ')))
 		{
@@ -167,6 +172,7 @@ string QueryHandling::intitle(string& search_string)
 
 string QueryHandling::exclude(string& search_string)
 {
+	if (!search_string.size()) return string();
 	for (int i = 0;i < search_string.length() - 1;++i)
 	{
 		if (search_string[i] == '-' && (search_string[i + 1] != '\0' && search_string[i + 1] != ' ') && (i == 0 || (i > 0 && search_string[i - 1] == ' ')))
@@ -197,12 +203,13 @@ string QueryHandling::exclude(string& search_string)
 
 string QueryHandling::price(string& search_string)
 {
+	if (!search_string.size()) return string();
 	for (int i = 0;i < search_string.length();++i)
 	{
 		if (search_string[i] == '$' && search_string[i + 1] != '\0' && (search_string[i + 1] >= 48 && search_string[i + 1] <= 57) && (i == 0 || (i > 0 && search_string[i - 1] == ' ')))
 		{
 			int pos = 0;
-			for (int j = i + 1;j < search_string.length();++j)
+			for (int j = i + 1;j <= search_string.length();++j)
 			{
 				if (search_string[j] == '\0' || search_string[j] == ' ')
 				{
@@ -223,4 +230,156 @@ string QueryHandling::price(string& search_string)
 		}
 	}
 	return "";
+}
+
+string QueryHandling::filetype(string& search_string)
+{
+	if (!search_string.size()) return string();
+	for (int i = 0; i < search_string.length();++i)
+	{
+		if (search_string.substr(i, 9) == "filetype:" && (i == 0 || search_string[i - 1] == ' ') && (search_string[i + 1] == '\0' || search_string[i + 1] != ' '))
+		{
+			int pos = 0;
+			for (int j = i + 1;j <= search_string.length();++j)
+			{
+				if (search_string[j] == '\0' || search_string[j] == ' ')
+				{
+					pos = j;
+					break;
+				}
+			}
+			string tmp = search_string.substr(i + 9, pos - i - 9);
+			if (i == 0 && search_string[pos] == '\0')
+				search_string.erase(i, pos - i);
+			else if (i == 0 && search_string[pos] == ' ')
+				search_string.erase(i, pos - i + 1);
+			else if (i != 0 && search_string[pos] == '\0')
+				search_string.erase(i - 1, pos - i + 1);
+			else if (i != 0 && search_string[pos] == ' ')
+				search_string.erase(i, pos - i + 1);
+			return tmp;
+		}
+	}
+	return "";
+}
+
+pair<string, string> QueryHandling::range(string &extract_string)
+{
+	if (!extract_string.size()) return pair<string, string>();
+	string first, second, tmp;
+	stringstream ss;
+	ss << extract_string;
+	bool flag = false;
+	while (ss >> tmp)
+	{
+		for (int i = 0; i < tmp.length(); i++)
+		{
+			if (tmp[i] == '.' && tmp[i + 1] == '.' && tmp[i + 2] != '.')
+			{
+				flag = true;
+				for (int j = 0; j < i; j++)
+				{
+					first.push_back(tmp[j]);
+				}
+				for (int j = i + 2; j < tmp.length(); j++)
+				{
+					second.push_back(tmp[j]);
+				}
+			}
+		}
+		if (flag == true)
+		{
+			string erase = first + ".." + second;
+			extract_string.erase(extract_string.find(erase), erase.size());
+			return make_pair(first, second);
+		}
+	}
+	return make_pair("-1", "-1");
+}
+
+string QueryHandling::quotes(string &extract_string)
+{
+	if (!extract_string.size()) return string();
+	string tmp;
+	bool flag = false;
+	for (int i = 0; i < extract_string.length(); i++)
+	{
+		if (extract_string[i] == '"')
+		{
+			for (int j = i + 1; j < extract_string.length(); j++)
+			{
+				if (extract_string[j] == '"')
+				{
+					flag = true;
+					for (int k = i + 1; k < j; k++)
+					{
+						tmp.push_back(extract_string[k]);
+					}
+				}
+			}
+
+		}
+	}
+
+	if (tmp.size() != 0)
+	{
+		string erase = '"' + tmp + '"';
+		extract_string.erase(extract_string.find(erase), erase.size());
+	}
+	return tmp;
+}
+
+vector<string> QueryHandling::origin(string& ss)
+{
+	if(ss.empty()) return vector<string>();
+	istringstream iss(ss);
+	string word;
+	vector<string> result;
+	while (iss >> word) result.push_back(word);
+	return result;
+}
+
+//CONSTRUSTOR
+
+QueryHandling::QueryHandling()
+{
+	return;
+}
+
+QueryHandling::QueryHandling(string& query)
+{
+	this->filter(query);
+	intitleRe = this->intitle(query);
+	excludeRe = this->exclude(query);
+	priceRe = this->price(query);
+	rangeRe = this->range(query);
+	quotesRe = this->quotes(query);
+	orRe = this->OR(query);
+	originRe = this->origin(query);
+	this->show();
+	return;
+}
+
+void QueryHandling::show()
+{
+	cout << "Intittle: " << this->intitleRe << endl;
+	cout << "Exclude: " << excludeRe << endl;
+	cout << "Price: " << priceRe << endl;
+	cout << "Range: " << rangeRe.first << "-" << rangeRe.second << endl;
+	cout << "Quote: " << quotesRe << endl;
+	for (auto it : orRe)
+	{
+		cout << "Or: ";
+		for(auto it2 : it)
+			cout << it2 << " ";
+		cout << endl;
+	}
+
+	cout << "Origin: ";
+	for (auto it : originRe)
+	{
+		cout << it << " ";
+	}
+	cout << endl;
+	return;
 }

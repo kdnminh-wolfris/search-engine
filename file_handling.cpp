@@ -68,8 +68,7 @@ vector <pair <string, int>> import_file(string filename)
 		cout << "Open file error" << endl;
 	else
 	{
-		// Create array of stopwords
-		string* arr = new string[174]; // 174 stopwords
+		string* arr = new string[174];
 		ifstream LoadStopWord;
 		LoadStopWord.open("stopword.txt");
 		if (!LoadStopWord.is_open())

@@ -51,5 +51,5 @@ bool bool_option(string operation) {
 void esc_pressed() {
 	char ch;
 	do ch = _getch();
-	while (int(ch) == 27);
+	while (int(ch) != 27);
 }

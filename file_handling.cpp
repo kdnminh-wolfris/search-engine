@@ -210,3 +210,8 @@ File_Handling::File_Handling()
 	this->head.save("save");
 	cout << "DONE SAVING" << endl;
 }
+
+void File_Handling::clear() {
+	delete[] stopword;
+	head.clear();
+}

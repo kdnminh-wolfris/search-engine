@@ -356,7 +356,7 @@ QueryHandling::QueryHandling(string& query)
 	quotesRe = this->quotes(query);
 	orRe = this->OR(query);
 	originRe = this->origin(query);
-	this->show();
+	//this->show();
 	return;
 }
 

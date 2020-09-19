@@ -17,21 +17,23 @@ bool cmp(pair <string, int> a, pair <string, int> b) {
 }
 
 int main() {
-	/*
-	auto start = std::chrono::system_clock::now();
-	File_Handling fh;
-	Trie tree = fh.head;
-	auto end = std::chrono::system_clock::now();
-	std::chrono::duration<double> elapsed_seconds = end - start;
-	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+	int mode = 0;
+	Trie tree;
+	if (mode) {
+		auto start = std::chrono::system_clock::now();
+		File_Handling fh;
+		Trie tree = fh.head;
+		auto end = std::chrono::system_clock::now();
+		std::chrono::duration<double> elapsed_seconds = end - start;
+		std::time_t end_time = std::chrono::system_clock::to_time_t(end);
 
-	char str[26];
-	ctime_s(str, sizeof(str), &end_time);
-	std::cout << "finished computation at " << str
-		<< " elapsed time: " << elapsed_seconds.count() << "s\n";
-	*/
-
-	Trie tree; tree.load("save");
+		char str[26];
+		ctime_s(str, sizeof(str), &end_time);
+		std::cout << "finished computation at " << str
+			<< " elapsed time: " << elapsed_seconds.count() << "s\n";
+		fh.clear();
+	}
+	else tree.load("save");
 
 	do {
 		system("cls");

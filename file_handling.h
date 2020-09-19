@@ -42,6 +42,8 @@ public:
 	File_Handling(string filename);
 
 	File_Handling();
+
+	void clear();
 };
 
 #endif
